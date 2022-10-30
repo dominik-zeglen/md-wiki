@@ -1,48 +1,52 @@
 import AWS from "aws-sdk";
-import type { APIGatewayEvent } from "aws-lambda";
+import { handler } from "../utils/handler";
+import * as yup from "yup";
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-async function checkIfPageExists(slug: string): Promise<void> {
-  const page = await dynamoDb
-    .get({ TableName: process.env.TABLE_NAME!, Key: { slug } })
-    .promise();
+const schema = yup.object({
+  slug: yup
+    .string()
+    .min(3)
+    .required()
+    .test("page-exist", "page ${slug} already exist", async (slug) => {
+      const page = await dynamoDb
+        .get({ TableName: process.env.TABLE_NAME!, Key: { slug } })
+        .promise();
 
-  if (page) {
-    throw new Error(`Page ${slug} already exists`);
-  }
-}
+      return !page.Item;
+    }),
+  title: yup.string().min(3).required(),
+  content: yup.string().required(),
+});
 
-export async function main(event: APIGatewayEvent) {
-  const data = JSON.parse(event.body!);
+export const main = handler(async (event) => {
   const currentDate = new Date().toISOString();
+  const data = JSON.parse(event.body!);
+  const user = event.requestContext.authorizer!.iam.cognitoIdentity.identityId;
 
-  await checkIfPageExists(data.slug);
+  const isValid = await schema.isValid(data);
+  if (!isValid) {
+    const errors = await schema.validate(data);
+
+    return { errors };
+  }
 
   const params = {
     TableName: process.env.TABLE_NAME!,
     Item: {
       createdAt: currentDate,
       updatedAt: currentDate,
-      createdBy: "admin@example.com",
-      updatedBy: "admin@example.com",
+      createdBy: user,
+      updatedBy: user,
 
+      title: data.title,
       slug: data.slug,
       content: data.content,
     },
   };
 
-  try {
-    await dynamoDb.put(params).promise();
+  await dynamoDb.put(params).promise();
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(params.Item),
-    };
-  } catch (err: any) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
-  }
-}
+  return params.Item;
+});

@@ -9,6 +9,7 @@ export function StorageStack({ stack }: StackContext) {
       updatedBy: "string",
 
       slug: "string",
+      title: "string",
       content: "string",
     },
     primaryIndex: { partitionKey: "slug" },
