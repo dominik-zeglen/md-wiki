@@ -21,7 +21,7 @@ const schema = yup.object({
 });
 
 export const main = handler(async (event) => {
-  const currentDate = new Date().toISOString();
+  const currentDate = Date.now();
   const data = JSON.parse(event.body!);
   const user = event.requestContext.authorizer!.iam.cognitoIdentity.identityId;
 
@@ -43,6 +43,7 @@ export const main = handler(async (event) => {
       title: data.title,
       slug: data.slug,
       content: data.content,
+      canBeDeleted: 1,
     },
   };
 
