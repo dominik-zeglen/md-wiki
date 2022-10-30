@@ -1,0 +1,7 @@
+/* @generated */
+/* prettier-ignore */
+/* eslint-disable */
+export const root: string;
+export const wrapper: string;
+export const item: string;
+export const spacer: string;

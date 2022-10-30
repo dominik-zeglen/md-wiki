@@ -20,7 +20,8 @@
     "vitest": "^0.24.3"
   },
   "workspaces": [
-    "services"
+    "services",
+    "frontend"
   ],
   "dependencies": {
     "services": "^0.0.3"
