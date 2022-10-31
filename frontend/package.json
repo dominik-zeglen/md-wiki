@@ -63,6 +63,7 @@
     ]
   },
   "dependencies": {
+    "@aws-amplify/auth": "^4.6.13",
     "@types/lodash": "^4.14.177",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",

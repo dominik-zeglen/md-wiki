@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const { EnvironmentPlugin } = require("webpack");
 
 const config = {
   entry: ["./src/index.tsx"],
@@ -70,6 +71,13 @@ const config = {
       inject: true,
     }),
     new ForkTsCheckerWebpackPlugin(),
+    new EnvironmentPlugin([
+      "REACT_APP_REGION",
+      "REACT_APP_API_URL",
+      "REACT_APP_USER_POOL_ID",
+      "REACT_APP_USER_POOL_CLIENT_ID",
+      "REACT_APP_IDENTITY_POOL_ID",
+    ]),
   ],
   devServer: {
     static: {
