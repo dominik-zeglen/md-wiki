@@ -1,18 +1,27 @@
 import React from "react";
-import { RecoilRoot } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./views/Home";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
 import { render } from "react-dom";
+import { Home } from "./views/Home";
+import { Page } from "./views/Page";
+import { PageEdit } from "./views/PageEdit";
 
 import "./global.scss";
 
+const queryClient = new QueryClient();
+
 export const App: React.FC = () => (
   <RecoilRoot>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pages/:slug" element={<Page />} />
+          <Route path="/panel/:slug/edit" element={<PageEdit />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </RecoilRoot>
 );
 

@@ -1,5 +1,15 @@
 import React from "react";
+import { usePage } from "src/hooks/api";
 import { Site } from "src/Layouts/Site";
+import { Page } from "src/pages/Page";
 
-export const Home: React.FC = () => <Site>Home</Site>;
+export const Home: React.FC = () => {
+  const { data: page } = usePage("example");
+
+  return (
+    <Site>
+      <Page page={page} />
+    </Site>
+  );
+};
 Home.displayName = "Home";

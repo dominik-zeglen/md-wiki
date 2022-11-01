@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  background: var(--palette-background);
+  box-shadow: 0px -1px 10px 0px #dddddd;
+}

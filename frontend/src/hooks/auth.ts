@@ -1,19 +1,8 @@
-import { Auth, CognitoUser } from "@aws-amplify/auth";
+import { Auth } from "@aws-amplify/auth";
 import { useCallback, useEffect, useState } from "react";
 import { atom, useRecoilState } from "recoil";
+import { config } from "../../awsConfig";
 
-const config = {
-  apiGateway: {
-    REGION: process.env.REACT_APP_REGION,
-    URL: process.env.REACT_APP_API_URL,
-  },
-  cognito: {
-    REGION: process.env.REACT_APP_REGION,
-    USER_POOL_ID: process.env.REACT_APP_USER_POOL_ID,
-    APP_CLIENT_ID: process.env.REACT_APP_USER_POOL_CLIENT_ID,
-    IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID,
-  },
-};
 Auth.configure({
   mandatorySignIn: true,
   region: config.cognito.REGION,
@@ -54,14 +43,16 @@ export function useCognito() {
   const logout = useCallback(async () => {
     setLoading(true);
 
-    const result = await Auth.signOut();
+    await Auth.signOut();
 
     setLoading(false);
     setUser(null);
   }, []);
 
   useEffect(() => {
-    refetch();
+    if (!user) {
+      refetch();
+    }
   }, []);
 
   return {

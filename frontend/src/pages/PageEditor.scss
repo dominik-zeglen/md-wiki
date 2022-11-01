@@ -1,0 +1,27 @@
+.root {
+  position: relative;
+}
+
+.editorWrapper {
+  --height: calc(100vh - 19.2rem);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(var(--spacing) * 1.5);
+}
+
+.editor {
+  appearance: none;
+  border: none;
+  font-size: var(--typography-default);
+  resize: none;
+  height: var(--height);
+  outline: 0;
+}
+
+.preview {
+  border-left: 1px solid var(--palette-default);
+  padding-left: calc(var(--spacing) * 1.5);
+  height: var(--height);
+  overflow: scroll;
+}

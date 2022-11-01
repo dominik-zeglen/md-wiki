@@ -10,6 +10,13 @@
 
 .wrapper {
   display: flex;
+
+  &:not(.wrapperLimited) {
+    padding: 0 calc(var(--spacing) * 3);
+  }
+}
+
+.wrapperLimited {
   width: var(--site-width);
   margin: 0 auto;
 }

@@ -5,7 +5,7 @@ import styles from "./Site.scss";
 export const Site: React.FC = ({ children }) => {
   return (
     <div>
-      <TopBar />
+      <TopBar limit />
       <main>
         <div className={styles.site}>{children}</div>
       </main>

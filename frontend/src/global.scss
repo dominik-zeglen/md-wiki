@@ -49,6 +49,10 @@ select {
   font: inherit;
 }
 
+textarea {
+  padding: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;

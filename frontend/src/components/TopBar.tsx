@@ -1,11 +1,14 @@
+import clsx from "clsx";
 import React from "react";
 import { useCognito } from "src/hooks/auth";
 import { Button } from "./Button";
 import styles from "./TopBar.scss";
 
-export interface TopBarProps {}
+export interface TopBarProps {
+  limit?: boolean;
+}
 
-export const TopBar: React.FC<TopBarProps> = ({}) => {
+export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
   const { user, login, logout, loading } = useCognito();
 
   if (user) {
@@ -14,7 +17,11 @@ export const TopBar: React.FC<TopBarProps> = ({}) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.wrapper}>
+      <div
+        className={clsx(styles.wrapper, {
+          [styles.wrapperLimited]: limit,
+        })}
+      >
         <div className={styles.item}>md-wiki</div>
         <div className={styles.spacer} />
         <div className={styles.item}>
