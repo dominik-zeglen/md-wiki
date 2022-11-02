@@ -16,6 +16,10 @@ export function ApiStack({ stack, app }: StackContext) {
     },
     routes: {
       "POST /pages": "functions/create.main",
+      "GET /pages": {
+        authorizer: "none",
+        function: "functions/list.main",
+      },
       "GET /pages/{slug}": {
         authorizer: "none",
         function: "functions/get.main",

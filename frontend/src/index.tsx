@@ -8,8 +8,19 @@ import { Page } from "./views/Page";
 import { PageEdit } from "./views/PageEdit";
 
 import "./global.scss";
+import { Pages } from "./views/PageList";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: Infinity,
+    },
+  },
+});
 
 export const App: React.FC = () => (
   <RecoilRoot>
@@ -18,6 +29,7 @@ export const App: React.FC = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pages/:slug" element={<Page />} />
+          <Route path="/panel" element={<Pages />} />
           <Route path="/panel/:slug/edit" element={<PageEdit />} />
         </Routes>
       </BrowserRouter>

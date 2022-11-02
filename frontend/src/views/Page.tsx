@@ -6,7 +6,7 @@ import { Page as PagePage } from "src/pages/Page";
 
 export const Page: React.FC = () => {
   const { slug } = useParams();
-  const { data: page } = usePage(slug!);
+  const { data: page } = usePage(slug!, true);
 
   return (
     <Site>

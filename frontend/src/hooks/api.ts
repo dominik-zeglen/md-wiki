@@ -1,6 +1,5 @@
 import type { Page as PageType } from "../../../services/types/page";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
 import { config } from "../../awsConfig";
@@ -19,9 +18,27 @@ if (!process.env.REACT_APP_API_URL) {
   throw new Error("REACT_APP_API_URL environment variable not set");
 }
 
-export function usePage(slug: string) {
+export function usePage(slug: string, cached?: boolean) {
+  return useQuery(
+    ["pages", slug],
+    async () => {
+      const data: PageType = await API.get(
+        "pages",
+        urlJoin("/pages", slug),
+        {}
+      );
+
+      return data;
+    },
+    {
+      refetchOnMount: cached ? false : "always",
+    }
+  );
+}
+
+export function usePages() {
   return useQuery(["pages"], async () => {
-    const data: PageType = await API.get("pages", urlJoin("/pages", slug), {});
+    const data: PageType[] = await API.get("pages", "/pages", {});
 
     return data;
   });

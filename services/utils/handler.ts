@@ -7,7 +7,9 @@ const headers = {
 };
 
 export function handler(
-  cb: (data: APIGatewayEvent) => Promise<Record<string, any>>
+  cb: (
+    data: APIGatewayEvent
+  ) => Promise<Record<string, any> | Record<string, any>[]>
 ): (event: APIGatewayEvent) => Promise<ALBResult> {
   return async (event) => {
     try {

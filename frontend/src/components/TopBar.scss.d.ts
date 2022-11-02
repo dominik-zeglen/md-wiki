@@ -6,3 +6,4 @@ export const wrapper: string;
 export const wrapperLimited: string;
 export const item: string;
 export const spacer: string;
+export const userbar: string;
