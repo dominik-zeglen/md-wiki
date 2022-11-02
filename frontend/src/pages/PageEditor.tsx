@@ -5,10 +5,14 @@ import { Savebar } from "src/components/Savebar";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
+  loading: boolean;
   onSubmit: () => void;
 }
 
-export const PageEditor: React.FC<PageEditorProps> = ({ onSubmit }) => {
+export const PageEditor: React.FC<PageEditorProps> = ({
+  loading,
+  onSubmit,
+}) => {
   const { register, getValues } = useFormContext();
   const [preview, setPreview] = React.useState(getValues().content);
 
@@ -29,7 +33,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({ onSubmit }) => {
           <PagePreview page={preview} />
         </div>
       </div>
-      <Savebar onSubmit={onSubmit} />
+      <Savebar onSubmit={onSubmit} loading={loading} />
     </div>
   );
 };

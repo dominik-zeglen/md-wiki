@@ -27,7 +27,13 @@ export const PageEdit: React.FC = () => {
 
   return (
     <FormProvider {...form}>
-      <Panel>{!page ? "Loading..." : <PageEditor onSubmit={onSubmit} />}</Panel>
+      <Panel>
+        {!page ? (
+          "Loading..."
+        ) : (
+          <PageEditor loading={update.isLoading} onSubmit={onSubmit} />
+        )}
+      </Panel>
     </FormProvider>
   );
 };
