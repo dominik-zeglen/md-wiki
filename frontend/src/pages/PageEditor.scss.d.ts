@@ -5,3 +5,4 @@ export const root: string;
 export const editorWrapper: string;
 export const editor: string;
 export const preview: string;
+export const title: string;

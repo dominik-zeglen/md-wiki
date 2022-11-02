@@ -22,6 +22,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({ onSubmit }) => {
 
   return (
     <div className={styles.root}>
+      <input className={styles.title} {...register("title")} />
       <div className={styles.editorWrapper}>
         <textarea className={styles.editor} {...register("content")} />
         <div className={styles.preview}>

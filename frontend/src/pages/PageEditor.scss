@@ -3,7 +3,7 @@
 }
 
 .editorWrapper {
-  --height: calc(100vh - 19.2rem);
+  --height: calc(100vh - 27.2rem);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -24,4 +24,14 @@
   padding-left: calc(var(--spacing) * 1.5);
   height: var(--height);
   overflow: scroll;
+}
+
+.title {
+  font-size: var(--typography-h1);
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid var(--palette-default);
+  width: 100%;
+  margin-bottom: calc(var(--spacing) * 3);
+  outline: 0;
 }

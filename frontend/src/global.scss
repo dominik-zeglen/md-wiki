@@ -80,6 +80,12 @@ textarea {
 
   --typography-default: 1.6rem;
   --typography-button: 1.3rem;
+  --typography-h1: 3.7rem;
+  --typography-h2: 3.2rem;
+  --typography-h3: 2.8rem;
+  --typography-h4: 2.4rem;
+  --typography-h5: 2.1rem;
+  --typography-h6: 1.9rem;
 }
 
 html {
@@ -90,4 +96,31 @@ body {
   background: var(--palette-background);
   font-family: "Bitter", serif;
   font-size: var(--typography-default);
+}
+
+h1 {
+  font-size: var(--typography-h1);
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+h2 {
+  font-size: var(--typography-h2);
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+h3 {
+  font-size: var(--typography-h3);
+  margin-bottom: calc(var(--spacing));
+}
+
+h4 {
+  font-size: var(--typography-h4);
+}
+
+h5 {
+  font-size: var(--typography-h5);
+}
+
+h6 {
+  font-size: var(--typography-h6);
 }
