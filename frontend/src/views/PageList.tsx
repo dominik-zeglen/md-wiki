@@ -6,6 +6,10 @@ import { PageList } from "src/pages/PageList";
 export const Pages: React.FC = () => {
   const { data: pages } = usePages();
 
-  return <Panel>{!pages ? "Loading..." : <PageList pages={pages} />}</Panel>;
+  return (
+    <Panel>
+      <PageList pages={pages} />
+    </Panel>
+  );
 };
 Pages.displayName = "Pages";

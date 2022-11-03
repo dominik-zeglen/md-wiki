@@ -3,5 +3,9 @@
 
   p {
     margin: calc(var(--spacing) * 2) 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 }

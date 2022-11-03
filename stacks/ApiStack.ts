@@ -15,6 +15,10 @@ export function ApiStack({ stack, app }: StackContext) {
       },
     },
     routes: {
+      "GET /health": {
+        authorizer: "none",
+        function: "functions/health.main",
+      },
       "POST /pages": "functions/create.main",
       "GET /pages": {
         authorizer: "none",

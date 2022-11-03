@@ -33,7 +33,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
           <PagePreview page={preview} />
         </div>
       </div>
-      <Savebar onSubmit={onSubmit} loading={loading} />
+      <Savebar back="/panel/" onSubmit={onSubmit} loading={loading} />
     </div>
   );
 };

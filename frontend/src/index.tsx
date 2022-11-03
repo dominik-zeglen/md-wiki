@@ -9,11 +9,12 @@ import { PageEdit } from "./views/PageEdit";
 
 import "./global.scss";
 import { Pages } from "./views/PageList";
+import { PageCreate } from "./views/PageCreate";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount: false,
+      refetchOnMount: "always",
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
       retry: false,
@@ -30,6 +31,7 @@ export const App: React.FC = () => (
           <Route path="/" element={<Home />} />
           <Route path="/pages/:slug" element={<Page />} />
           <Route path="/panel" element={<Pages />} />
+          <Route path="/panel/new" element={<PageCreate />} />
           <Route path="/panel/:slug/edit" element={<PageEdit />} />
         </Routes>
       </BrowserRouter>

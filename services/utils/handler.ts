@@ -1,4 +1,4 @@
-import { APIGatewayEvent, ALBResult } from "aws-lambda";
+import type { APIGatewayEvent, ALBResult } from "aws-lambda";
 
 const headers = {
   "Content-Type": "application/json",

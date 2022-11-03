@@ -56,3 +56,16 @@ export function usePageUpdate() {
     }
   );
 }
+
+export function usePageCreate() {
+  return useMutation(
+    ["pages"],
+    async (body: Pick<PageType, "content" | "slug" | "title">) => {
+      const data: PageType = await API.post("pages", "/pages", {
+        body,
+      });
+
+      return data;
+    }
+  );
+}

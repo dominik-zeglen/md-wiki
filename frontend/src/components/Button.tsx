@@ -8,11 +8,13 @@ export interface ButtonProps
     HTMLButtonElement
   > {
   active?: boolean;
+  color?: "default" | "primary" | "error" | "success";
 }
 
 export const Button: React.FC<ButtonProps> = ({
   active,
   className,
+  color,
   ...props
 }) => {
   const ref = React.useRef<HTMLButtonElement>(null);
@@ -27,6 +29,9 @@ export const Button: React.FC<ButtonProps> = ({
       }}
       className={clsx(styles.root, className, {
         [styles.active]: active,
+        [styles.primary]: color === "primary",
+        [styles.error]: color === "error",
+        [styles.success]: color === "success",
       })}
     />
   );

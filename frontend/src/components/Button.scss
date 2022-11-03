@@ -35,3 +35,18 @@
 .active {
   background: "rgba(0, 0, 0, 0.2)";
 }
+
+.primary {
+  border-color: var(--palette-primary);
+  color: var(--palette-primary);
+}
+
+.success {
+  border-color: var(--palette-success);
+  color: var(--palette-success);
+}
+
+.error {
+  border-color: var(--palette-error);
+  color: var(--palette-error);
+}
