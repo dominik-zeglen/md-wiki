@@ -81,6 +81,7 @@ textarea {
   --palette-primary: #7d5ba6;
   --palette-success: #71f79f;
   --palette-error: #fc6471;
+  --palette-link: #87bcde;
 
   --typography-default: 1.6rem;
   --typography-button: 1.3rem;
@@ -127,4 +128,12 @@ h5 {
 
 h6 {
   font-size: var(--typography-h6);
+}
+
+a {
+  color: var(--palette-link);
+
+  &:visited {
+    color: var(--palette-primary);
+  }
 }
