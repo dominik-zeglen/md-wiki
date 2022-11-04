@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { render } from "react-dom";
@@ -10,6 +10,7 @@ import { PageEdit } from "./views/PageEdit";
 import "./global.scss";
 import { Pages } from "./views/PageList";
 import { PageCreate } from "./views/PageCreate";
+import { useCognito } from "./hooks/auth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,23 @@ const queryClient = new QueryClient({
   },
 });
 
+const PanelRoutes: React.FC = () => {
+  const { user, loading } = useCognito();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!user && !loading) navigate("/");
+  }, [user, loading]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<Pages />} />
+      <Route path="/new" element={<PageCreate />} />
+      <Route path="/:slug/edit" element={<PageEdit />} />
+    </Routes>
+  );
+};
+
 export const App: React.FC = () => (
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
@@ -30,9 +48,7 @@ export const App: React.FC = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pages/:slug" element={<Page />} />
-          <Route path="/panel" element={<Pages />} />
-          <Route path="/panel/new" element={<PageCreate />} />
-          <Route path="/panel/:slug/edit" element={<PageEdit />} />
+          <Route path="/panel/*" element={<PanelRoutes />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

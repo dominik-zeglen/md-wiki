@@ -25,6 +25,8 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
 
   React.useEffect(reset, [user]);
 
+  const isPanel = pathname.includes("/panel");
+
   return (
     <div className={styles.root}>
       <div
@@ -32,7 +34,11 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
           [styles.wrapperLimited]: limit,
         })}
       >
-        <div className={styles.item}>md-wiki</div>
+        <div className={styles.item}>
+          <Link className={styles.home} to={isPanel ? "/panel" : "/"}>
+            md-wiki
+          </Link>
+        </div>
         <div className={styles.spacer} />
         <div className={styles.item}>
           {loading ? (
@@ -40,7 +46,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
           ) : user ? (
             <div className={styles.userbar}>
               <Popover>
-                <Popover.Button as="div" className={styles.userbarMenuBtn}>
+                <Popover.Button className={styles.userbarMenuBtn}>
                   {user.email}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
@@ -60,7 +66,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
           ) : (
             <div className={styles.userbar}>
               <Popover>
-                <Popover.Button as="div" className={styles.userbarMenuBtn}>
+                <Popover.Button className={styles.userbarMenuBtn}>
                   Login
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>

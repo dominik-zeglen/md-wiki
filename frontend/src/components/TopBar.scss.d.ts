@@ -10,3 +10,4 @@ export const userbar: string;
 export const userbarMenu: string;
 export const userbarMenuBtn: string;
 export const userbarMenuForm: string;
+export const home: string;

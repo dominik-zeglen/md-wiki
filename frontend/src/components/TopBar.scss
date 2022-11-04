@@ -57,6 +57,9 @@
     }
 
     &Btn {
+      appearance: none;
+      background: none;
+      border: none;
       cursor: pointer;
     }
 
@@ -64,4 +67,10 @@
       display: contents;
     }
   }
+}
+
+.home {
+  font-weight: 600;
+  color: var(--palette-default);
+  text-decoration: none;
 }

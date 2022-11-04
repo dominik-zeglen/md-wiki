@@ -19,16 +19,20 @@ const userAtom = atom<Record<"email" | "sub", string> | null>({
 const useUserAtom = () => useRecoilState(userAtom);
 
 export function useCognito() {
-  const [loading, setLoading] = useState(false);
   const [user, setUser] = useUserAtom();
+  const [loading, setLoading] = useState(!user);
 
   const refetch = useCallback(async () => {
     setLoading(true);
 
-    const result = await Auth.currentUserInfo();
+    try {
+      const result = await Auth.currentAuthenticatedUser();
 
-    setLoading(false);
-    setUser(result.attributes);
+      setUser(result.attributes);
+    } catch {
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const login = useCallback(async ({ email, password }) => {
