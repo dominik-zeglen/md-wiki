@@ -1,10 +1,12 @@
 import { Popover } from "@headlessui/react";
 import clsx from "clsx";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useCognito } from "src/hooks/auth";
 import { Button } from "./Button";
 import { Card } from "./Card";
+import { Input } from "./Input";
 import styles from "./TopBar.scss";
 
 export interface TopBarProps {
@@ -14,6 +16,14 @@ export interface TopBarProps {
 export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
   const { user, login, logout, loading } = useCognito();
   const { pathname } = useLocation();
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  React.useEffect(reset, [user]);
 
   return (
     <div className={styles.root}>
@@ -48,16 +58,27 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
               </Popover>
             </div>
           ) : (
-            <Button
-              onClick={() =>
-                login({
-                  email: "admin@example.com",
-                  password: "Ha-(.)4b{2ZJC~-",
-                })
-              }
-            >
-              login
-            </Button>
+            <div className={styles.userbar}>
+              <Popover>
+                <Popover.Button as="div" className={styles.userbarMenuBtn}>
+                  Login
+                </Popover.Button>
+                <Popover.Panel as={Card} className={styles.userbarMenu}>
+                  <form
+                    onSubmit={handleSubmit(login)}
+                    className={styles.userbarMenuForm}
+                  >
+                    <Input {...register("email")} placeholder="E-mail" />
+                    <Input
+                      {...register("password")}
+                      type="password"
+                      placeholder="Password"
+                    />
+                    <Button type="submit">login</Button>
+                  </form>
+                </Popover.Panel>
+              </Popover>
+            </div>
           )}
         </div>
       </div>
