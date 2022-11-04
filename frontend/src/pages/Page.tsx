@@ -15,14 +15,16 @@ export const Page: React.FC<PageProps> = ({ page }) => {
 
   return (
     <article className={styles.root}>
-      {!!user && (
-        <div className={styles.toolbar}>
-          <Link to={`/panel/${page?.slug}/edit`}>
-            <Button>edit</Button>
-          </Link>
-        </div>
-      )}
-      <h1>{page?.title}</h1>
+      <div className={styles.header}>
+        <h1>{page?.title}</h1>
+        {!!user && (
+          <div>
+            <Link to={`/panel/${page?.slug}/edit`}>
+              <Button>edit</Button>
+            </Link>
+          </div>
+        )}
+      </div>
       {!!page && <PagePreview page={page} />}
     </article>
   );
