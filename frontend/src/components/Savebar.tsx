@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
+import { Loader } from "./Loader";
 import styles from "./Savebar.scss";
 
 export interface SavebarProps {
@@ -22,7 +23,7 @@ export const Savebar: React.FC<SavebarProps> = ({
       </Link>
     )}
     <Button color="primary" onClick={onSubmit}>
-      {loading ? "Loading..." : "Submit"}
+      {loading ? <Loader /> : "Submit"}
     </Button>
   </div>
 );

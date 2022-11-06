@@ -7,6 +7,7 @@ import { useCognito } from "src/hooks/auth";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
+import { Loader } from "./Loader";
 import styles from "./TopBar.scss";
 
 export interface TopBarProps {
@@ -42,7 +43,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
         <div className={styles.spacer} />
         <div className={styles.item}>
           {loading ? (
-            "Loading..."
+            <Loader />
           ) : user ? (
             <div className={styles.userbar}>
               <Popover>

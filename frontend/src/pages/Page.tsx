@@ -5,6 +5,7 @@ import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
 import styles from "./Page.scss";
+import { PageLoading } from "./PageLoading";
 
 export interface PageProps {
   page: PageType | undefined;
@@ -25,7 +26,7 @@ export const Page: React.FC<PageProps> = ({ page }) => {
           </div>
         )}
       </div>
-      {!!page && <PagePreview page={page} />}
+      {page ? <PagePreview page={page} /> : <PageLoading />}
     </article>
   );
 };

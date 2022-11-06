@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { usePage, usePageUpdate } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
+import { PageLoading } from "src/pages/PageLoading";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
@@ -29,7 +30,7 @@ export const PageEdit: React.FC = () => {
     <FormProvider {...form}>
       <Panel>
         {!page ? (
-          "Loading..."
+          <PageLoading />
         ) : (
           <PageEditor loading={update.isLoading} onSubmit={onSubmit} />
         )}

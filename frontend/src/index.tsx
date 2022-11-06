@@ -11,6 +11,7 @@ import "./global.scss";
 import { Pages } from "./views/PageList";
 import { PageCreate } from "./views/PageCreate";
 import { useCognito } from "./hooks/auth";
+import { PageLoading } from "./pages/PageLoading";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,7 +46,7 @@ const AuthGuard: React.FC = ({ children }) => {
   const { user, loading } = useCognito();
 
   if (!user && loading) {
-    return "Loading...";
+    return <PageLoading />;
   }
 
   return children as any;
