@@ -41,17 +41,29 @@ const PanelRoutes: React.FC = () => {
   );
 };
 
+const AuthGuard: React.FC = ({ children }) => {
+  const { user, loading } = useCognito();
+
+  if (!user && loading) {
+    return "Loading...";
+  }
+
+  return children as any;
+};
+
 export const App: React.FC = () => (
   <RecoilRoot>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pages/:slug" element={<Page />} />
-          <Route path="/panel/*" element={<PanelRoutes />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <AuthGuard>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/pages/:slug" element={<Page />} />
+            <Route path="/panel/*" element={<PanelRoutes />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AuthGuard>
   </RecoilRoot>
 );
 
