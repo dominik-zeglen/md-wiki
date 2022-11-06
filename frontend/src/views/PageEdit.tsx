@@ -22,8 +22,8 @@ export const PageEdit: React.FC = () => {
 
   const onSubmit = () =>
     update.mutate({
-      ...form.getValues(),
       slug: slug!,
+      data: form.getValues(),
     });
 
   return (

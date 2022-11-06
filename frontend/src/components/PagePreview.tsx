@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import type { Page as PageType } from "../../../services/types/page";
+import type { Pages as PageType } from "../../../services/repository/db.d";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
@@ -16,7 +16,7 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   return (
     <div className={styles.root}>
       <ReactMarkdown
-        children={page?.content}
+        children={page?.content!}
         components={{
           a: ({ href, children }) => <Link to={href!}>{children}</Link>,
         }}

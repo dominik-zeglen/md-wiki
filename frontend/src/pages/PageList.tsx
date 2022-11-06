@@ -1,5 +1,5 @@
 import React from "react";
-import type { Page as PageType } from "../../../services/types/page";
+import type { Pages as PageType } from "../../../services/repository/db.d";
 import { Link } from "react-router-dom";
 import styles from "./PageList.scss";
 import { Button } from "src/components/Button";
@@ -33,7 +33,7 @@ export const PageList: React.FC<PageProps> = ({ pages }) => {
               {Intl.DateTimeFormat(undefined, {
                 dateStyle: "medium",
                 timeStyle: "short",
-              }).format(new Date(page.updatedAt))}
+              }).format(page.updatedAt as any as Date)}
             </Card>
           ))}
         </div>

@@ -4,7 +4,7 @@ import { Site } from "src/Layouts/Site";
 import { Page } from "src/pages/Page";
 
 export const Home: React.FC = () => {
-  const { data: page } = usePage("Strona-Glowna", true);
+  const { data: page } = usePage("index", true);
 
   return (
     <Site>

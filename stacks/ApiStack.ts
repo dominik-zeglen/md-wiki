@@ -1,16 +1,18 @@
 import { Api, StackContext, use } from "@serverless-stack/resources";
 import { StorageStack } from "./StorageStack";
 
-export function ApiStack({ stack, app }: StackContext) {
-  const { table } = use(StorageStack);
+export function ApiStack({ stack }: StackContext) {
+  const { cluster } = use(StorageStack);
 
   const api = new Api(stack, "Api", {
     defaults: {
       authorizer: "iam",
       function: {
-        permissions: [table],
+        permissions: [cluster],
         environment: {
-          TABLE_NAME: table.tableName,
+          DATABASE_NAME: cluster.defaultDatabaseName,
+          SECRET_ARN: cluster.secretArn,
+          CLUSTER_ARN: cluster.clusterArn,
         },
       },
     },

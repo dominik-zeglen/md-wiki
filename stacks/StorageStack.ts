@@ -1,22 +1,24 @@
-import { StackContext, Table } from "@serverless-stack/resources";
+import { StackContext, RDS } from "@serverless-stack/resources";
 
 export function StorageStack({ stack }: StackContext) {
-  const table = new Table(stack, "Pages", {
-    fields: {
-      createdAt: "number",
-      updatedAt: "number",
-      createdBy: "string",
-      updatedBy: "string",
-
-      slug: "string",
-      title: "string",
-      content: "string",
-      canBeDeleted: "number",
+  const cluster = new RDS(stack, "mdWikiDB", {
+    engine: "postgresql11.13",
+    defaultDatabaseName: "mdWiki",
+    migrations: "services/migrations",
+    scaling: {
+      autoPause: true,
+      maxCapacity: "ACU_2",
+      minCapacity: "ACU_2",
     },
-    primaryIndex: { partitionKey: "slug" },
+    types: "services/repository/db.d.ts",
+  });
+
+  stack.addOutputs({
+    SecretArn: cluster.secretArn,
+    ClusterIdentifier: cluster.clusterIdentifier,
   });
 
   return {
-    table,
+    cluster,
   };
 }

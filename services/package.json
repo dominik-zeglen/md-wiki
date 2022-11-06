@@ -2,12 +2,18 @@
   "name": "@md-wiki/services",
   "version": "0.0.0",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "codegen": "kysely-codegen"
+  },
   "dependencies": {
     "aws-sdk": "^2.1243.0",
+    "kysely": "^0.22.0",
+    "kysely-data-api": "^0.1.4",
+    "pg": "^8.8.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.108"
+    "@types/aws-lambda": "^8.10.108",
+    "kysely-codegen": "^0.8.0"
   }
 }

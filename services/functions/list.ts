@@ -1,16 +1,4 @@
-import AWS from "aws-sdk";
+import { getPages } from "repository/page";
 import { handler } from "../utils/handler";
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-export const main = handler(async () => {
-  try {
-    const { Items: pages } = await dynamoDb
-      .scan({ TableName: process.env.TABLE_NAME! })
-      .promise();
-
-    return pages!;
-  } catch (err) {
-    throw err;
-  }
-});
+export const main = handler(getPages);

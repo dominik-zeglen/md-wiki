@@ -1,5 +1,5 @@
 import React from "react";
-import type { Page as PageType } from "../../../services/types/page";
+import type { Pages as PageType } from "../../../services/repository/db.d";
 import { useCognito } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";

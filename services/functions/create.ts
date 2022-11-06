@@ -1,8 +1,6 @@
-import AWS from "aws-sdk";
 import { handler } from "../utils/handler";
 import * as yup from "yup";
-
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
+import { createPage, CreatePageInput, statPage } from "repository/page";
 
 const schema = yup.object({
   slug: yup
@@ -10,44 +8,24 @@ const schema = yup.object({
     .min(3)
     .required()
     .test("page-exist", "page ${slug} already exist", async (slug) => {
-      const page = await dynamoDb
-        .get({ TableName: process.env.TABLE_NAME!, Key: { slug } })
-        .promise();
+      const exists = await statPage(slug!);
 
-      return !page.Item;
+      return !exists;
     }),
   title: yup.string().min(3).required(),
   content: yup.string().required(),
 });
 
 export const main = handler(async (event) => {
-  const currentDate = Date.now();
-  const data = JSON.parse(event.body!);
+  const data: CreatePageInput = JSON.parse(event.body!);
   const user = event.requestContext.authorizer!.iam.cognitoIdentity.identityId;
 
-  const isValid = await schema.isValid(data);
+  const isValid = await schema.isValid(data.data);
   if (!isValid) {
-    const errors = await schema.validate(data);
+    const errors = await schema.validate(data.data);
 
     return { errors };
   }
 
-  const params = {
-    TableName: process.env.TABLE_NAME!,
-    Item: {
-      createdAt: currentDate,
-      updatedAt: currentDate,
-      createdBy: user,
-      updatedBy: user,
-
-      title: data.title,
-      slug: data.slug,
-      content: data.content,
-      canBeDeleted: 1,
-    },
-  };
-
-  await dynamoDb.put(params).promise();
-
-  return params.Item;
+  return createPage({ ...data, user });
 });

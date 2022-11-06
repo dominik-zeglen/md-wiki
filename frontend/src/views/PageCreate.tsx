@@ -23,10 +23,12 @@ export const PageCreate: React.FC = () => {
       remove: /[*+~.()'"!:@]/g,
       trim: true,
     });
-    console.log(slug);
+
     await create.mutateAsync({
-      ...form.getValues(),
-      slug,
+      data: {
+        ...form.getValues(),
+        slug,
+      },
     });
 
     navigate(`/panel/${slug}/edit`);

@@ -1,8 +1,12 @@
-import type { Page as PageType } from "../../../services/types/page";
+import type { Pages as PageType } from "../../../services/repository/db.d";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
 import { config } from "../../awsConfig";
+import type {
+  CreatePageInput,
+  UpdatePageInput,
+} from "../../../services/repository/page";
 
 API.configure({
   endpoints: [
@@ -45,27 +49,25 @@ export function usePages() {
 }
 
 export function usePageUpdate() {
-  return useMutation(
-    ["pages"],
-    async ({ slug, ...rest }: Pick<PageType, "content" | "slug" | "title">) => {
-      const data: PageType = await API.patch("pages", urlJoin("/pages", slug), {
-        body: rest,
-      });
+  return useMutation(["pages"], async (data: Omit<UpdatePageInput, "user">) => {
+    const response: PageType = await API.patch(
+      "pages",
+      urlJoin("/pages", data.slug),
+      {
+        body: data,
+      }
+    );
 
-      return data;
-    }
-  );
+    return response;
+  });
 }
 
 export function usePageCreate() {
-  return useMutation(
-    ["pages"],
-    async (body: Pick<PageType, "content" | "slug" | "title">) => {
-      const data: PageType = await API.post("pages", "/pages", {
-        body,
-      });
+  return useMutation(["pages"], async (data: Omit<CreatePageInput, "user">) => {
+    const response: PageType = await API.post("pages", "/pages", {
+      body: data,
+    });
 
-      return data;
-    }
-  );
+    return response;
+  });
 }
