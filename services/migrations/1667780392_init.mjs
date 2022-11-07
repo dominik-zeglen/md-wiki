@@ -4,10 +4,10 @@ export async function up(db) {
   await db.schema
     .createTable("pages")
     .addColumn("slug", "text", (col) => col.primaryKey())
-    .addColumn("title", "text")
-    .addColumn("content", "text")
-    .addColumn("createdAt", "date")
-    .addColumn("updatedAt", "date")
+    .addColumn("title", "text", (col) => col.notNull())
+    .addColumn("content", "text", (col) => col.notNull())
+    .addColumn("createdAt", "timestamp", (col) => col.notNull())
+    .addColumn("updatedAt", "timestamp", (col) => col.notNull())
     .addColumn("createdBy", "varchar(255)")
     .addColumn("updatedBy", "varchar(255)")
     .execute();

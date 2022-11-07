@@ -5,6 +5,7 @@ import styles from "./PageList.scss";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { PageLoading } from "./PageLoading";
+import { dbDateToDateObject } from "src/utils/date";
 
 export interface PageProps {
   pages: PageType[] | undefined;
@@ -33,7 +34,7 @@ export const PageList: React.FC<PageProps> = ({ pages }) => {
               {Intl.DateTimeFormat(undefined, {
                 dateStyle: "medium",
                 timeStyle: "short",
-              }).format(page.updatedAt as any as Date)}
+              }).format(dbDateToDateObject(page.updatedAt))}
             </Card>
           ))}
         </div>
