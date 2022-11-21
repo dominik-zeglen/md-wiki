@@ -3,7 +3,7 @@ import { Kysely } from "kysely";
 export async function up(db) {
   await db.schema
     .createTable("pages")
-    .addColumn("slug", "text", (col) => col.primaryKey())
+    .addColumn("slug", "varchar(255)", (col) => col.primaryKey())
     .addColumn("title", "text", (col) => col.notNull())
     .addColumn("content", "text", (col) => col.notNull())
     .addColumn("createdAt", "timestamp", (col) => col.notNull())

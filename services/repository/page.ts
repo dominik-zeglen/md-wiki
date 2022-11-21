@@ -3,34 +3,34 @@ import { Database } from "./db.d";
 
 export function getPage(slug: string) {
   return db
-    .selectFrom("pages")
+    .selectFrom("mdWiki.pages")
     .selectAll()
-    .where("pages.slug", "=", slug)
+    .where("mdWiki.pages.slug", "=", slug)
     .executeTakeFirst();
 }
 
 export function statPage(slug: string) {
   return db
-    .selectFrom("pages")
+    .selectFrom("mdWiki.pages")
     .select([])
-    .where("pages.slug", "=", slug)
+    .where("mdWiki.pages.slug", "=", slug)
     .executeTakeFirst();
 }
 
 export function getPages() {
-  return db.selectFrom("pages").selectAll().execute();
+  return db.selectFrom("mdWiki.pages").selectAll().execute();
 }
 
 export type UpdatePageInput = {
   slug: string;
-  data: Pick<Database["pages"], "content" | "title">;
+  data: Pick<Database["mdWiki.pages"], "content" | "title">;
   user: string;
 };
 export async function updatePage(input: UpdatePageInput) {
   const result = await db
-    .updateTable("pages")
+    .updateTable("mdWiki.pages")
     .set({ ...input.data, updatedAt: new Date(), updatedBy: input.user })
-    .where("pages.slug", "=", input.slug)
+    .where("mdWiki.pages.slug", "=", input.slug)
     .executeTakeFirst();
 
   if (!result.numUpdatedRows) {
@@ -41,12 +41,12 @@ export async function updatePage(input: UpdatePageInput) {
 }
 
 export type CreatePageInput = {
-  data: Pick<Database["pages"], "slug" | "content" | "title">;
+  data: Pick<Database["mdWiki.pages"], "slug" | "content" | "title">;
   user: string;
 };
 export async function createPage(input: CreatePageInput) {
   await db
-    .insertInto("pages")
+    .insertInto("mdWiki.pages")
     .values({
       ...input.data,
       createdAt: new Date(),

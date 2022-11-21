@@ -5,7 +5,7 @@ import { Database } from "./db.d";
 
 export const db = new Kysely<Database>({
   dialect: new DataApiDialect({
-    mode: "postgres",
+    mode: "mysql",
     driver: {
       database: process.env.DATABASE_NAME!,
       secretArn: process.env.SECRET_ARN!,
