@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import type { Pages as PageType } from "../../../services/repository/db.d";
+import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
@@ -16,11 +16,13 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   return (
     <div className={styles.root}>
       <ReactMarkdown
-        children={page?.content!}
         components={{
+          // eslint-disable-next-line react/no-unstable-nested-components
           a: ({ href, children }) => <Link to={href!}>{children}</Link>,
         }}
-      />
+      >
+        {page?.content!}
+      </ReactMarkdown>
     </div>
   );
 };

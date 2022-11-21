@@ -1,26 +1,11 @@
-import type { Pages as PageType } from "../../../services/repository/db.d";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
-import { config } from "../../awsConfig";
+import type { MdWikiPages as PageType } from "../../../../services/repository/db.d";
 import type {
   CreatePageInput,
   UpdatePageInput,
-} from "../../../services/repository/page";
-
-API.configure({
-  endpoints: [
-    {
-      name: "pages",
-      endpoint: config.apiGateway.URL,
-      region: config.apiGateway.REGION,
-    },
-  ],
-});
-
-if (!process.env.REACT_APP_API_URL) {
-  throw new Error("REACT_APP_API_URL environment variable not set");
-}
+} from "../../../../services/repository/page";
 
 export function usePage(slug: string, cached?: boolean) {
   return useQuery(

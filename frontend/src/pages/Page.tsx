@@ -1,9 +1,9 @@
 import React from "react";
-import type { Pages as PageType } from "../../../services/repository/db.d";
 import { useCognito } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
+import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
 import styles from "./Page.scss";
 import { PageLoading } from "./PageLoading";
 

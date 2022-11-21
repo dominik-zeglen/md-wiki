@@ -1,3 +1,37 @@
-.panel {
+.root {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.content {
   padding: 0 calc(var(--spacing) * 3);
+}
+
+.sidebar {
+  padding: 0 calc(var(--spacing) * 3);
+
+  &Item {
+    color: var(--palette-default);
+
+    &Link,
+    &Link:visited {
+      color: var(--palette-default);
+    }
+
+    &Link {
+      text-decoration: none;
+      display: block;
+      padding: var(--spacing) 0;
+      transition: color 200ms;
+      font-weight: 600;
+
+      &:hover {
+        color: var(--palette-primary);
+      }
+    }
+
+    &:not(:last-child) &Link {
+      border-bottom: 1px solid var(--palette-default);
+    }
+  }
 }

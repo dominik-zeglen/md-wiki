@@ -12,6 +12,7 @@ import { Pages } from "./views/PageList";
 import { PageCreate } from "./views/PageCreate";
 import { useCognito } from "./hooks/auth";
 import { PageLoading } from "./pages/PageLoading";
+import { PanelHome } from "./views/PanelHome";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,9 +36,10 @@ const PanelRoutes: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Pages />} />
-      <Route path="/new" element={<PageCreate />} />
-      <Route path="/:slug/edit" element={<PageEdit />} />
+      <Route path="/" element={<PanelHome />} />
+      <Route path="/pages/" element={<Pages />} />
+      <Route path="/pages/new" element={<PageCreate />} />
+      <Route path="/pages/:slug/edit" element={<PageEdit />} />
     </Routes>
   );
 };
