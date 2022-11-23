@@ -1,0 +1,9 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+.titleText {
+  margin: 0;
+}
