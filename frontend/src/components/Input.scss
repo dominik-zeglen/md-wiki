@@ -14,13 +14,17 @@
   height: 32px;
   padding: var(--spacing);
   line-height: 1;
-  font-size: var(--typography-button);
-  font-weight: 600;
+  font-size: var(--typography-input);
   transition: 200ms;
   outline: 0;
 }
+
 .label {
   cursor: pointer;
   font-size: var(--typography-label);
   margin-left: calc(var(--spacing) / 2);
+}
+
+.fullWidth {
+  width: 100%;
 }
