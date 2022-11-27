@@ -14,7 +14,7 @@ export interface PageProps {
 export const PageList: React.FC<PageProps> = ({ pages }) => (
   <div>
     <div className={styles.toolbar}>
-      <Link to="/panel/new">
+      <Link to="/panel/pages/new">
         <Button>New page</Button>
       </Link>
     </div>
