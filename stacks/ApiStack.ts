@@ -21,6 +21,7 @@ export function ApiStack({ stack }: StackContext) {
         authorizer: "none",
         function: "functions/health.main",
       },
+
       "POST /pages": "functions/create.main",
       "GET /pages": {
         authorizer: "none",
@@ -32,6 +33,18 @@ export function ApiStack({ stack }: StackContext) {
       },
       "PATCH /pages/{slug}": "functions/update.main",
       "DELETE /pages/{slug}": "functions/delete.main",
+
+      "POST /tags": "functions/tag/create.main",
+      "GET /tags": {
+        authorizer: "none",
+        function: "functions/tag/list.main",
+      },
+      // "GET /tags/{id}": {
+      //   authorizer: "none",
+      //   function: "functions/get.main",
+      // },
+      // "PATCH /tags/{id}": "functions/update.main",
+      // "DELETE /tags/{id}": "functions/delete.main",
     },
   });
 

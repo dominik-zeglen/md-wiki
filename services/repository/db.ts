@@ -1,5 +1,5 @@
 import { RDSDataService } from "aws-sdk";
-import { Kysely } from "kysely";
+import { Kysely, sql } from "kysely";
 import { DataApiDialect } from "kysely-data-api";
 import { Database } from "./db.d";
 
@@ -14,3 +14,8 @@ export const db = new Kysely<Database>({
     },
   }),
 });
+
+export const getLastInsertId = async () =>
+  ((await sql`SELECT LAST_INSERT_ID();`.execute(db)) as any).rows[0][
+    "LAST_INSERT_ID()"
+  ];

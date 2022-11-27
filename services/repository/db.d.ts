@@ -1,5 +1,9 @@
 import { ColumnType,  RawBuilder } from 'kysely';
 
+export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
+  ? ColumnType<S, I | undefined, U>
+  : ColumnType<T, T | undefined, T>;
+
 export type Timestamp = ColumnType<Date | RawBuilder, Date | string | RawBuilder, Date | string | RawBuilder>;
 
 export interface MdWikiM2mTagsPages {
@@ -20,8 +24,8 @@ export interface MdWikiPages {
 export interface MdWikiTags {
   createdAt: Timestamp;
   createdBy: string | null;
+  id: Generated<string>;
   name: string;
-  slug: string;
   updatedAt: Timestamp;
   updatedBy: string | null;
 }
