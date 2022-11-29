@@ -10,12 +10,18 @@ import type {
   CreateTagInput,
   UpdateTagInput,
 } from "../../../../services/repository/tag";
+import type { GetTagResponse } from "../../../../services/functions/tag/get";
+import type { GetTagListResponse } from "../../../../services/functions/tag/list";
 
-export function useTag(slug: string, cached?: boolean) {
+export function useTag(id: string, cached?: boolean) {
   return useQuery(
-    ["tags", slug],
+    ["tags", id],
     async () => {
-      const data: TagType = await API.get("tags", urlJoin("/tags", slug), {});
+      const data: GetTagResponse = await API.get(
+        "tags",
+        urlJoin("/tags", id),
+        {}
+      );
 
       return data;
     },
@@ -27,7 +33,7 @@ export function useTag(slug: string, cached?: boolean) {
 
 export function useTags() {
   return useQuery(["tags"], async () => {
-    const data: TagType[] = await API.get("tags", "/tags", {});
+    const data: GetTagListResponse = await API.get("tags", "/tags", {});
 
     return data;
   });

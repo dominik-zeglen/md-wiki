@@ -6,6 +6,7 @@ import type {
   CreatePageInput,
   UpdatePageInput,
 } from "../../../../services/repository/page";
+import type { GetPageListResponse } from "../../../../services/functions/list";
 
 export function usePage(slug: string, cached?: boolean) {
   return useQuery(
@@ -27,7 +28,7 @@ export function usePage(slug: string, cached?: boolean) {
 
 export function usePages() {
   return useQuery(["pages"], async () => {
-    const data: PageType[] = await API.get("pages", "/pages", {});
+    const data: GetPageListResponse = await API.get("pages", "/pages", {});
 
     return data;
   });

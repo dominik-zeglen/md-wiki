@@ -6,10 +6,10 @@ const headers = {
   "Access-Control-Allow-Credentials": true,
 };
 
-export function handler(
-  cb: (
-    data: APIGatewayEvent
-  ) => Promise<Record<string, any> | Record<string, any>[]>
+export function handler<
+  TResponse extends Record<string, any> | Record<string, any>[]
+>(
+  cb: (data: APIGatewayEvent) => Promise<TResponse>
 ): (event: APIGatewayEvent) => Promise<ALBResult> {
   return async (event) => {
     try {

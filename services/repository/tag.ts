@@ -1,7 +1,10 @@
+import type { Selectable } from "kysely";
 import { db, getLastInsertId } from "./db";
-import { Database } from "./db.d";
+import type { Database, MdWikiTags } from "./db.d";
 
-export function getTag(id: string) {
+export function getTag(
+  id: string
+): Promise<Selectable<MdWikiTags> | undefined> {
   return db
     .selectFrom("mdWiki.tags")
     .selectAll()
@@ -45,7 +48,7 @@ export type CreateTagInput = {
   user: string;
 };
 export async function createTag(input: CreateTagInput) {
-  const result = await db
+  await db
     .insertInto("mdWiki.tags")
     .values({
       ...input.data,
@@ -59,4 +62,17 @@ export async function createTag(input: CreateTagInput) {
   const lastInsertId = await getLastInsertId();
 
   return (await getTag(lastInsertId))!;
+}
+
+export function getPagesWithTag(tagId: string) {
+  return db
+    .selectFrom("mdWiki.m2m_tags_pages")
+    .where("tag", "=", tagId)
+    .innerJoin(
+      "mdWiki.pages",
+      "mdWiki.m2m_tags_pages.page",
+      "mdWiki.pages.slug"
+    )
+    .selectAll()
+    .execute();
 }

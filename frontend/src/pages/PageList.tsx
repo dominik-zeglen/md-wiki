@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
+import type { Selectable } from "kysely";
 import { PageLoading } from "./PageLoading";
 import styles from "./PageList.scss";
 import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
 
 export interface PageProps {
-  pages: PageType[] | undefined;
+  pages: Array<Selectable<PageType>> | undefined;
 }
 
 export const PageList: React.FC<PageProps> = ({ pages }) => (

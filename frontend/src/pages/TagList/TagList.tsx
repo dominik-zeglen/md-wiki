@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
+import type { Selectable } from "kysely";
 import { PageLoading } from "../PageLoading";
 import styles from "./TagList.scss";
 import type { MdWikiTags as TagType } from "../../../../services/repository/db.d";
 
 export interface TagProps {
-  tags: TagType[] | undefined;
+  tags: Array<Selectable<TagType>> | undefined;
   onCreate: () => void;
 }
 

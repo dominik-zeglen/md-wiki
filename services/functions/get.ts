@@ -1,7 +1,11 @@
 import { handler } from "../utils/handler";
 import { getPage } from "../repository/page";
+import type { Selectable } from "kysely";
+import { MdWikiPages } from "../repository/db.d";
 
-export const main = handler(async (event) => {
+export type GetPageResponse = Selectable<MdWikiPages>;
+
+export const main = handler<GetPageResponse>(async (event) => {
   const slug = event.pathParameters!.slug;
 
   if (!slug) {

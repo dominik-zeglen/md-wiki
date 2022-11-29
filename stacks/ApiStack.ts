@@ -39,10 +39,10 @@ export function ApiStack({ stack }: StackContext) {
         authorizer: "none",
         function: "functions/tag/list.main",
       },
-      // "GET /tags/{id}": {
-      //   authorizer: "none",
-      //   function: "functions/get.main",
-      // },
+      "GET /tags/{id}": {
+        authorizer: "none",
+        function: "functions/tag/get.main",
+      },
       // "PATCH /tags/{id}": "functions/update.main",
       // "DELETE /tags/{id}": "functions/delete.main",
     },
