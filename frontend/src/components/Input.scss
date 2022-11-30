@@ -28,3 +28,12 @@
 .fullWidth {
   width: 100%;
 }
+
+.header {
+  font-size: var(--typography-h1);
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid var(--palette-default);
+  margin-bottom: calc(var(--spacing) * 3);
+  outline: 0;
+}

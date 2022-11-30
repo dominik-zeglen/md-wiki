@@ -4,7 +4,9 @@
 }
 
 .content {
-  padding: 0 calc(var(--spacing) * 3);
+  max-height: calc(100vh - 64px - 32px);
+  overflow: scroll;
+  padding: 0 calc(var(--spacing) * 3) calc(var(--spacing) * 3);
 }
 
 .sidebar {

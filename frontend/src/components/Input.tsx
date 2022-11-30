@@ -7,6 +7,7 @@ export type InputProps = React.DetailedHTMLProps<
   HTMLInputElement
 > & {
   fullWidth?: boolean;
+  variant?: "default" | "header";
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -15,7 +16,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       {...props}
       ref={ref}
       // eslint-disable-next-line react/destructuring-assignment
-      className={clsx(styles.root, props?.className, {
+      className={clsx(props?.className, {
+        [styles.root]:
+          props.variant === "default" || props.variant === undefined,
+        [styles.header]: props.variant === "header",
         [styles.fullWidth]: props.fullWidth,
       })}
     />

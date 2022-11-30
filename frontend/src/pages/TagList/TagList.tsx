@@ -29,7 +29,7 @@ export const TagList: React.FC<TagProps> = ({ tags, onCreate }) => (
         </div>
         {tags.map((tag) => (
           <Card className={styles.item} key={tag.name}>
-            <Link to={`/panel/tags/${tag.id}/edit`}>{tag.name}</Link>
+            <Link to={`/panel/tags/${tag.id}`}>{tag.name}</Link>
             {Intl.DateTimeFormat(undefined, {
               dateStyle: "medium",
               timeStyle: "short",

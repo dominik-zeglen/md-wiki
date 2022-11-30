@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { Input } from "src/components/Input";
 import { PagePreview } from "src/components/PagePreview";
 import { Savebar } from "src/components/Savebar";
 import styles from "./PageEditor.scss";
@@ -26,7 +27,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
 
   return (
     <div className={styles.root}>
-      <input className={styles.title} {...register("title")} />
+      <Input variant="header" fullWidth {...register("title")} />
       <div className={styles.editorWrapper}>
         <textarea className={styles.editor} {...register("content")} />
         <div className={styles.preview}>

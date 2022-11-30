@@ -14,6 +14,7 @@ import { useCognito } from "./hooks/auth";
 import { PageLoading } from "./pages/PageLoading";
 import { PanelHome } from "./views/PanelHome";
 import { Tags } from "./views/TagList";
+import { TagEdit } from "./views/TagEdit";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ const PanelRoutes: React.FC = () => {
       <Route path="/pages/:slug/edit" element={<PageEdit />} />
 
       <Route path="/tags/" element={<Tags />} />
+      <Route path="/tags/:id" element={<TagEdit />} />
     </Routes>
   );
 };
