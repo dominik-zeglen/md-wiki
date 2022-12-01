@@ -31,7 +31,7 @@ export const PageCreate: React.FC = () => {
       },
     });
 
-    navigate(`/panel/${slug}/edit`);
+    navigate(`/panel/pages/${slug}/edit`);
   };
 
   return (

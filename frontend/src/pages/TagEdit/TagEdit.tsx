@@ -11,14 +11,16 @@ import type { GetTagResponse } from "../../../../services/functions/tag/get";
 
 export interface TagProps {
   tag: GetTagResponse | undefined;
+  onAttach: () => void;
   onDelete: () => void;
 }
 
-export const TagEdit: React.FC<TagProps> = ({ tag, onDelete }) => {
+export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
   const { register } = useFormContext();
   return (
     <div>
       <div className={styles.toolbar}>
+        <Button onClick={onAttach}>Attach Pages</Button>
         <Button color="error" onClick={onDelete}>
           Delete
         </Button>

@@ -2,6 +2,7 @@ import {
   useMutation,
   UseMutationOptions,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
@@ -12,6 +13,8 @@ import type {
 } from "../../../../services/repository/tag";
 import type { GetTagResponse } from "../../../../services/functions/tag/get";
 import type { GetTagListResponse } from "../../../../services/functions/tag/list";
+import type { AttachTagToPageRequest } from "../../../../services/functions/tag/attach";
+import type { UnattachTagFromPageRequest } from "../../../../services/functions/tag/unattach";
 
 export function useTag(id: string, cached?: boolean) {
   return useQuery(
@@ -72,4 +75,102 @@ export function useTagCreate(
     },
     opts
   );
+}
+
+export function useTagAttach({
+  onSuccess,
+  ...opts
+}: UseMutationOptions<
+  unknown,
+  unknown,
+  AttachTagToPageRequest & { tag: string }
+> = {}) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      page,
+      tag,
+    }: AttachTagToPageRequest & { tag: string }) => {
+      const unattachResponse = await API.post(
+        "tags",
+        urlJoin("/tags", tag, "attach"),
+        {
+          body: {
+            page,
+          },
+        }
+      );
+
+      if (unattachResponse) {
+        const data: GetTagResponse = await API.get(
+          "tags",
+          urlJoin("/tags", tag),
+          {}
+        );
+
+        return data;
+      }
+
+      throw unattachResponse;
+    },
+    mutationKey: ["tags"],
+    onSuccess: (data, variables, ctx) => {
+      queryClient.setQueriesData(["tags", variables.tag], data);
+
+      if (onSuccess) {
+        onSuccess(data, variables, ctx);
+      }
+    },
+    ...opts,
+  });
+}
+
+export function useTagUnattach({
+  onSuccess,
+  ...opts
+}: UseMutationOptions<
+  unknown,
+  unknown,
+  UnattachTagFromPageRequest & { tag: string }
+> = {}) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      page,
+      tag,
+    }: UnattachTagFromPageRequest & { tag: string }) => {
+      const unattachResponse = await API.post(
+        "tags",
+        urlJoin("/tags", tag, "unattach"),
+        {
+          body: {
+            page,
+          },
+        }
+      );
+
+      if (unattachResponse) {
+        const data: GetTagResponse = await API.get(
+          "tags",
+          urlJoin("/tags", tag),
+          {}
+        );
+
+        return data;
+      }
+
+      throw unattachResponse;
+    },
+    mutationKey: ["tags"],
+    onSuccess: (data, variables, ctx) => {
+      queryClient.setQueriesData(["tags", variables.tag], data);
+
+      if (onSuccess) {
+        onSuccess(data, variables, ctx);
+      }
+    },
+    ...opts,
+  });
 }

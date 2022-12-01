@@ -43,6 +43,8 @@ export function ApiStack({ stack }: StackContext) {
         authorizer: "none",
         function: "functions/tag/get.main",
       },
+      "POST /tags/{id}/attach": "functions/tag/attach.main",
+      "POST /tags/{id}/unattach": "functions/tag/unattach.main",
       // "PATCH /tags/{id}": "functions/update.main",
       // "DELETE /tags/{id}": "functions/delete.main",
     },
