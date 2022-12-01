@@ -76,3 +76,17 @@ export function getPagesWithTag(tagId: string) {
     .selectAll()
     .execute();
 }
+
+export function attachTagToPage(tagId: string, pageSlug: string) {
+  return db
+    .insertInto("mdWiki.m2m_tags_pages")
+    .values({ page: pageSlug, tag: tagId })
+    .execute();
+}
+export function unattachTagFromPage(tagId: string, pageSlug: string) {
+  return db
+    .deleteFrom("mdWiki.m2m_tags_pages")
+    .where("mdWiki.m2m_tags_pages.page", "=", pageSlug)
+    .where("mdWiki.m2m_tags_pages.tag", "=", tagId)
+    .execute();
+}

@@ -12,13 +12,31 @@ export function getPage(slug: string) {
 export function statPage(slug: string) {
   return db
     .selectFrom("mdWiki.pages")
-    .select([])
+    .select(["slug"])
     .where("mdWiki.pages.slug", "=", slug)
     .executeTakeFirst();
 }
 
 export function getPages() {
   return db.selectFrom("mdWiki.pages").selectAll().execute();
+}
+
+export type MarkPageAsUpdatedInput = {
+  slug: string;
+  user: string;
+};
+export async function markPageAsUpdated(input: MarkPageAsUpdatedInput) {
+  const result = await db
+    .updateTable("mdWiki.pages")
+    .set({ updatedAt: new Date(), updatedBy: input.user })
+    .where("mdWiki.pages.slug", "=", input.slug)
+    .executeTakeFirst();
+
+  if (!result.numUpdatedRows) {
+    throw new Error(`Page ${input.slug} not found`);
+  }
+
+  return { success: true };
 }
 
 export type UpdatePageInput = {
