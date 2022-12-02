@@ -1,12 +1,26 @@
+import { Selectable } from "kysely";
 import { db } from "./db";
-import { Database } from "./db.d";
+import { Database, MdWikiPages, MdWikiTags } from "./db.d";
 
-export function getPage(slug: string) {
-  return db
-    .selectFrom("mdWiki.pages")
-    .selectAll()
-    .where("mdWiki.pages.slug", "=", slug)
-    .executeTakeFirst();
+export async function getPage(slug: string) {
+  const [page, tags] = await Promise.all([
+    db
+      .selectFrom("mdWiki.pages")
+      .selectAll()
+      .where("mdWiki.pages.slug", "=", slug)
+      .executeTakeFirstOrThrow(),
+    db
+      .selectFrom("mdWiki.m2m_tags_pages")
+      .where("page", "=", slug)
+      .innerJoin("mdWiki.tags", "mdWiki.m2m_tags_pages.tag", "mdWiki.tags.id")
+      .select(["id", "name"])
+      .execute(),
+  ]);
+
+  return {
+    ...page,
+    tags: tags ?? [],
+  };
 }
 
 export function statPage(slug: string) {
@@ -14,7 +28,7 @@ export function statPage(slug: string) {
     .selectFrom("mdWiki.pages")
     .select(["slug"])
     .where("mdWiki.pages.slug", "=", slug)
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 }
 
 export function getPages() {

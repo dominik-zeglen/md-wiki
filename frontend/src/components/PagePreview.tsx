@@ -1,11 +1,11 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
+import { GetPageResponse } from "../../../services/functions/get";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
-  page: PageType | undefined;
+  page: GetPageResponse | undefined;
 }
 
 export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {

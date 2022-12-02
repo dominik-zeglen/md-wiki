@@ -9,7 +9,7 @@ export function getTag(
     .selectFrom("mdWiki.tags")
     .selectAll()
     .where("mdWiki.tags.id", "=", id)
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 }
 
 export function statTag(id: string) {
@@ -17,7 +17,7 @@ export function statTag(id: string) {
     .selectFrom("mdWiki.tags")
     .select([])
     .where("mdWiki.tags.id", "=", id)
-    .executeTakeFirst();
+    .executeTakeFirstOrThrow();
 }
 
 export function getTags() {

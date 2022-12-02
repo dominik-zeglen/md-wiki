@@ -3,12 +3,12 @@ import { useCognito } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
-import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
 import styles from "./Page.scss";
 import { PageLoading } from "./PageLoading";
+import { GetPageResponse } from "../../../services/functions/get";
 
 export interface PageProps {
-  page: PageType | undefined;
+  page: GetPageResponse | undefined;
 }
 
 export const Page: React.FC<PageProps> = ({ page }) => {
@@ -26,7 +26,19 @@ export const Page: React.FC<PageProps> = ({ page }) => {
           </div>
         )}
       </div>
-      {page ? <PagePreview page={page} /> : <PageLoading />}
+      {page ? (
+        <>
+          <PagePreview page={page} />
+          <footer className={styles.footer}>
+            <h6 className={styles.footerHeader}>Tags</h6>
+            {page.tags.map(({ id, name }) => (
+              <Link to={`/tag/${id}`}>{name}</Link>
+            ))}
+          </footer>
+        </>
+      ) : (
+        <PageLoading />
+      )}
     </article>
   );
 };

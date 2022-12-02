@@ -1,9 +1,11 @@
 import { handler } from "../utils/handler";
 import { getPage } from "../repository/page";
 import type { Selectable } from "kysely";
-import { MdWikiPages } from "../repository/db.d";
+import { MdWikiPages, MdWikiTags } from "../repository/db.d";
 
-export type GetPageResponse = Selectable<MdWikiPages>;
+export interface GetPageResponse extends Selectable<MdWikiPages> {
+  tags: Array<Selectable<Pick<MdWikiTags, "id" | "name">>>;
+}
 
 export const main = handler<GetPageResponse>(async (event) => {
   const slug = event.pathParameters!.slug;

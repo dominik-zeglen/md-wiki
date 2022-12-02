@@ -7,3 +7,13 @@
   width: 100%;
   justify-content: space-between;
 }
+
+.footer {
+  border-top: 1px solid var(--palette-default);
+  margin-top: calc(var(--spacing) * 3);
+  padding-top: calc(var(--spacing) * 3);
+
+  &Header {
+    margin: 0 0 var(--spacing);
+  }
+}
