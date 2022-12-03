@@ -15,6 +15,7 @@ import { PageLoading } from "./pages/PageLoading";
 import { PanelHome } from "./views/PanelHome";
 import { Tags } from "./views/TagList";
 import { TagEdit } from "./views/TagEdit";
+import { TagPages } from "./views/TagPages";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +68,7 @@ export const App: React.FC = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/tag/:id" element={<TagPages />} />
             <Route path="/pages/:slug" element={<Page />} />
             <Route path="/panel/*" element={<PanelRoutes />} />
           </Routes>

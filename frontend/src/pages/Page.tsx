@@ -20,7 +20,7 @@ export const Page: React.FC<PageProps> = ({ page }) => {
         <h1>{page?.title}</h1>
         {!!user && (
           <div>
-            <Link to={`/panel/${page?.slug}/edit`}>
+            <Link to={`/panel/pages/${page?.slug}/edit`}>
               <Button>edit</Button>
             </Link>
           </div>

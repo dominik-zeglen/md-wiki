@@ -6,12 +6,17 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: calc(var(--spacing) * 3);
+
+  h1 {
+    margin-bottom: 0;
+  }
 }
 
 .footer {
   border-top: 1px solid var(--palette-default);
   margin-top: calc(var(--spacing) * 3);
-  padding-top: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 3) 0;
 
   &Header {
     margin: 0 0 var(--spacing);

@@ -34,7 +34,7 @@ export const TagEdit: React.FC = () => {
   React.useEffect(() => {
     if (tag) {
       form.reset({
-        name: tag.name,
+        name: tag.name!,
       });
     }
   }, [tag]);

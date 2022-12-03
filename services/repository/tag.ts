@@ -17,7 +17,7 @@ export function statTag(id: string) {
     .selectFrom("mdWiki.tags")
     .select([])
     .where("mdWiki.tags.id", "=", id)
-    .executeTakeFirstOrThrow();
+    .executeTakeFirst();
 }
 
 export function getTags() {

@@ -1,0 +1,13 @@
+.root {
+  position: relative;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.sectionHeader {
+  margin: var(--spacing) 0;
+}

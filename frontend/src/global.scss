@@ -138,3 +138,14 @@ a {
     color: var(--palette-primary);
   }
 }
+
+blockquote {
+  border: 1px solid var(--palette-default);
+  padding: calc(var(--spacing) * 3);
+  margin: var(--spacing) 0;
+  border-radius: 4px;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

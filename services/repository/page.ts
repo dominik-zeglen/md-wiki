@@ -28,11 +28,21 @@ export function statPage(slug: string) {
     .selectFrom("mdWiki.pages")
     .select(["slug"])
     .where("mdWiki.pages.slug", "=", slug)
-    .executeTakeFirstOrThrow();
+    .executeTakeFirst();
 }
 
 export function getPages() {
-  return db.selectFrom("mdWiki.pages").selectAll().execute();
+  return db
+    .selectFrom("mdWiki.pages")
+    .select([
+      "createdAt",
+      "createdBy",
+      "slug",
+      "title",
+      "updatedAt",
+      "updatedBy",
+    ])
+    .execute();
 }
 
 export type MarkPageAsUpdatedInput = {
