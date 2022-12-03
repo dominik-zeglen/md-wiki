@@ -7,13 +7,14 @@ import { Input } from "src/components/Input";
 import { Loader } from "src/components/Loader";
 import { useTagCreate, useTags } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
+import { panelRoutes } from "src/routes";
 import { TagList } from "../pages/TagList";
 
 export const Tags: React.FC = () => {
   const navigate = useNavigate();
   const { data: tags } = useTags();
   const { mutate: createTag, isLoading } = useTagCreate({
-    onSuccess: (tag) => navigate(`/panel/tags/${tag.id}`),
+    onSuccess: (tag) => navigate(panelRoutes.tag.to({ id: tag.id })),
   });
   const [open, setOpen] = React.useState(false);
   const { register, handleSubmit } = useForm({ defaultValues: { name: "" } });

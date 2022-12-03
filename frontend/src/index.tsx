@@ -16,6 +16,7 @@ import { PanelHome } from "./views/PanelHome";
 import { Tags } from "./views/TagList";
 import { TagEdit } from "./views/TagEdit";
 import { TagPages } from "./views/TagPages";
+import { panelRoutes, siteRoutes } from "./routes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,19 +35,19 @@ const PanelRoutes: React.FC = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!user && !loading) navigate("/");
+    if (!user && !loading) navigate(siteRoutes.home.to());
   }, [user, loading]);
 
   return (
     <Routes>
-      <Route path="/" element={<PanelHome />} />
+      <Route path={panelRoutes.home.path} element={<PanelHome />} />
 
-      <Route path="/pages/" element={<Pages />} />
-      <Route path="/pages/new" element={<PageCreate />} />
-      <Route path="/pages/:slug/edit" element={<PageEdit />} />
+      <Route path={panelRoutes.pages.path} element={<Pages />} />
+      <Route path={panelRoutes.pageCreate.path} element={<PageCreate />} />
+      <Route path={panelRoutes.page.path} element={<PageEdit />} />
 
-      <Route path="/tags/" element={<Tags />} />
-      <Route path="/tags/:id" element={<TagEdit />} />
+      <Route path={panelRoutes.tags.path} element={<Tags />} />
+      <Route path={panelRoutes.tag.path} element={<TagEdit />} />
     </Routes>
   );
 };
@@ -67,9 +68,9 @@ export const App: React.FC = () => (
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tag/:id" element={<TagPages />} />
-            <Route path="/pages/:slug" element={<Page />} />
+            <Route path={siteRoutes.home.path} element={<Home />} />
+            <Route path={siteRoutes.tag.path} element={<TagPages />} />
+            <Route path={siteRoutes.page.path} element={<Page />} />
             <Route path="/panel/*" element={<PanelRoutes />} />
           </Routes>
         </BrowserRouter>

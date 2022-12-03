@@ -6,7 +6,11 @@ import {
 } from "@tanstack/react-query";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
-import type { MdWikiTags as TagType } from "../../../../services/repository/db.d";
+import type { Selectable } from "kysely";
+import type {
+  MdWikiTags,
+  MdWikiTags as TagType,
+} from "../../../../services/repository/db.d";
 import type {
   CreateTagInput,
   UpdateTagInput,
@@ -59,7 +63,11 @@ export function useTagUpdate() {
 export function useTagCreate(
   opts:
     | Omit<
-        UseMutationOptions<TagType, unknown, Omit<CreateTagInput, "user">>,
+        UseMutationOptions<
+          Selectable<MdWikiTags>,
+          unknown,
+          Omit<CreateTagInput, "user">
+        >,
         "mutationKey" | "mutationFn"
       >
     | undefined = {}
@@ -67,7 +75,7 @@ export function useTagCreate(
   return useMutation(
     ["tags"],
     async (data: Omit<CreateTagInput, "user">) => {
-      const response: TagType = await API.post("tags", "/tags", {
+      const response: Selectable<MdWikiTags> = await API.post("tags", "/tags", {
         body: data,
       });
 

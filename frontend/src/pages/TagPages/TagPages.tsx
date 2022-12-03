@@ -3,6 +3,7 @@ import { useCognito } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
+import { panelRoutes, siteRoutes } from "src/routes";
 import styles from "./TagPages.scss";
 import { PageLoading } from "../PageLoading";
 import { GetTagResponse } from "../../../../services/functions/tag/get";
@@ -24,7 +25,7 @@ export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
         <h1>Tag: {tag?.name}</h1>
         {!!user && (
           <div>
-            <Link to={`/panel/tags/${tag?.id}`}>
+            <Link to={panelRoutes.tag.to({ id: tag?.id ?? "" })}>
               <Button>edit</Button>
             </Link>
           </div>
@@ -35,7 +36,9 @@ export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
           <div>
             <h6 className={styles.sectionHeader}>{letter}</h6>
             {pages.map((page) => (
-              <Link to={`/pages/${page.slug}`}>{page.title}</Link>
+              <Link to={siteRoutes.page.to({ slug: page.slug })}>
+                {page.title}
+              </Link>
             ))}
           </div>
         ))

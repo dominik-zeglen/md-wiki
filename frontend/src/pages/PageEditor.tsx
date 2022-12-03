@@ -4,6 +4,7 @@ import { Button } from "src/components/Button";
 import { Input } from "src/components/Input";
 import { PagePreview } from "src/components/PagePreview";
 import { Savebar } from "src/components/Savebar";
+import { panelRoutes } from "src/routes";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
@@ -37,7 +38,11 @@ export const PageEditor: React.FC<PageEditorProps> = ({
           <PagePreview page={preview} />
         </div>
       </div>
-      <Savebar back="/panel/" onSubmit={onSubmit} loading={loading}>
+      <Savebar
+        back={panelRoutes.pages.to()}
+        onSubmit={onSubmit}
+        loading={loading}
+      >
         {onDelete && (
           <Button color="error" onClick={onDelete}>
             Delete

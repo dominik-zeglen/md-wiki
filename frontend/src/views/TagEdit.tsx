@@ -13,6 +13,7 @@ import {
 import { Panel } from "src/Layouts/Panel";
 import { TagEdit as TagEditPage } from "src/pages/TagEdit";
 import { Loader } from "src/components/Loader";
+import { panelRoutes } from "src/routes";
 
 export const TagEdit: React.FC = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ export const TagEdit: React.FC = () => {
   const attach = useTagAttach();
   const unattach = useTagUnattach();
   const deleteTag = useTagDelete({
-    onSuccess: () => navigate("/panel/tags"),
+    onSuccess: () => navigate(panelRoutes.tags.to()),
   });
 
   const [openedDialog, setOpenedDialog] = React.useState<

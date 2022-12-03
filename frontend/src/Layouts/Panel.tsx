@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TopBar } from "src/components/TopBar";
+import { panelRoutes } from "src/routes";
 import styles from "./Panel.scss";
 
 interface ItemMenuProps {
@@ -20,9 +21,9 @@ export const Panel: React.FC = ({ children }) => (
     <TopBar />
     <nav className={styles.sidebar}>
       {[
-        { href: "/panel/", label: "Home" },
-        { href: "/panel/pages", label: "Pages" },
-        { href: "/panel/tags", label: "Tags" },
+        { href: panelRoutes.home.to(), label: "Home" },
+        { href: panelRoutes.pages.to(), label: "Pages" },
+        { href: panelRoutes.tags.to(), label: "Tags" },
       ].map((props) => (
         <ItemMenu {...props} />
       ))}

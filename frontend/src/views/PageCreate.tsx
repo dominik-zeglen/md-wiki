@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { usePageCreate } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
+import { panelRoutes } from "src/routes";
 
 export const PageCreate: React.FC = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export const PageCreate: React.FC = () => {
       },
     });
 
-    navigate(`/panel/pages/${slug}/edit`);
+    navigate(panelRoutes.page.to({ slug }));
   };
 
   return (

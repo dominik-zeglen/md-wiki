@@ -4,6 +4,7 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import type { Selectable } from "kysely";
+import { panelRoutes } from "src/routes";
 import { PageLoading } from "../PageLoading";
 import styles from "./TagList.scss";
 import type { MdWikiTags as TagType } from "../../../../services/repository/db.d";
@@ -29,7 +30,7 @@ export const TagList: React.FC<TagProps> = ({ tags, onCreate }) => (
         </div>
         {tags.map((tag) => (
           <Card className={styles.item} key={tag.name}>
-            <Link to={`/panel/tags/${tag.id}`}>{tag.name}</Link>
+            <Link to={panelRoutes.tag.to({ id: tag.id })}>{tag.name}</Link>
             {Intl.DateTimeFormat(undefined, {
               dateStyle: "medium",
               timeStyle: "short",

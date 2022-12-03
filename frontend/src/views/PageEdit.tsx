@@ -9,6 +9,7 @@ import { usePage, usePageDelete, usePageUpdate } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
 import { PageLoading } from "src/pages/PageLoading";
+import { panelRoutes } from "src/routes";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
@@ -24,7 +25,7 @@ export const PageEdit: React.FC = () => {
 
   const update = usePageUpdate();
   const pageDelete = usePageDelete({
-    onSuccess: () => navigate("/panel/pages"),
+    onSuccess: () => navigate(panelRoutes.pages.to()),
   });
 
   const [dialogDeleteOpen, setDialogDeleteOpen] = React.useState(false);

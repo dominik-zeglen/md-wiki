@@ -5,6 +5,7 @@ import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import { Input } from "src/components/Input";
 import { useFormContext } from "react-hook-form";
+import { panelRoutes } from "src/routes";
 import { PageLoading } from "../PageLoading";
 import styles from "./TagEdit.scss";
 import type { GetTagResponse } from "../../../../services/functions/tag/get";
@@ -45,7 +46,7 @@ export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
                 </div>
                 {tag.pages.map((page) => (
                   <Card className={styles.item} key={page.slug}>
-                    <Link to={`/panel/pages/${page.slug}/edit`}>
+                    <Link to={panelRoutes.page.to({ slug: page.slug })}>
                       {page.title}
                     </Link>
                     {Intl.DateTimeFormat(undefined, {

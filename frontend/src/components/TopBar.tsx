@@ -4,6 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useCognito } from "src/hooks/auth";
+import { panelRoutes, siteRoutes } from "src/routes";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
@@ -36,7 +37,10 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
         })}
       >
         <div className={styles.item}>
-          <Link className={styles.home} to={isPanel ? "/panel" : "/"}>
+          <Link
+            className={styles.home}
+            to={isPanel ? panelRoutes.home.to() : siteRoutes.home.to()}
+          >
             md-wiki
           </Link>
         </div>
@@ -52,11 +56,11 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
                   {pathname.includes("/panel") ? (
-                    <Link to="/">
+                    <Link to={siteRoutes.home.to()}>
                       <Button>Site</Button>
                     </Link>
                   ) : (
-                    <Link to="/panel">
+                    <Link to={panelRoutes.home.to()}>
                       <Button>panel</Button>
                     </Link>
                   )}
