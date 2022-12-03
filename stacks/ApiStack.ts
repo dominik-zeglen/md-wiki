@@ -46,7 +46,7 @@ export function ApiStack({ stack }: StackContext) {
       "POST /tags/{id}/attach": "functions/tag/attach.main",
       "POST /tags/{id}/unattach": "functions/tag/unattach.main",
       // "PATCH /tags/{id}": "functions/update.main",
-      // "DELETE /tags/{id}": "functions/delete.main",
+      "DELETE /tags/{id}": "functions/tag/delete.main",
     },
   });
 

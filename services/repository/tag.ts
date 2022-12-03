@@ -90,3 +90,7 @@ export function unattachTagFromPage(tagId: string, pageSlug: string) {
     .where("mdWiki.m2m_tags_pages.tag", "=", tagId)
     .execute();
 }
+
+export function deleteTag(id: string) {
+  return db.deleteFrom("mdWiki.tags").where("id", "=", id).execute();
+}

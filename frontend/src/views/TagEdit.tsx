@@ -1,31 +1,22 @@
 import React from "react";
-import { FormProvider, useForm, useFieldArray } from "react-hook-form";
-import { useParams } from "react-router";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 import { Button } from "src/components/Button";
 import { Dialog, DialogActions } from "src/components/Dialog";
 import {
   usePages,
   useTag,
   useTagAttach,
+  useTagDelete,
   useTagUnattach,
-  useTagUpdate,
 } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { TagEdit as TagEditPage } from "src/pages/TagEdit";
-import {
-  pipe,
-  map,
-  difference,
-  toAsync,
-  toArray,
-  filter,
-  each,
-} from "@fxts/core";
 import { Loader } from "src/components/Loader";
-import { Checkbox } from "src/components/Checkbox";
 
 export const TagEdit: React.FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: tag } = useTag(id!);
   const form = useForm({ defaultValues: { name: "" } });
 
@@ -41,22 +32,27 @@ export const TagEdit: React.FC = () => {
 
   const attach = useTagAttach();
   const unattach = useTagUnattach();
+  const deleteTag = useTagDelete({
+    onSuccess: () => navigate("/panel/tags"),
+  });
 
-  const [pagesDialogOpen, setPagesDialogOpen] = React.useState(false);
-  const closeDialog = () => setPagesDialogOpen(false);
+  const [openedDialog, setOpenedDialog] = React.useState<
+    null | "assign" | "delete"
+  >(null);
+  const closeDialog = () => setOpenedDialog(null);
 
   return (
     <FormProvider {...form}>
       <Panel>
         <TagEditPage
           tag={tag}
-          onDelete={() => undefined}
-          onAttach={() => setPagesDialogOpen(true)}
+          onDelete={() => setOpenedDialog("delete")}
+          onAttach={() => setOpenedDialog("assign")}
         />
       </Panel>
       {!!(tag && pages) && (
         <Dialog
-          open={pagesDialogOpen}
+          open={openedDialog === "assign"}
           onClose={closeDialog}
           title={`Attach tag ${tag?.name} to pages`}
           width="400px"
@@ -81,6 +77,24 @@ export const TagEdit: React.FC = () => {
           <DialogActions>
             <Button onClick={closeDialog}>
               {attach.isLoading || unattach.isLoading ? <Loader /> : "Close"}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
+      {!!tag && (
+        <Dialog
+          title="Delete page"
+          open={openedDialog === "delete"}
+          onClose={closeDialog}
+        >
+          Are you sure you want to delete <strong>{tag.name}</strong>?
+          <DialogActions>
+            <Button onClick={closeDialog}>Back</Button>
+            <Button
+              color="error"
+              onClick={() => deleteTag.mutateAsync({ id: id! })}
+            >
+              {deleteTag.isLoading ? <Loader /> : "Delete"}
             </Button>
           </DialogActions>
         </Dialog>

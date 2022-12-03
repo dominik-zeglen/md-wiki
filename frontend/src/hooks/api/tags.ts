@@ -174,3 +174,13 @@ export function useTagUnattach({
     ...opts,
   });
 }
+
+export function useTagDelete(
+  opts: UseMutationOptions<void, unknown, { id: string }> = {}
+) {
+  return useMutation({
+    ...opts,
+    mutationFn: (data: { id: string }) =>
+      API.del("tags", urlJoin("/tags", data.id.toString()), {}),
+  });
+}
