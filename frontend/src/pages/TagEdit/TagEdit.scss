@@ -6,6 +6,7 @@
 }
 
 .item {
+  box-shadow: none;
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: calc(var(--spacing) * 2);
