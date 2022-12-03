@@ -53,6 +53,17 @@ textarea {
   padding: 0;
 }
 
+button,
+input,
+textarea {
+  color: inherit;
+}
+
+input,
+textarea {
+  background: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
@@ -77,6 +88,7 @@ textarea {
   --palette-background: #ffffff;
   --palette-default: #222222;
   --palette-disabled: #dddddd;
+  --palette-shadow: rgba(0, 0, 0, 0.2);
 
   --palette-primary: #7d5ba6;
   --palette-success: #71f79f;
@@ -102,6 +114,7 @@ body {
   background: var(--palette-background);
   font-family: "Space Grotesk", sans-serif;
   font-size: var(--typography-default);
+  color: var(--palette-default);
 }
 
 h1 {
