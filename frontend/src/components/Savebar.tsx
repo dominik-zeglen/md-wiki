@@ -13,10 +13,12 @@ export interface SavebarProps {
 
 export const Savebar: React.FC<SavebarProps> = ({
   back,
+  children,
   loading,
   onSubmit,
 }) => (
   <div className={styles.root}>
+    {children}
     {!!back && (
       <Link to={back}>
         <Button>Back</Button>

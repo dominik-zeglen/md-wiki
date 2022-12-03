@@ -1,4 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+} from "@tanstack/react-query";
 import urlJoin from "url-join";
 import API from "@aws-amplify/api";
 import type { MdWikiPages as PageType } from "../../../../services/repository/db.d";
@@ -56,5 +60,15 @@ export function usePageCreate() {
     });
 
     return response;
+  });
+}
+
+export function usePageDelete(
+  opts: UseMutationOptions<void, unknown, { slug: string }> = {}
+) {
+  return useMutation({
+    ...opts,
+    mutationFn: (data: { slug: string }) =>
+      API.del("pages", urlJoin("/pages", data.slug), {}),
   });
 }

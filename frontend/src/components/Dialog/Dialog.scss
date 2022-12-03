@@ -12,6 +12,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: calc(var(--spacing) * 3);
+  gap: var(--spacing);
 }
 
 .close {

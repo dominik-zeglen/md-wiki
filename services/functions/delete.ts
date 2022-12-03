@@ -1,22 +1,16 @@
-import AWS from "aws-sdk";
+import { deletePage } from "repository/page";
 import { handler } from "../utils/handler";
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
 export const main = handler(async (event) => {
-  const slug = event.pathParameters!.slug;
+  const slug = event.pathParameters!.slug!;
 
-  const { Item: page } = await dynamoDb
-    .get({ TableName: process.env.TABLE_NAME!, Key: { slug } })
-    .promise();
+  // const page = getPage()
 
-  if (page && !page.canBeDeleted) {
-    throw new Error(`Page ${slug} cannot be deleted`);
-  }
+  // if (page && !page.canBeDeleted) {
+  //   throw new Error(`Page ${slug} cannot be deleted`);
+  // }
 
-  await dynamoDb
-    .delete({ TableName: process.env.TABLE_NAME!, Key: { slug } })
-    .promise();
+  await deletePage(slug);
 
   return { ok: true };
 });

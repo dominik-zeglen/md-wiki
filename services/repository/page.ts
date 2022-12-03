@@ -100,3 +100,7 @@ export async function createPage(input: CreatePageInput) {
 
   return (await getPage(input.data.slug))!;
 }
+
+export function deletePage(slug: string) {
+  return db.deleteFrom("mdWiki.pages").where("slug", "=", slug).execute();
+}

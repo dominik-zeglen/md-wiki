@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { Button } from "src/components/Button";
 import { Input } from "src/components/Input";
 import { PagePreview } from "src/components/PagePreview";
 import { Savebar } from "src/components/Savebar";
@@ -7,11 +8,13 @@ import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
   loading: boolean;
+  onDelete?: () => void;
   onSubmit: () => void;
 }
 
 export const PageEditor: React.FC<PageEditorProps> = ({
   loading,
+  onDelete,
   onSubmit,
 }) => {
   const { register, getValues } = useFormContext();
@@ -34,7 +37,13 @@ export const PageEditor: React.FC<PageEditorProps> = ({
           <PagePreview page={preview} />
         </div>
       </div>
-      <Savebar back="/panel/" onSubmit={onSubmit} loading={loading} />
+      <Savebar back="/panel/" onSubmit={onSubmit} loading={loading}>
+        {onDelete && (
+          <Button color="error" onClick={onDelete}>
+            Delete
+          </Button>
+        )}
+      </Savebar>
     </div>
   );
 };
