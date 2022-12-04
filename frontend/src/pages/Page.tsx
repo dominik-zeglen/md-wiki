@@ -6,10 +6,10 @@ import { PagePreview } from "src/components/PagePreview";
 import { panelRoutes, siteRoutes } from "src/routes";
 import styles from "./Page.scss";
 import { PageLoading } from "./PageLoading";
-import { GetPageResponse } from "../../../services/functions/get";
+import { AppRouterOutputs } from "../../../services/api";
 
 export interface PageProps {
-  page: GetPageResponse | undefined;
+  page: AppRouterOutputs["pages"]["get"] | undefined;
 }
 
 export const Page: React.FC<PageProps> = ({ page }) => {

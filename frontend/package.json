@@ -68,6 +68,8 @@
     "@fxts/core": "^0.11.0",
     "@headlessui/react": "^1.7.3",
     "@tanstack/react-query": "^4.13.5",
+    "@trpc/client": "^10.4.3",
+    "@trpc/react-query": "^10.4.3",
     "@types/lodash": "^4.14.177",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",

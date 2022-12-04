@@ -25,7 +25,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         value={props.value}
         checked={field.value === props.value}
         onChange={(event) => {
-          console.log(event.target.checked, props.value);
           field.onChange(event.target.checked ? props.value : undefined);
         }}
       />

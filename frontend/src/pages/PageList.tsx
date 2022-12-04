@@ -10,7 +10,7 @@ import styles from "./PageList.scss";
 import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
 
 export interface PageProps {
-  pages: Array<Selectable<PageType>> | undefined;
+  pages: Array<Selectable<Omit<PageType, "content">>> | undefined;
 }
 
 export const PageList: React.FC<PageProps> = ({ pages }) => (

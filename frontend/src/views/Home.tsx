@@ -1,10 +1,12 @@
 import React from "react";
-import { usePage } from "src/hooks/api";
+import { trpc } from "src/hooks/api/trpc";
 import { Site } from "src/Layouts/Site";
 import { Page } from "src/pages/Page";
 
 export const Home: React.FC = () => {
-  const { data: page } = usePage("index", true);
+  const { data: page } = trpc.pages.get.useQuery("index", {
+    refetchOnMount: false,
+  });
 
   return (
     <Site>

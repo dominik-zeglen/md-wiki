@@ -17,6 +17,7 @@ import { Tags } from "./views/TagList";
 import { TagEdit } from "./views/TagEdit";
 import { TagPages } from "./views/TagPages";
 import { panelRoutes, siteRoutes } from "./routes";
+import { client, TRPCProvider } from "./hooks/api/trpc";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,16 +66,18 @@ const AuthGuard: React.FC = ({ children }) => {
 export const App: React.FC = () => (
   <RecoilRoot>
     <AuthGuard>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path={siteRoutes.home.path} element={<Home />} />
-            <Route path={siteRoutes.tag.path} element={<TagPages />} />
-            <Route path={siteRoutes.page.path} element={<Page />} />
-            <Route path="/panel/*" element={<PanelRoutes />} />
-          </Routes>
-        </BrowserRouter>
-      </QueryClientProvider>
+      <TRPCProvider queryClient={queryClient} client={client}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Routes>
+              <Route path={siteRoutes.home.path} element={<Home />} />
+              <Route path={siteRoutes.tag.path} element={<TagPages />} />
+              <Route path={siteRoutes.page.path} element={<Page />} />
+              <Route path="/panel/*" element={<PanelRoutes />} />
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </TRPCProvider>
     </AuthGuard>
   </RecoilRoot>
 );

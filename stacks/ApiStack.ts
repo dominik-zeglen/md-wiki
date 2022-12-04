@@ -5,6 +5,7 @@ export function ApiStack({ stack }: StackContext) {
   const { cluster } = use(StorageStack);
 
   const api = new Api(stack, "Api", {
+    cors: true,
     defaults: {
       authorizer: "iam",
       function: {
@@ -47,6 +48,16 @@ export function ApiStack({ stack }: StackContext) {
       "POST /tags/{id}/unattach": "functions/tag/unattach.main",
       // "PATCH /tags/{id}": "functions/update.main",
       "DELETE /tags/{id}": "functions/tag/delete.main",
+      "GET /trpc/{proxy+}": {
+        authorizer: "none",
+        function: "api/index.main",
+        payloadFormatVersion: "2.0",
+      },
+      "POST /trpc/{proxy+}": {
+        authorizer: "none",
+        function: "api/index.main",
+        payloadFormatVersion: "2.0",
+      },
     },
   });
 

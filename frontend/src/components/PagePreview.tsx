@@ -1,11 +1,11 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import { GetPageResponse } from "../../../services/functions/get";
+import { AppRouterOutputs } from "../../../services/api";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
-  page: GetPageResponse | undefined;
+  page: AppRouterOutputs["pages"]["get"] | undefined;
 }
 
 export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {

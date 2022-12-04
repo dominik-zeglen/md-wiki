@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router";
 import { Button } from "src/components/Button";
 import { Dialog, DialogActions } from "src/components/Dialog";
 import { Loader } from "src/components/Loader";
-import { usePage, usePageDelete, usePageUpdate } from "src/hooks/api";
+import { usePageDelete, usePageUpdate } from "src/hooks/api";
+import { trpc } from "src/hooks/api/trpc";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
 import { PageLoading } from "src/pages/PageLoading";
@@ -13,7 +14,9 @@ import { panelRoutes } from "src/routes";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
-  const { data: page } = usePage(slug!);
+  const { data: page } = trpc.pages.get.useQuery(slug!, {
+    refetchOnMount: "always",
+  });
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: page ? pick(page, ["title", "content"]) : {},

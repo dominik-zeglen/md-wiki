@@ -6,6 +6,7 @@
     "codegen": "kysely-codegen"
   },
   "dependencies": {
+    "@trpc/server": "^10.4.3",
     "aws-sdk": "^2.1243.0",
     "kysely": "^0.22.0",
     "kysely-data-api": "^0.1.4",
