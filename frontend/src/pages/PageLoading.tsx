@@ -4,6 +4,6 @@ import styles from "./PageLoading.scss";
 
 export const PageLoading: React.FC = () => (
   <div className={styles.root}>
-    <Loader size="48px" />
+    <Loader size="64px" />
   </div>
 );

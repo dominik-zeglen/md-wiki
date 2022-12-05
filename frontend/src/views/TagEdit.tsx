@@ -3,25 +3,19 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "src/components/Button";
 import { Dialog, DialogActions } from "src/components/Dialog";
-import {
-  usePages,
-  useTag,
-  useTagAttach,
-  useTagDelete,
-  useTagUnattach,
-} from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { TagEdit as TagEditPage } from "src/pages/TagEdit";
 import { Loader } from "src/components/Loader";
 import { panelRoutes } from "src/routes";
+import { trpc } from "src/hooks/api/trpc";
 
 export const TagEdit: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: tag } = useTag(id!);
+  const { data: tag } = trpc.tags.get.useQuery(id!);
   const form = useForm({ defaultValues: { name: "" } });
 
-  const { data: pages } = usePages();
+  const { data: pages } = trpc.pages.list.useQuery();
 
   React.useEffect(() => {
     if (tag) {
@@ -31,9 +25,9 @@ export const TagEdit: React.FC = () => {
     }
   }, [tag]);
 
-  const attach = useTagAttach();
-  const unattach = useTagUnattach();
-  const deleteTag = useTagDelete({
+  const attach = trpc.tags.attach.useMutation();
+  const unattach = trpc.tags.unattach.useMutation();
+  const deleteTag = trpc.tags.delete.useMutation({
     onSuccess: () => navigate(panelRoutes.tags.to()),
   });
 
@@ -91,10 +85,7 @@ export const TagEdit: React.FC = () => {
           Are you sure you want to delete <strong>{tag.name}</strong>?
           <DialogActions>
             <Button onClick={closeDialog}>Back</Button>
-            <Button
-              color="error"
-              onClick={() => deleteTag.mutateAsync({ id: id! })}
-            >
+            <Button color="error" onClick={() => deleteTag.mutateAsync(id!)}>
               {deleteTag.isLoading ? <Loader /> : "Delete"}
             </Button>
           </DialogActions>

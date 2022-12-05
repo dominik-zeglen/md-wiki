@@ -1,6 +1,5 @@
-import { Selectable } from "kysely";
 import { db } from "./db";
-import { Database, MdWikiPages, MdWikiTags } from "./db.d";
+import { Database } from "./db.d";
 
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
@@ -18,7 +17,7 @@ export async function getPage(slug: string) {
   ]);
 
   return {
-    ...page,
+    ...page!,
     tags: tags ?? [],
   };
 }

@@ -87,6 +87,9 @@ const config = {
     open: true,
     port: 10000,
     historyApiFallback: true,
+    client: {
+      overlay: false,
+    },
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],

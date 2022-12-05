@@ -12,11 +12,11 @@ export interface MdWikiM2mTagsPages {
 }
 
 export interface MdWikiPages {
-  content: string | null;
+  content: string;
   createdAt: Timestamp;
   createdBy: string | null;
   slug: string;
-  title: string | null;
+  title: string;
   updatedAt: Timestamp;
   updatedBy: string | null;
 }

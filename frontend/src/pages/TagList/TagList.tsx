@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
-import type { Selectable } from "kysely";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "../PageLoading";
 import styles from "./TagList.scss";
-import type { MdWikiTags as TagType } from "../../../../services/repository/db.d";
+import { AppRouterOutputs } from "../../../../services/api";
 
 export interface TagProps {
-  tags: Array<Selectable<TagType>> | undefined;
+  tags: AppRouterOutputs["tags"]["list"] | undefined;
   onCreate: () => void;
 }
 
@@ -34,7 +33,7 @@ export const TagList: React.FC<TagProps> = ({ tags, onCreate }) => (
             {Intl.DateTimeFormat(undefined, {
               dateStyle: "medium",
               timeStyle: "short",
-            }).format(dbDateToDateObject(tag.updatedAt))}
+            }).format(dbDateToDateObject(tag.updatedAt as string))}
           </Card>
         ))}
       </div>

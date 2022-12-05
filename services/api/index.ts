@@ -5,10 +5,12 @@ import {
 } from "@trpc/server/adapters/aws-lambda";
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { pageRouter } from "./pages";
+import { tagRouter } from "./tags";
 
 export const t = initTRPC.create();
 const appRouter = t.router({
   pages: pageRouter,
+  tags: tagRouter,
 });
 
 export type AppRouter = typeof appRouter;
@@ -21,6 +23,7 @@ const createContext = ({
   event,
   context,
 });
+export type RequestContext = ReturnType<typeof createContext>;
 
 export const main = awsLambdaRequestHandler({
   router: appRouter,

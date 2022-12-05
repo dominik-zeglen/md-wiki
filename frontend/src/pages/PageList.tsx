@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
-import type { Selectable } from "kysely";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "./PageLoading";
 import styles from "./PageList.scss";
-import type { MdWikiPages as PageType } from "../../../services/repository/db.d";
+import { AppRouterOutputs } from "../../../services/api";
 
 export interface PageProps {
-  pages: Array<Selectable<Omit<PageType, "content">>> | undefined;
+  pages: AppRouterOutputs["pages"]["list"] | undefined;
 }
 
 export const PageList: React.FC<PageProps> = ({ pages }) => (
@@ -37,7 +36,7 @@ export const PageList: React.FC<PageProps> = ({ pages }) => (
             {Intl.DateTimeFormat(undefined, {
               dateStyle: "medium",
               timeStyle: "short",
-            }).format(dbDateToDateObject(page.updatedAt))}
+            }).format(dbDateToDateObject(page.updatedAt as string))}
           </Card>
         ))}
       </div>

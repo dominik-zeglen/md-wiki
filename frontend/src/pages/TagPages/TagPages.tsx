@@ -6,10 +6,10 @@ import { groupBy } from "@fxts/core";
 import { panelRoutes, siteRoutes } from "src/routes";
 import styles from "./TagPages.scss";
 import { PageLoading } from "../PageLoading";
-import { GetTagResponse } from "../../../../services/functions/tag/get";
+import { AppRouterOutputs } from "../../../../services/api";
 
 export interface TagPagesProps {
-  tag: GetTagResponse | undefined;
+  tag: AppRouterOutputs["tags"]["get"] | undefined;
 }
 
 export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {

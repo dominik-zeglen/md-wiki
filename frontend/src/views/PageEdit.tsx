@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router";
 import { Button } from "src/components/Button";
 import { Dialog, DialogActions } from "src/components/Dialog";
 import { Loader } from "src/components/Loader";
-import { usePageDelete, usePageUpdate } from "src/hooks/api";
 import { trpc } from "src/hooks/api/trpc";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
@@ -19,15 +18,15 @@ export const PageEdit: React.FC = () => {
   });
   const navigate = useNavigate();
   const form = useForm({
-    defaultValues: page ? pick(page, ["title", "content"]) : {},
+    defaultValues: { content: "", title: "" },
   });
 
   React.useEffect(() => {
     form.reset(pick(page, ["title", "content"]));
   }, [page]);
 
-  const update = usePageUpdate();
-  const pageDelete = usePageDelete({
+  const update = trpc.pages.update.useMutation();
+  const pageDelete = trpc.pages.delete.useMutation({
     onSuccess: () => navigate(panelRoutes.pages.to()),
   });
 
@@ -36,7 +35,7 @@ export const PageEdit: React.FC = () => {
   const onSubmit = () =>
     update.mutate({
       slug: slug!,
-      data: form.getValues(),
+      input: form.getValues(),
     });
   const closeModal = () => setDialogDeleteOpen(false);
 
@@ -59,10 +58,7 @@ export const PageEdit: React.FC = () => {
         Are you sure you want to delete <strong>{page?.title}</strong>?
         <DialogActions>
           <Button onClick={closeModal}>Back</Button>
-          <Button
-            color="error"
-            onClick={() => pageDelete.mutateAsync({ slug: slug! })}
-          >
+          <Button color="error" onClick={() => pageDelete.mutateAsync(slug!)}>
             {pageDelete.isLoading ? <Loader /> : "Delete"}
           </Button>
         </DialogActions>

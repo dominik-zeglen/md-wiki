@@ -8,16 +8,17 @@ import { useFormContext } from "react-hook-form";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "../PageLoading";
 import styles from "./TagEdit.scss";
-import type { GetTagResponse } from "../../../../services/functions/tag/get";
+import { AppRouterOutputs } from "../../../../services/api";
 
 export interface TagProps {
-  tag: GetTagResponse | undefined;
+  tag: AppRouterOutputs["tags"]["get"] | undefined;
   onAttach: () => void;
   onDelete: () => void;
 }
 
 export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
   const { register } = useFormContext();
+
   return (
     <div>
       <div className={styles.toolbar}>
@@ -52,7 +53,7 @@ export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
                     {Intl.DateTimeFormat(undefined, {
                       dateStyle: "medium",
                       timeStyle: "short",
-                    }).format(dbDateToDateObject(page.updatedAt))}
+                    }).format(dbDateToDateObject(page.updatedAt as string))}
                   </Card>
                 ))}
               </>

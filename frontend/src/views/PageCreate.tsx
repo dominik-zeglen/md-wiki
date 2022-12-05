@@ -2,10 +2,10 @@ import slugify from "slugify";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { usePageCreate } from "src/hooks/api";
 import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/PageEditor";
 import { panelRoutes } from "src/routes";
+import { trpc } from "src/hooks/api/trpc";
 
 export const PageCreate: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const PageCreate: React.FC = () => {
     },
   });
 
-  const create = usePageCreate();
+  const create = trpc.pages.create.useMutation();
 
   const onSubmit = async () => {
     const slug = slugify(form.getValues().title, {

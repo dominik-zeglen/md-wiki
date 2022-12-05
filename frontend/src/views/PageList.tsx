@@ -1,10 +1,10 @@
 import React from "react";
-import { usePages } from "src/hooks/api";
+import { trpc } from "src/hooks/api/trpc";
 import { Panel } from "src/Layouts/Panel";
 import { PageList } from "src/pages/PageList";
 
 export const Pages: React.FC = () => {
-  const { data: pages } = usePages();
+  const { data: pages } = trpc.pages.list.useQuery();
 
   return (
     <Panel>
