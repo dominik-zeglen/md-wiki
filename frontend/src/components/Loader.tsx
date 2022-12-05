@@ -7,7 +7,8 @@ export interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = ({ size = "1em" }) => (
   <span className={styles.root} style={{ "--size": size } as any}>
-    <span className={styles.bar} />
+    <span className={styles.box} />
+    <span className={styles.box} />
   </span>
 );
 Loader.displayName = "Loader";
