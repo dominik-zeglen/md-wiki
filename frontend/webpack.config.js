@@ -69,6 +69,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
+      title: "md-wiki",
     }),
     new ForkTsCheckerWebpackPlugin(),
     new EnvironmentPlugin([
