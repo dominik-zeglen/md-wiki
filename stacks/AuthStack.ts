@@ -1,14 +1,9 @@
-import { Cognito, StackContext, use } from "@serverless-stack/resources";
-import { ApiStack } from "./ApiStack";
+import { Cognito, StackContext } from "@serverless-stack/resources";
 
 export function AuthStack({ stack, app }: StackContext) {
-  const { api } = use(ApiStack);
-
   const auth = new Cognito(stack, "Auth", {
     login: ["email"],
   });
-
-  auth.attachPermissionsForAuthUsers(stack, [api]);
 
   stack.addOutputs({
     Region: app.region,

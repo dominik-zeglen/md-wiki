@@ -12,5 +12,5 @@ export default function (app: App) {
       format: "esm",
     },
   });
-  app.stack(StorageStack).stack(ApiStack).stack(AuthStack).stack(FrontendStack);
+  app.stack(StorageStack).stack(AuthStack).stack(ApiStack).stack(FrontendStack);
 }

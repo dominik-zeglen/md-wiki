@@ -7,6 +7,7 @@ import {
   getPages,
   updatePage,
 } from "../repository/page";
+import { jwtMiddleware } from "./middlewares/jwt";
 
 export const pageRouter = router({
   get: procedure
@@ -28,8 +29,9 @@ export const pageRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return createPage({ ...req.input, user });
     }),
@@ -45,8 +47,9 @@ export const pageRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return updatePage({ user, slug: req.input.slug, data: req.input.input });
     }),
@@ -54,5 +57,6 @@ export const pageRouter = router({
     .input((input) => {
       return yup.string().required().validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => deletePage(req.input)),
 });

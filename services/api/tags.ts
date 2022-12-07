@@ -11,6 +11,7 @@ import {
   updateTag,
 } from "../repository/tag";
 import { markPageAsUpdated } from "../repository/page";
+import { jwtMiddleware } from "./middlewares/jwt";
 
 export const tagRouter = router({
   get: procedure
@@ -42,8 +43,9 @@ export const tagRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return createTag({ ...req.input, user });
     }),
@@ -58,8 +60,9 @@ export const tagRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return updateTag({ user, id: req.input.id, data: req.input.data });
     }),
@@ -67,6 +70,7 @@ export const tagRouter = router({
     .input((input) => {
       return yup.string().required().validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => deleteTag(req.input)),
   attach: procedure
     .input((input) => {
@@ -77,8 +81,9 @@ export const tagRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return Promise.all([
         markPageAsUpdated({ slug: req.input.page, user }),
@@ -94,8 +99,9 @@ export const tagRouter = router({
         })
         .validateSync(input);
     })
+    .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.userId;
+      const user = req.ctx.user!.clientId;
 
       return Promise.all([
         markPageAsUpdated({ slug: req.input.page, user }),
