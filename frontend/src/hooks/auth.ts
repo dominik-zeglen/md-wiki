@@ -11,7 +11,7 @@ Auth.configure({
   userPoolWebClientId: config.cognito.APP_CLIENT_ID,
 });
 
-const userAtom = atom<Record<"email" | "sub", string> | null>({
+export const userAtom = atom<Record<"email" | "sub", string> | null>({
   default: undefined,
   key: "user",
   dangerouslyAllowMutability: true,

@@ -6,6 +6,8 @@
     "codegen": "kysely-codegen"
   },
   "dependencies": {
+    "@aws-amplify/core": "^5.0.4",
+    "@aws-crypto/sha256-browser": "^2.0.2",
     "@trpc/server": "^10.4.3",
     "aws-sdk": "^2.1243.0",
     "kysely": "^0.22.0",

@@ -18,45 +18,11 @@ export function ApiStack({ stack }: StackContext) {
       },
     },
     routes: {
-      "GET /health": {
-        authorizer: "none",
-        function: "functions/health.main",
-      },
-
-      "POST /pages": "functions/create.main",
-      "GET /pages": {
-        authorizer: "none",
-        function: "functions/list.main",
-      },
-      "GET /pages/{slug}": {
-        authorizer: "none",
-        function: "functions/get.main",
-      },
-      "PATCH /pages/{slug}": "functions/update.main",
-      "DELETE /pages/{slug}": "functions/delete.main",
-
-      "POST /tags": "functions/tag/create.main",
-      "GET /tags": {
-        authorizer: "none",
-        function: "functions/tag/list.main",
-      },
-      "GET /tags/{id}": {
-        authorizer: "none",
-        function: "functions/tag/get.main",
-      },
-      "POST /tags/{id}/attach": "functions/tag/attach.main",
-      "POST /tags/{id}/unattach": "functions/tag/unattach.main",
-      // "PATCH /tags/{id}": "functions/update.main",
-      "DELETE /tags/{id}": "functions/tag/delete.main",
       "GET /trpc/{proxy+}": {
-        authorizer: "none",
         function: "api/index.main",
-        payloadFormatVersion: "2.0",
       },
       "POST /trpc/{proxy+}": {
-        authorizer: "none",
         function: "api/index.main",
-        payloadFormatVersion: "2.0",
       },
     },
   });
