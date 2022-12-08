@@ -33,7 +33,7 @@ export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
       </div>
       {tag ? (
         groupedPages.map(([letter, pages]) => (
-          <div>
+          <div className={styles.section}>
             <h6 className={styles.sectionHeader}>{letter}</h6>
             {pages.map((page) => (
               <Link to={siteRoutes.page.to({ slug: page.slug })}>

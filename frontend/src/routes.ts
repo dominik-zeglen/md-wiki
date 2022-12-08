@@ -15,7 +15,8 @@ function createRoute<T extends string | void = void>(
 export const siteRoutes = {
   home: createRoute("/"),
   page: createRoute<"slug">("/pages/:slug"),
-  tag: createRoute<"id">("/tag/:id"),
+  tag: createRoute<"id">("/tags/:id"),
+  tags: createRoute("/tags/"),
 };
 
 export const panelRoutes = {
