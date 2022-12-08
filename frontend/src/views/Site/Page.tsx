@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { trpc } from "src/hooks/api/trpc";
 import { Site } from "src/Layouts/Site";
-import { Page as PagePage } from "src/pages/Page";
+import { Page as PagePage } from "src/pages/site/Page";
 
 export const Page: React.FC = () => {
   const { slug } = useParams();

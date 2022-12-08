@@ -3,7 +3,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Panel } from "src/Layouts/Panel";
-import { PageEditor } from "src/pages/PageEditor";
+import { PageEditor } from "src/pages/panel/PageEditor";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";
 

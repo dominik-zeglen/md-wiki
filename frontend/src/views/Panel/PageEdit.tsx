@@ -7,8 +7,8 @@ import { Dialog, DialogActions } from "src/components/Dialog";
 import { Loader } from "src/components/Loader";
 import { trpc } from "src/hooks/api/trpc";
 import { Panel } from "src/Layouts/Panel";
-import { PageEditor } from "src/pages/PageEditor";
-import { PageLoading } from "src/pages/PageLoading";
+import { PageEditor } from "src/pages/panel/PageEditor";
+import { PageLoading } from "src/pages/common/PageLoading";
 import { panelRoutes } from "src/routes";
 
 export const PageEdit: React.FC = () => {

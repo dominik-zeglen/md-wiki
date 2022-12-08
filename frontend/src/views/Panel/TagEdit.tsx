@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { Button } from "src/components/Button";
 import { Dialog, DialogActions } from "src/components/Dialog";
 import { Panel } from "src/Layouts/Panel";
-import { TagEdit as TagEditPage } from "src/pages/TagEdit";
+import { TagEdit as TagEditPage } from "src/pages/panel/TagEdit";
 import { Loader } from "src/components/Loader";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";

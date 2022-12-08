@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
 import { panelRoutes, siteRoutes } from "src/routes";
 import styles from "./Page.scss";
-import { PageLoading } from "./PageLoading";
-import { AppRouterOutputs } from "../../../services/api";
+import { PageLoading } from "../common/PageLoading";
+import { AppRouterOutputs } from "../../../../services/api";
 
 export interface PageProps {
   page: AppRouterOutputs["pages"]["get"] | undefined;

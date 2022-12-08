@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
 import { panelRoutes, siteRoutes } from "src/routes";
 import styles from "./TagPages.scss";
-import { PageLoading } from "../PageLoading";
-import { AppRouterOutputs } from "../../../../services/api";
+import { PageLoading } from "../../common/PageLoading";
+import { AppRouterOutputs } from "../../../../../services/api";
 
 export interface TagPagesProps {
   tag: AppRouterOutputs["tags"]["get"] | undefined;

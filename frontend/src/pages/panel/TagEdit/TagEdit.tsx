@@ -6,9 +6,9 @@ import { dbDateToDateObject } from "src/utils/date";
 import { Input } from "src/components/Input";
 import { useFormContext } from "react-hook-form";
 import { panelRoutes } from "src/routes";
-import { PageLoading } from "../PageLoading";
+import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagEdit.scss";
-import { AppRouterOutputs } from "../../../../services/api";
+import { AppRouterOutputs } from "../../../../../services/api";
 
 export interface TagProps {
   tag: AppRouterOutputs["tags"]["get"] | undefined;
