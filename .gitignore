@@ -9,4 +9,4 @@ node_modules
 !.gitignore
 !.github
 !.eslintrc.js
-frontend/dist
+frontend/build
