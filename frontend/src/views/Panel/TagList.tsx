@@ -8,7 +8,7 @@ import { Loader } from "src/components/Loader";
 import { trpc } from "src/hooks/api/trpc";
 import { Panel } from "src/Layouts/Panel";
 import { panelRoutes } from "src/routes";
-import { TagList } from "../pages/TagList";
+import { TagList } from "../../pages/TagList";
 
 export const Tags: React.FC = () => {
   const navigate = useNavigate();

@@ -3,21 +3,21 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { render } from "react-dom";
-import { Home } from "./views/Home";
-import { Page } from "./views/Page";
-import { PageEdit } from "./views/PageEdit";
-
-import "./global.scss";
-import { Pages } from "./views/PageList";
-import { PageCreate } from "./views/PageCreate";
+import { Home } from "./views/Site/Home";
+import { Page } from "./views/Site/Page";
+import { PageEdit } from "./views/Panel/PageEdit";
+import { Pages } from "./views/Panel/PageList";
+import { PageCreate } from "./views/Panel/PageCreate";
 import { useCognito } from "./hooks/auth";
 import { PageLoading } from "./pages/PageLoading";
-import { PanelHome } from "./views/PanelHome";
-import { Tags } from "./views/TagList";
-import { TagEdit } from "./views/TagEdit";
-import { TagPages } from "./views/TagPages";
+import { PanelHome } from "./views/Panel/PanelHome";
+import { Tags } from "./views/Panel/TagList";
+import { TagEdit } from "./views/Panel/TagEdit";
+import { TagPages } from "./views/Site/TagPages";
 import { panelRoutes, siteRoutes } from "./routes";
 import { client, TRPCProvider } from "./hooks/api/trpc";
+
+import "./global.scss";
 
 const queryClient = new QueryClient({
   defaultOptions: {
