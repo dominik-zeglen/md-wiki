@@ -23,9 +23,34 @@
 .footer {
   border-top: 1px solid var(--palette-default);
   margin-top: calc(var(--spacing) * 3);
-  padding: calc(var(--spacing) * 3) 0;
+  padding: calc(var(--spacing) * 3) 0 calc(var(--spacing) * 4);
 
-  &Header {
-    margin: 0 0 var(--spacing);
+  h6 {
+    margin: var(--spacing) 0;
+  }
+
+  &Tags {
+    display: flex;
+    gap: var(--spacing);
+
+    &:header {
+      margin: 0 0 var(--spacing);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  hr {
+    background-color: var(--palette-default);
+    border: none;
+    height: 1px;
+    margin: calc(var(--spacing) * 3) 0;
   }
 }

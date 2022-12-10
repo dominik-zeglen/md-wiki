@@ -60,14 +60,25 @@ export const Page: React.FC<PageProps> = ({ page }) => {
       {page ? (
         <>
           <PagePreview page={page} />
-          {page?.tags.length > 0 && (
-            <footer className={styles.footer}>
-              <h6 className={styles.footerHeader}>Tags</h6>
-              {page.tags.map(({ id, name }) => (
-                <Link to={siteRoutes.tag.to({ id })}>{name}</Link>
-              ))}
-            </footer>
-          )}
+          <footer className={styles.footer}>
+            {page?.tags.length > 0 && (
+              <>
+                <h6>Tags</h6>
+                <div className={styles.footerTags}>
+                  {page.tags.map(({ id, name }) => (
+                    <Link to={siteRoutes.tag.to({ id })}>{name}</Link>
+                  ))}
+                </div>
+                <hr />
+              </>
+            )}
+            <h6>Useful links</h6>
+            <ul>
+              <li>
+                <Link to={siteRoutes.tags.to()}>All tags</Link>
+              </li>
+            </ul>
+          </footer>
         </>
       ) : (
         <PageLoading />

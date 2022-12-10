@@ -29,7 +29,7 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => {
             {tagsChunk.map((tag) => (
               <Link
                 to={siteRoutes.tag.to({
-                  id: [tag.id, slugify(tag.name, { lower: true })].join("-"),
+                  id: [tag.id, slugify(tag.name!, { lower: true })].join("-"),
                 })}
               >
                 {tag.name}

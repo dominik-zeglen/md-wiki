@@ -10,7 +10,7 @@ import { AppRouterOutputs } from "../../../../services/api";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
-  page: Pick<AppRouterOutputs["pages"]["get"], "slug">;
+  page?: Pick<AppRouterOutputs["pages"]["get"], "slug">;
   loading: boolean;
   onDelete?: () => void;
   onSubmit: () => void;
@@ -47,9 +47,11 @@ export const PageEditor: React.FC<PageEditorProps> = ({
         onSubmit={onSubmit}
         loading={loading}
       >
-        <Link to={siteRoutes.page.to({ slug: page.slug })}>
-          <Button>Live</Button>
-        </Link>
+        {!!page && (
+          <Link to={siteRoutes.page.to({ slug: page.slug })}>
+            <Button>Live</Button>
+          </Link>
+        )}
         {onDelete && (
           <Button color="error" onClick={onDelete}>
             Delete
