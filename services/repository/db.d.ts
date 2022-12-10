@@ -30,8 +30,15 @@ export interface MdWikiTags {
   updatedBy: string | null;
 }
 
+export interface MdWikiUsers {
+  cognitoUserName: string;
+  displayName: string | null;
+  email: string;
+}
+
 export interface Database {
   "mdWiki.m2m_tags_pages": MdWikiM2mTagsPages;
   "mdWiki.pages": MdWikiPages;
   "mdWiki.tags": MdWikiTags;
+  "mdWiki.users": MdWikiUsers;
 }

@@ -5,8 +5,28 @@ export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
     db
       .selectFrom("mdWiki.pages")
-      .selectAll()
       .where("mdWiki.pages.slug", "=", slug)
+      .leftJoin(
+        db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
+        "createdBy.cognitoUserName",
+        "mdWiki.pages.createdBy"
+      )
+      .leftJoin(
+        db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
+        "updatedBy.cognitoUserName",
+        "mdWiki.pages.updatedBy"
+      )
+      .select([
+        "createdBy.displayName as createdByDisplayName",
+        "createdBy.email as createdByEmail",
+        "updatedBy.displayName as updatedByDisplayName",
+        "updatedBy.email as updatedByEmail",
+        "content",
+        "createdAt",
+        "updatedAt",
+        "slug",
+        "title",
+      ])
       .executeTakeFirstOrThrow(),
     db
       .selectFrom("mdWiki.m2m_tags_pages")
