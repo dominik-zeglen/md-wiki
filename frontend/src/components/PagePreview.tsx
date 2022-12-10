@@ -1,11 +1,39 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
+import directivePlugin from "remark-directive";
+import { siteRoutes } from "src/routes";
+import { visit } from "unist-util-visit";
 import { AppRouterOutputs } from "../../../services/api";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
   page: AppRouterOutputs["pages"]["get"] | undefined;
+}
+
+function embedPagePlugin() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (
+        node.type === "textDirective" ||
+        node.type === "leafDirective" ||
+        node.type === "containerDirective"
+      ) {
+        if (node.name !== "page") return;
+
+        const data = node.data || (node.data = {});
+        const attributes = node.attributes || {};
+        const slug = attributes.id;
+
+        if (!slug) return;
+
+        data.hName = "a";
+        data.hProperties = {
+          href: siteRoutes.page.to({ slug }),
+        };
+      }
+    });
+  };
 }
 
 export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
@@ -16,6 +44,7 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   return (
     <div className={styles.root}>
       <ReactMarkdown
+        remarkPlugins={[directivePlugin, embedPagePlugin]}
         components={{
           // eslint-disable-next-line react/no-unstable-nested-components
           a: ({ href, children }) => <Link to={href!}>{children}</Link>,
