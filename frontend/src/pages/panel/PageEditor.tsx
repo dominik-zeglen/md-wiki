@@ -1,19 +1,23 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Input } from "src/components/Input";
 import { PagePreview } from "src/components/PagePreview";
 import { Savebar } from "src/components/Savebar";
-import { panelRoutes } from "src/routes";
+import { panelRoutes, siteRoutes } from "src/routes";
+import { AppRouterOutputs } from "../../../../services/api";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
+  page: Pick<AppRouterOutputs["pages"]["get"], "slug">;
   loading: boolean;
   onDelete?: () => void;
   onSubmit: () => void;
 }
 
 export const PageEditor: React.FC<PageEditorProps> = ({
+  page,
   loading,
   onDelete,
   onSubmit,
@@ -43,6 +47,9 @@ export const PageEditor: React.FC<PageEditorProps> = ({
         onSubmit={onSubmit}
         loading={loading}
       >
+        <Link to={siteRoutes.page.to({ slug: page.slug })}>
+          <Button>Live</Button>
+        </Link>
         {onDelete && (
           <Button color="error" onClick={onDelete}>
             Delete

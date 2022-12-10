@@ -47,6 +47,7 @@ export const PageEdit: React.FC = () => {
             <PageLoading />
           ) : (
             <PageEditor
+              page={page}
               loading={update.isLoading}
               onDelete={() => setDialogDeleteOpen(true)}
               onSubmit={onSubmit}
