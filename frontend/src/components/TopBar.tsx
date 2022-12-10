@@ -5,17 +5,21 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useCognito } from "src/hooks/auth";
 import { panelRoutes, siteRoutes } from "src/routes";
+import SVG from "react-inlinesvg";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
 import { Loader } from "./Loader";
 import styles from "./TopBar.scss";
+import searchIcon from "../../assets/search.svg";
+import { IconButton } from "./IconButton";
 
 export interface TopBarProps {
   limit?: boolean;
+  onSearchOpen?: () => void;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
+export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
   const { user, login, logout, loading } = useCognito();
   const { pathname } = useLocation();
   const { register, reset, handleSubmit } = useForm({
@@ -45,6 +49,13 @@ export const TopBar: React.FC<TopBarProps> = ({ limit }) => {
           </Link>
         </div>
         <div className={styles.spacer} />
+        {onSearchOpen && (
+          <div className={styles.item}>
+            <IconButton onClick={onSearchOpen}>
+              <SVG src={searchIcon} />
+            </IconButton>
+          </div>
+        )}
         <div className={styles.item}>
           {loading ? (
             <Loader />

@@ -1,0 +1,21 @@
+.input {
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+.loader {
+  text-align: center;
+}
+
+.result {
+  &:not(:last-child) {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  h6 {
+    margin: 0 0 var(--spacing);
+  }
+
+  &Content {
+    font-size: var(--typography-caption);
+  }
+}

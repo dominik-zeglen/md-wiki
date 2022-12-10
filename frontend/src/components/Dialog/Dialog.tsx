@@ -7,11 +7,30 @@ import styles from "./Dialog.scss";
 
 Modal.setAppElement("body");
 
-export interface DialogProps {
+export const dialogStyles = {
+  content: {
+    backgroundColor: "var(--palette-background)",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    maxWidth: `calc(100vw - ${"calc(var(--spacing) * 4)"})`,
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+  },
+};
+
+export interface BaseDialogProps {
   open: boolean;
+  onClose: () => void;
+}
+
+export interface DialogProps extends BaseDialogProps {
   title?: string;
   width?: string;
-  onClose: () => void;
 }
 
 export const Dialog: React.FC<DialogProps> = ({
@@ -25,19 +44,10 @@ export const Dialog: React.FC<DialogProps> = ({
     isOpen={open}
     onRequestClose={onClose}
     style={{
+      ...dialogStyles,
       content: {
-        backgroundColor: "var(--palette-background)",
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        maxWidth: `calc(100vw - ${"calc(var(--spacing) * 4)"})`,
+        ...dialogStyles.content,
         width: width ?? "300px",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-      },
-      overlay: {
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
       },
     }}
   >

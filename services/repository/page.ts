@@ -143,11 +143,7 @@ export function deletePage(slug: string) {
 export function searchPage(text: string) {
   return db
     .selectFrom("mdWiki.pages")
-    .select([
-      "slug",
-      "title",
-      sql<string>`SUBSTRING(content, 0, 100)`.as("brief"),
-    ])
+    .select(["slug", "title", sql<string>`substr(content, 1, 200)`.as("brief")])
     .where("title", "like", `%${text}%`)
     .limit(5)
     .execute();
