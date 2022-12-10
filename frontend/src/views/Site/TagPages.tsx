@@ -6,7 +6,7 @@ import { TagPages as TagPagesPage } from "src/pages/site/TagPages";
 
 export const TagPages: React.FC = () => {
   const { id } = useParams();
-  const { data: tag } = trpc.tags.get.useQuery(id!, {
+  const { data: tag } = trpc.tags.get.useQuery(id!.split("-")[0], {
     refetchOnMount: false,
   });
 

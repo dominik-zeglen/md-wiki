@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
 import { siteRoutes } from "src/routes";
+import slugify from "slugify";
 import styles from "./TagList.scss";
 import { PageLoading } from "../../common/PageLoading";
 import { AppRouterOutputs } from "../../../../../services/api";
@@ -26,7 +27,13 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => {
           <div className={styles.section}>
             <h6 className={styles.sectionHeader}>{letter}</h6>
             {tagsChunk.map((tag) => (
-              <Link to={siteRoutes.tag.to({ id: tag.id })}>{tag.name}</Link>
+              <Link
+                to={siteRoutes.tag.to({
+                  id: [tag.id, slugify(tag.name, { lower: true })].join("-"),
+                })}
+              >
+                {tag.name}
+              </Link>
             ))}
           </div>
         ))
