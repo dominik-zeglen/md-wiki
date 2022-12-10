@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { Database } from "./db.d";
+import { pick } from "@fxts/core";
 
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
@@ -37,7 +38,21 @@ export async function getPage(slug: string) {
   ]);
 
   return {
-    ...page!,
+    ...pick(["content", "createdAt", "updatedAt", "slug", "title"], page!),
+    created: {
+      user: {
+        displayName: page.createdByDisplayName,
+        email: page.createdByEmail,
+      },
+      date: page.createdAt,
+    },
+    updated: {
+      user: {
+        displayName: page.updatedByDisplayName,
+        email: page.updatedByEmail,
+      },
+      date: page.updatedAt,
+    },
     tags: tags ?? [],
   };
 }
