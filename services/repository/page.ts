@@ -1,6 +1,7 @@
 import { db } from "./db";
 import { Database } from "./db.d";
 import { pick } from "@fxts/core";
+import { sql } from "kysely";
 
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
@@ -137,4 +138,17 @@ export async function createPage(input: CreatePageInput) {
 
 export function deletePage(slug: string) {
   return db.deleteFrom("mdWiki.pages").where("slug", "=", slug).execute();
+}
+
+export function searchPage(text: string) {
+  return db
+    .selectFrom("mdWiki.pages")
+    .select([
+      "slug",
+      "title",
+      sql<string>`SUBSTRING(content, 0, 100)`.as("brief"),
+    ])
+    .where("title", "like", `%${text}%`)
+    .limit(5)
+    .execute();
 }

@@ -5,6 +5,7 @@ import {
   deletePage,
   getPage,
   getPages,
+  searchPage,
   updatePage,
 } from "../repository/page";
 import { jwtMiddleware } from "./middlewares/jwt";
@@ -59,4 +60,9 @@ export const pageRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => deletePage(req.input)),
+  search: procedure
+    .input((input) => {
+      return yup.string().required().validateSync(input);
+    })
+    .query((req) => searchPage(req.input)),
 });
