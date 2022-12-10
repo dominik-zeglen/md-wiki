@@ -4,6 +4,7 @@ import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
 import { panelRoutes, siteRoutes } from "src/routes";
+import { dbDateToDateObject } from "src/utils/date";
 import styles from "./Page.scss";
 import { PageLoading } from "../common/PageLoading";
 import { AppRouterOutputs } from "../../../../services/api";
@@ -17,16 +18,45 @@ export const Page: React.FC<PageProps> = ({ page }) => {
 
   return (
     <article className={styles.root}>
-      <div className={styles.header}>
-        <h1>{page?.title}</h1>
-        {!!user && (
-          <div>
-            <Link to={panelRoutes.page.to({ slug: page?.slug ?? "" })}>
-              <Button>edit</Button>
-            </Link>
-          </div>
+      <header className={styles.header}>
+        <div className={styles.headerBar}>
+          <h1>{page?.title}</h1>
+
+          {!!user && (
+            <div>
+              <Link to={panelRoutes.page.to({ slug: page?.slug ?? "" })}>
+                <Button>edit</Button>
+              </Link>
+            </div>
+          )}
+        </div>
+        {!!page && (
+          <>
+            <small
+              className={styles.headerCaption}
+            >{`Created ${dbDateToDateObject(
+              page.createdAt as string
+            ).toLocaleDateString("en", {
+              dateStyle: "long",
+            })}, by ${
+              page.created.user.displayName ??
+              page.created.user.email ??
+              "unknown"
+            }`}</small>
+            <small
+              className={styles.headerCaption}
+            >{`Last modified ${dbDateToDateObject(
+              page.updatedAt as string
+            ).toLocaleDateString("en", {
+              dateStyle: "long",
+            })} by ${
+              page.updated.user.displayName ??
+              page.updated.user.email ??
+              "unknown"
+            }`}</small>
+          </>
         )}
-      </div>
+      </header>
       {page ? (
         <>
           <PagePreview page={page} />

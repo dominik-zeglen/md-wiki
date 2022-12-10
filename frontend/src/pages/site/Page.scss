@@ -3,13 +3,20 @@
 }
 
 .header {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
   margin-bottom: calc(var(--spacing) * 3);
 
-  h1 {
-    margin-bottom: 0;
+  &Bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+
+  &Caption {
+    display: block;
   }
 }
 

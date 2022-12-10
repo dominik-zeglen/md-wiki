@@ -104,6 +104,7 @@ textarea {
   --typography-h4: 2.4rem;
   --typography-h5: 2.1rem;
   --typography-h6: 1.9rem;
+  --typography-small: 1.3rem;
 }
 
 html {
@@ -142,6 +143,10 @@ h5 {
 
 h6 {
   font-size: var(--typography-h6);
+}
+
+small {
+  font-size: var(--typography-small);
 }
 
 a {
