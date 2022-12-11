@@ -10,11 +10,7 @@
     "jsx": "react",
     "strictNullChecks": true,
     "paths": {
-      "@assets/*": ["./assets/*"],
-      "@core/*": ["./core/*"],
-      "@devtools/*": ["./devtools/*"],
-      "@kit/*": ["./kit/*"],
-      "@ui/*": ["./ui/*"]
+      "@assets/*": ["./assets/*"]
     }
   },
   "exclude": ["**/*.test.*"]
