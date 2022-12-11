@@ -24,6 +24,7 @@ export interface PageEditorProps {
   loading: boolean;
   onDelete?: () => void;
   onSubmit: () => void;
+  onTagManage?: () => void;
 }
 
 export const PageEditor: React.FC<PageEditorProps> = ({
@@ -31,6 +32,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
   loading,
   onDelete,
   onSubmit,
+  onTagManage,
 }) => {
   const { register, getValues } = useFormContext();
   const [preview, setPreview] = React.useState(getValues().content);
@@ -73,9 +75,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                 <TabPanel>
                   <Card>
                     <CardTitle>History</CardTitle>
-                    <p
-                      className={styles.headerCaption}
-                    >{`Created ${dbDateToDateObject(
+                    <p>{`Created ${dbDateToDateObject(
                       page.createdAt as string
                     ).toLocaleDateString("en", {
                       dateStyle: "long",
@@ -84,9 +84,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                       page.created.user.email ??
                       "unknown"
                     }`}</p>
-                    <p
-                      className={styles.headerCaption}
-                    >{`Last modified ${dbDateToDateObject(
+                    <p>{`Last modified ${dbDateToDateObject(
                       page.updatedAt as string
                     ).toLocaleDateString("en", {
                       dateStyle: "long",
@@ -97,18 +95,22 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                     }`}</p>
                   </Card>
                   <Card>
-                    <CardTitle actions={<Button>Manage</Button>}>
+                    <CardTitle
+                      actions={<Button onClick={onTagManage}>Manage</Button>}
+                    >
                       Tags
                     </CardTitle>
                     <div className={styles.editorRightPaneTags}>
-                      {page.tags.map((tag) => (
-                        <Link
-                          key={tag.id}
-                          to={panelRoutes.tag.to({ id: tag.id })}
-                        >
-                          {tag.name}
-                        </Link>
-                      ))}
+                      {page.tags.length > 0
+                        ? page.tags.map((tag) => (
+                            <Link
+                              key={tag.id}
+                              to={panelRoutes.tag.to({ id: tag.id })}
+                            >
+                              {tag.name}
+                            </Link>
+                          ))
+                        : "No tags attached"}
                     </div>
                   </Card>
                 </TabPanel>

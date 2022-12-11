@@ -56,7 +56,9 @@ export const TagEdit: React.FC = () => {
             <div key={page.slug}>
               <input
                 type="checkbox"
-                checked={tag.pages.map(({ slug }) => slug).includes(page.slug)}
+                defaultChecked={tag.pages
+                  .map(({ slug }) => slug)
+                  .includes(page.slug)}
                 onChange={(event) =>
                   (event.target.checked
                     ? attach.mutateAsync
