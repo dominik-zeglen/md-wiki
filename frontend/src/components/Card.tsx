@@ -10,3 +10,19 @@ export const Card = React.forwardRef<
     {children}
   </div>
 ));
+
+export interface CardTitleProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLHeadingElement>,
+    HTMLHeadingElement
+  > {
+  actions?: React.ReactNode;
+}
+export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
+  ({ actions, children, className, ...rest }, ref) => (
+    <h6 {...rest} className={clsx(className, styles.title)} ref={ref}>
+      {children}
+      <div>{actions}</div>
+    </h6>
+  )
+);

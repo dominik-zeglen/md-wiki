@@ -1,7 +1,16 @@
 .root {
+  &:not(:last-child) {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+
   background: var(--palette-background);
   border-radius: 4px;
   border: 1px solid #ebebeb;
-  box-shadow: -2px 4px 10px 0px #dddddd;
-  padding: var(--spacing);
+  padding: calc(var(--spacing) * 2);
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 calc(var(--spacing) * 2);
 }

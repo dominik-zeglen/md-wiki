@@ -90,10 +90,11 @@ textarea {
   --palette-disabled: #dddddd;
   --palette-shadow: rgba(0, 0, 0, 0.2);
 
-  --palette-primary: #7d5ba6;
-  --palette-success: #71f79f;
-  --palette-error: #fc6471;
-  --palette-link: #87bcde;
+  --palette-primary: #1abc9c;
+  --palette-success: #2ecc71;
+  --palette-error: #e74c3c;
+  --palette-link: #3498db;
+  --palette-link-visited: #2980b9;
 
   --typography-default: 1.6rem;
   --typography-button: 1.3rem;
@@ -153,7 +154,7 @@ a {
   color: var(--palette-link);
 
   &:visited {
-    color: var(--palette-primary);
+    color: var(--palette-link-visited);
   }
 }
 
