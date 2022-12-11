@@ -12,7 +12,8 @@ export const db = new Kysely<Database>({
       resourceArn: process.env.CLUSTER_ARN!,
       client: new RDSDataService(),
     },
-  }),
+    // Version mismatch between kysely@0.22.0 and 0.21.6 for unknown reasons
+  }) as any,
 });
 
 export const getLastInsertId = async () =>
