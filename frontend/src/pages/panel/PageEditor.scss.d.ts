@@ -8,3 +8,4 @@ export const editorRightPane: string;
 export const editorRightPaneTabs: string;
 export const editorRightPaneTabsContainer: string;
 export const editorRightPaneTags: string;
+export const editorRightPaneReferences: string;
