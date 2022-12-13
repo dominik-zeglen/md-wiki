@@ -8,4 +8,14 @@
       margin-top: 0;
     }
   }
+
+  .image {
+    float: left;
+    margin: 0 var(--spacing) 0 0;
+
+    &Right {
+      float: right;
+      margin: 0 0 0 var(--spacing);
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
@@ -36,6 +37,38 @@ function embedPagePlugin() {
   };
 }
 
+function embedImagePlugin() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (node.type === "textDirective") {
+        if (node.name !== "img") return;
+
+        const data = node.data || (node.data = {});
+        const attributes = node.attributes || {};
+        const alt = attributes.alt;
+        const src = attributes.src;
+        const side = attributes.side;
+        const className = clsx(styles.image, {
+          [styles.imageRight]: side === "right",
+        });
+
+        if (!src) return;
+
+        console.log(node);
+
+        node.children = [];
+        data.innerHTML = "";
+        data.hName = "img";
+        data.hProperties = {
+          alt,
+          src,
+          className,
+        };
+      }
+    });
+  };
+}
+
 export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   if (!page) {
     return null;
@@ -44,7 +77,7 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   return (
     <div className={styles.root}>
       <ReactMarkdown
-        remarkPlugins={[directivePlugin, embedPagePlugin]}
+        remarkPlugins={[directivePlugin, embedPagePlugin, embedImagePlugin]}
         components={{
           // eslint-disable-next-line react/no-unstable-nested-components
           a: ({ href, children }) => <Link to={href!}>{children}</Link>,
