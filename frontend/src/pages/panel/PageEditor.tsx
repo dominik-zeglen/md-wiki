@@ -118,20 +118,22 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                   </Card>
                   <Card>
                     <CardTitle>Referenced by</CardTitle>
-                    {references === undefined ? (
-                      <Loader />
-                    ) : references.length > 0 ? (
-                      references.map((page) => (
-                        <Link
-                          key={page.slug}
-                          to={panelRoutes.page.to({ slug: page.slug })}
-                        >
-                          {page.title}
-                        </Link>
-                      ))
-                    ) : (
-                      "No references to this page"
-                    )}
+                    <div className={styles.editorRightPaneReferences}>
+                      {references === undefined ? (
+                        <Loader />
+                      ) : references.length > 0 ? (
+                        references.map((page) => (
+                          <Link
+                            key={page.slug}
+                            to={panelRoutes.page.to({ slug: page.slug })}
+                          >
+                            {page.title}
+                          </Link>
+                        ))
+                      ) : (
+                        "No references to this page"
+                      )}
+                    </div>
                   </Card>
                 </TabPanel>
               </TabPanels>
