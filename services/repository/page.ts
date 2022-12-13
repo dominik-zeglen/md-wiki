@@ -184,6 +184,20 @@ export function searchPage(text: string) {
     .execute();
 }
 
+export function getPageReferences(slug: string) {
+  return db
+    .selectFrom("mdWiki.page_references")
+    .selectAll()
+    .where("references", "=", slug)
+    .innerJoin(
+      "mdWiki.pages",
+      "mdWiki.pages.slug",
+      "mdWiki.page_references.referenced_by"
+    )
+    .select(["slug", "title"])
+    .execute();
+}
+
 export function getPageReferencesFromContent(content: string) {
   let slugs: string[] = [];
 

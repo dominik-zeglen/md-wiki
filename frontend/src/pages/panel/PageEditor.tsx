@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card, CardTitle } from "src/components/Card";
 import { Input } from "src/components/Input";
+import { Loader } from "src/components/Loader";
 import { PagePreview } from "src/components/PagePreview";
 import { Savebar } from "src/components/Savebar";
 import {
@@ -21,6 +22,7 @@ import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
   page?: AppRouterOutputs["pages"]["get"];
+  references?: AppRouterOutputs["pages"]["references"];
   loading: boolean;
   onDelete?: () => void;
   onSubmit: () => void;
@@ -29,6 +31,7 @@ export interface PageEditorProps {
 
 export const PageEditor: React.FC<PageEditorProps> = ({
   page,
+  references,
   loading,
   onDelete,
   onSubmit,
@@ -112,6 +115,23 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                           ))
                         : "No tags attached"}
                     </div>
+                  </Card>
+                  <Card>
+                    <CardTitle>Referenced by</CardTitle>
+                    {references === undefined ? (
+                      <Loader />
+                    ) : references.length > 0 ? (
+                      references.map((page) => (
+                        <Link
+                          key={page.slug}
+                          to={panelRoutes.page.to({ slug: page.slug })}
+                        >
+                          {page.title}
+                        </Link>
+                      ))
+                    ) : (
+                      "No references to this page"
+                    )}
                   </Card>
                 </TabPanel>
               </TabPanels>

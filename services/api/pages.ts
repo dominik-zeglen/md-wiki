@@ -4,6 +4,7 @@ import {
   createPage,
   deletePage,
   getPage,
+  getPageReferences,
   getPages,
   searchPage,
   updatePage,
@@ -65,4 +66,9 @@ export const pageRouter = router({
       return yup.string().required().validateSync(input);
     })
     .query((req) => searchPage(req.input)),
+  references: procedure
+    .input((input) => {
+      return yup.string().required().validateSync(input);
+    })
+    .query((req) => getPageReferences(req.input)),
 });

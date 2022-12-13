@@ -16,6 +16,9 @@ export const PageEdit: React.FC = () => {
   const { data: page, refetch } = trpc.pages.get.useQuery(slug!, {
     refetchOnMount: "always",
   });
+  const { data: references } = trpc.pages.references.useQuery(slug!, {
+    refetchOnMount: "always",
+  });
 
   const navigate = useNavigate();
   const form = useForm({
@@ -60,6 +63,7 @@ export const PageEdit: React.FC = () => {
           ) : (
             <PageEditor
               page={page}
+              references={references}
               loading={update.isLoading}
               onDelete={() => setOpenedDialog("delete")}
               onSubmit={onSubmit}
