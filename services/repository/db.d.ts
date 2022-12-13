@@ -21,6 +21,11 @@ export interface MdWikiPages {
   updatedBy: string | null;
 }
 
+export interface MdWikiPageReferences {
+  referenced_by: string;
+  references: string;
+}
+
 export interface MdWikiTags {
   createdAt: Timestamp;
   createdBy: string | null;
@@ -39,6 +44,7 @@ export interface MdWikiUsers {
 export interface Database {
   "mdWiki.m2m_tags_pages": MdWikiM2mTagsPages;
   "mdWiki.pages": MdWikiPages;
+  "mdWiki.page_references": MdWikiPageReferences;
   "mdWiki.tags": MdWikiTags;
   "mdWiki.users": MdWikiUsers;
 }

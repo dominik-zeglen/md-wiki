@@ -1,7 +1,32 @@
+import { pick, pipe, toArray, uniq } from "@fxts/core";
+import { remark } from "remark";
+import directivePlugin from "remark-directive";
+import { visit } from "unist-util-visit";
+
 import { db } from "./db";
 import { Database } from "./db.d";
-import { pick } from "@fxts/core";
 import { sql } from "kysely";
+
+function pageReferencePlugin(cb: (slug: string) => void) {
+  return () => (tree) => {
+    visit(tree, (node) => {
+      if (
+        node.type === "textDirective" ||
+        node.type === "leafDirective" ||
+        node.type === "containerDirective"
+      ) {
+        if (node.name !== "page") return;
+
+        const attributes = node.attributes || {};
+        const slug = attributes.id;
+
+        if (!slug) return;
+
+        cb(slug);
+      }
+    });
+  };
+}
 
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
@@ -114,6 +139,11 @@ export async function updatePage(input: UpdatePageInput) {
     throw new Error(`Page ${input.slug} not found`);
   }
 
+  await updateReferences(
+    input.slug,
+    getPageReferencesFromContent(input.data.content)
+  );
+
   return { success: true };
 }
 
@@ -133,6 +163,11 @@ export async function createPage(input: CreatePageInput) {
     })
     .executeTakeFirst();
 
+  await updateReferences(
+    input.data.slug,
+    getPageReferencesFromContent(input.data.content)
+  );
+
   return (await getPage(input.data.slug))!;
 }
 
@@ -147,4 +182,26 @@ export function searchPage(text: string) {
     .where("title", "like", `%${text}%`)
     .limit(5)
     .execute();
+}
+
+export function getPageReferencesFromContent(content: string) {
+  let slugs: string[] = [];
+
+  remark()
+    .use([directivePlugin, pageReferencePlugin((slug) => slugs.push(slug))])
+    .processSync(content);
+
+  return pipe(slugs, uniq, toArray);
+}
+
+export function updateReferences(referencedBy: string, references: string[]) {
+  return Promise.all(
+    references.map((page) =>
+      db
+        .insertInto("mdWiki.page_references")
+        .ignore()
+        .values({ referenced_by: referencedBy, references: page })
+        .execute()
+    )
+  );
 }
