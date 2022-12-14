@@ -21,7 +21,7 @@
 }
 
 .footer {
-  border-top: 1px solid var(--palette-default);
+  border-top: 1px solid var(--palette-border);
   margin-top: calc(var(--spacing) * 3);
   padding: calc(var(--spacing) * 3) 0 calc(var(--spacing) * 4);
 
@@ -48,7 +48,7 @@
   }
 
   hr {
-    background-color: var(--palette-default);
+    background-color: var(--palette-border);
     border: none;
     height: 1px;
     margin: calc(var(--spacing) * 3) 0;

@@ -1,0 +1,29 @@
+.light {
+  --palette-background: hsl(60, 12%, 97%);
+  --palette-default: hsl(60, 12%, 13%);
+  --palette-disabled: #dddddd;
+  --palette-shadow: rgba(0, 0, 0, 0.25);
+  --palette-border: hsl(60, 12%, 13%);
+  --palette-border-light: hsl(60, 12%, 85%);
+
+  --palette-primary: #1abc9c;
+  --palette-success: #2ecc71;
+  --palette-error: #e74c3c;
+  --palette-link: #3498db;
+  --palette-link-visited: #2980b9;
+}
+
+.dark {
+  --palette-background: hsl(210, 30%, 9%);
+  --palette-default: hsl(210, 30%, 80%);
+  --palette-disabled: hsl(210, 30%, 40%);
+  --palette-shadow: rgba(0, 0, 0, 0.6);
+  --palette-border: hsl(210, 30%, 30%);
+  --palette-border-light: hsl(210, 30%, 20%);
+
+  --palette-primary: #1abc9c;
+  --palette-success: #2ecc71;
+  --palette-error: #e74c3c;
+  --palette-link: #3498db;
+  --palette-link-visited: #2980b9;
+}

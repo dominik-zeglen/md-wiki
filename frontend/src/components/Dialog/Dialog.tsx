@@ -10,6 +10,7 @@ Modal.setAppElement("body");
 export const dialogStyles = {
   content: {
     backgroundColor: "var(--palette-background)",
+    border: "1px solid var(--palette-border)",
     top: "50%",
     left: "50%",
     right: "auto",

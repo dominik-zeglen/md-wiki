@@ -12,7 +12,10 @@ import { Input } from "./Input";
 import { Loader } from "./Loader";
 import styles from "./TopBar.scss";
 import searchIcon from "../../assets/search.svg";
+import moonIcon from "../../assets/moon.svg";
+import sunIcon from "../../assets/sun.svg";
 import { IconButton } from "./IconButton";
+import { useTheme } from "src/Theme";
 
 export interface TopBarProps {
   limit?: boolean;
@@ -28,6 +31,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
       password: "",
     },
   });
+  const [theme, setTheme] = useTheme();
 
   React.useEffect(reset, [user]);
 
@@ -49,6 +53,13 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
           </Link>
         </div>
         <div className={styles.spacer} />
+        <div className={styles.item}>
+          <IconButton
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            <SVG src={theme === "light" ? sunIcon : moonIcon} />
+          </IconButton>
+        </div>
         {onSearchOpen && (
           <div className={styles.item}>
             <IconButton onClick={onSearchOpen}>

@@ -19,7 +19,7 @@
   }
 
   &RightPane {
-    border-left: 1px solid var(--palette-default);
+    border-left: 1px solid var(--palette-border);
     padding-left: calc(var(--spacing) * 1.5);
     height: var(--height);
     overflow: scroll;

@@ -82,20 +82,6 @@ textarea {
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap");
 
 :root {
-  --spacing: 0.8rem;
-  --site-width: 640px;
-
-  --palette-background: #ffffff;
-  --palette-default: #222222;
-  --palette-disabled: #dddddd;
-  --palette-shadow: rgba(0, 0, 0, 0.2);
-
-  --palette-primary: #1abc9c;
-  --palette-success: #2ecc71;
-  --palette-error: #e74c3c;
-  --palette-link: #3498db;
-  --palette-link-visited: #2980b9;
-
   --typography-default: 1.6rem;
   --typography-button: 1.3rem;
   --typography-input: 1.6rem;
@@ -106,6 +92,9 @@ textarea {
   --typography-h5: 2.1rem;
   --typography-h6: 1.9rem;
   --typography-small: 1.3rem;
+
+  --spacing: 0.8rem;
+  --site-width: 640px;
 }
 
 html {

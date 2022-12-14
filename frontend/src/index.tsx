@@ -19,6 +19,7 @@ import { client, TRPCProvider } from "./hooks/api/trpc";
 
 import "./global.scss";
 import { TagList } from "./views/Site/TagList";
+import { Theming } from "./Theme";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,15 +70,17 @@ export const App: React.FC = () => (
     <AuthGuard>
       <TRPCProvider queryClient={queryClient} client={client}>
         <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <Routes>
-              <Route path={siteRoutes.home.path} element={<Home />} />
-              <Route path={siteRoutes.tag.path} element={<TagPages />} />
-              <Route path={siteRoutes.tags.path} element={<TagList />} />
-              <Route path={siteRoutes.page.path} element={<Page />} />
-              <Route path="/panel/*" element={<PanelRoutes />} />
-            </Routes>
-          </BrowserRouter>
+          <Theming>
+            <BrowserRouter>
+              <Routes>
+                <Route path={siteRoutes.home.path} element={<Home />} />
+                <Route path={siteRoutes.tag.path} element={<TagPages />} />
+                <Route path={siteRoutes.tags.path} element={<TagList />} />
+                <Route path={siteRoutes.page.path} element={<Page />} />
+                <Route path="/panel/*" element={<PanelRoutes />} />
+              </Routes>
+            </BrowserRouter>
+          </Theming>
         </QueryClientProvider>
       </TRPCProvider>
     </AuthGuard>

@@ -5,7 +5,7 @@
 
   background: var(--palette-background);
   border-radius: 4px;
-  border: 1px solid #ebebeb;
+  border: 1px solid var(--palette-border-light);
   padding: calc(var(--spacing) * 2);
 }
 
