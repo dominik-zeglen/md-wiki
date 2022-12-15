@@ -6,11 +6,13 @@ import {
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { pageRouter } from "./pages";
 import { tagRouter } from "./tags";
+import { authRouter } from "./auth";
 
 export const t = initTRPC.create();
 const appRouter = t.router({
   pages: pageRouter,
   tags: tagRouter,
+  auth: authRouter,
 });
 
 export type AppRouter = typeof appRouter;

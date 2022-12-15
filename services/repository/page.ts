@@ -35,12 +35,12 @@ export async function getPage(slug: string) {
       .where("mdWiki.pages.slug", "=", slug)
       .leftJoin(
         db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
-        "createdBy.cognitoUserName",
+        "createdBy.email",
         "mdWiki.pages.createdBy"
       )
       .leftJoin(
         db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
-        "updatedBy.cognitoUserName",
+        "updatedBy.email",
         "mdWiki.pages.updatedBy"
       )
       .select([

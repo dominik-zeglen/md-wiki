@@ -10,6 +10,7 @@ export function ApiStack({ stack, app }: StackContext) {
     permissions: [cluster, "cognito-idp:*"],
     handler: "api/index.main",
     environment: {
+      SECRET: process.env.SECRET!,
       REGION: app.region,
       DATABASE_NAME: cluster.defaultDatabaseName,
       SECRET_ARN: cluster.secretArn,

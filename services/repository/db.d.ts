@@ -36,9 +36,9 @@ export interface MdWikiTags {
 }
 
 export interface MdWikiUsers {
-  cognitoUserName: string;
   displayName: string | null;
   email: string;
+  hash: string;
 }
 
 export interface Database {
