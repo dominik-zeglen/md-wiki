@@ -6,6 +6,7 @@ services:
       - MYSQL_USER=mdWiki
       - MYSQL_PASSWORD=mdWiki
       - MYSQL_ROOT_PASSWORD=mdWiki
+      - MYSQL_DATABASE=mdWiki
     ports:
       - 3306:3306
     restart: unless-stopped
@@ -14,12 +15,15 @@ services:
     ports:
       - 8000:8000
     build:
-      context: ./services
       dockerfile: ./Dockerfile
     restart: unless-stopped
+    links:
+      - db
     depends_on:
       - db
     environment:
       - SECRET=mysecretvariable
       - DB_USER=mdWiki
       - DB_PASSWORD=mdWiki
+      - DB_HOST=db
+      - DB_NAME=mdWiki

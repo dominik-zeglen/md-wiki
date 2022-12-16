@@ -13,7 +13,7 @@ const adapter: Koa.Middleware = (ctx, next) => {
     const path = (req.url || "").split("?")[0];
     const endpoint = path.slice((trpcPath + "/").length);
 
-    res.statusCode = 201;
+    res.statusCode = 200;
 
     return nodeHTTPRequestHandler({
       router: appRouter,
