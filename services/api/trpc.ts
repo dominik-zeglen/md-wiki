@@ -1,9 +1,9 @@
 import { initTRPC } from "@trpc/server";
-import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import type { ClaimVerifyResult } from "./middlewares/jwt";
+import { BaseRequest } from "koa";
 
 export const t = initTRPC
-  .context<{ event: APIGatewayProxyEventV2; user?: ClaimVerifyResult }>()
+  .context<{ request: BaseRequest; user?: ClaimVerifyResult }>()
   .create();
 
 export const procedure = t.procedure;

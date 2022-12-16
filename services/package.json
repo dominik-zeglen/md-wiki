@@ -4,27 +4,38 @@
   "type": "module",
   "scripts": {
     "codegen": "kysely-codegen",
+    "build": "tsc",
     "build:migrator": "npx tsc scripts/migrate.ts --target es2017 --module esnext --moduleResolution node --skipLibCheck",
-    "migrate": "npm run build:migrator && node scripts/migrate.js"
+    "migrate": "npm run build:migrator && node scripts/migrate.js",
+    "start": "node --experimental-specifier-resolution=node .build/index.js",
+    "start:dev": "concurrently \"npx tsc --watch --preserveWatchOutput --pretty\" \"nodemon --watch .build --exec 'node --experimental-specifier-resolution=node' .build/index.js\""
   },
   "dependencies": {
     "@fxts/core": "^0.11.0",
+    "@koa/cors": "^4.0.0",
     "@trpc/server": "^10.4.3",
     "@types/jwk-to-pem": "^2.0.1",
-    "aws-sdk": "^2.1243.0",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.5",
+    "koa": "^2.14.1",
+    "koa-logger": "^3.2.1",
     "kysely": "^0.22.0",
     "kysely-data-api": "^0.1.4",
     "mysql2": "^2.3.3",
+    "remark": "^14.0.2",
+    "trpc-koa-adapter": "^1.0.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.108",
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^8.5.9",
-    "kysely-codegen": "^0.8.0"
+    "@types/koa": "^2.13.5",
+    "@types/koa__cors": "^3.3.0",
+    "@types/koa-logger": "^3.1.2",
+    "concurrently": "^7.6.0",
+    "kysely-codegen": "^0.8.0",
+    "nodemon": "^2.0.20"
   }
 }

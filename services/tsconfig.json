@@ -1,12 +1,14 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["repository", "api", "scripts"],
+  "include": ["index.ts", "scripts"],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "target": "es2017",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": ".build",
+    "esModuleInterop": true
   }
 }

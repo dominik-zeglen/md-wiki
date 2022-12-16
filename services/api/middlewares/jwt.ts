@@ -1,6 +1,6 @@
 import { middleware } from "../trpc";
 import { TRPCError } from "@trpc/server";
-import { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export interface ClaimVerifyResult {
   readonly email: string;
@@ -14,7 +14,7 @@ interface Claim {
 
 const verifyPromised = (token: string, secret: string) =>
   new Promise((resolve, reject) => {
-    verify(token, secret, (err, result) =>
+    jwt.verify(token, secret, (err, result) =>
       err ? reject(err) : resolve(result)
     );
   });
@@ -28,7 +28,7 @@ export const isValid = async (token: string): Promise<ClaimVerifyResult> => {
     token,
     process.env.SECRET!
   )) as unknown as Claim;
-  console.log(claim);
+
   const currentSeconds = Math.floor(new Date().valueOf() / 1000);
   if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
     throw new Error("claim is expired or invalid");
@@ -44,13 +44,16 @@ const unauthorizedError = new TRPCError({
 });
 
 export const jwtMiddleware = middleware(async (data) => {
+  let user: ClaimVerifyResult;
   try {
-    data.ctx.user = await isValid(
-      data.ctx.event.headers.authorization!.substr(7)
-    );
+    user = await isValid(data.ctx.request.headers.authorization!.substr(7));
   } catch (err) {
     throw unauthorizedError;
   }
 
-  return data.next();
+  return data.next({
+    ctx: {
+      user,
+    },
+  });
 });

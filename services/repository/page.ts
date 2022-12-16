@@ -8,7 +8,7 @@ import { Database } from "./db.d";
 import { sql } from "kysely";
 
 function pageReferencePlugin(cb: (slug: string) => void) {
-  return () => (tree) => {
+  return () => (tree: any) => {
     visit(tree, (node) => {
       if (
         node.type === "textDirective" ||

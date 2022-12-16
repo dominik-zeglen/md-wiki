@@ -3,20 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "sst start",
-    "build": "sst build",
-    "deploy": "sst deploy",
-    "remove": "sst remove",
-    "console": "sst console",
+    "start": "npm start -w services",
+    "build": "npm run build --workspaces",
     "typecheck": "tsc --noEmit",
-    "test": "sst load-config -- vitest run",
     "gen-migration": "hygen migration new"
   },
   "devDependencies": {
-    "@serverless-stack/cli": "^1.15.16",
-    "@serverless-stack/resources": "^1.15.16",
     "@tsconfig/node16": "^1.0.3",
-    "aws-cdk-lib": "2.39.1",
     "hygen": "^6.2.11",
     "typescript": "^4.8.4",
     "vitest": "^0.24.3"
@@ -24,9 +17,5 @@
   "workspaces": [
     "services",
     "frontend"
-  ],
-  "dependencies": {
-    "remark": "^14.0.2",
-    "services": "^0.0.3"
-  }
+  ]
 }

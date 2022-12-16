@@ -9,3 +9,17 @@ services:
     ports:
       - 3306:3306
     restart: unless-stopped
+
+  api:
+    ports:
+      - 8000:8000
+    build:
+      context: ./services
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - SECRET=mysecretvariable
+      - DB_USER=mdWiki
+      - DB_PASSWORD=mdWiki

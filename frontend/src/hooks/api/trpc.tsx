@@ -3,7 +3,6 @@ import { createTRPCReact } from "@trpc/react-query";
 import urlJoin from "url-join";
 import React from "react";
 import { QueryClient } from "@tanstack/react-query";
-import { config } from "../../../awsConfig";
 import type { AppRouter } from "../../../../services/api/index";
 import { useAuthAtom } from "../auth";
 
@@ -28,7 +27,7 @@ export const TRPCProvider: React.FC = ({ children }) => {
       trpc.createClient({
         links: [
           httpBatchLink({
-            url: urlJoin(config.apiGateway.URL!, "trpc"),
+            url: urlJoin(process.env.REACT_APP_API_URL!, "trpc"),
             headers: token
               ? {
                   authorization: `Bearer ${token}`,

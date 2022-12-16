@@ -1,6 +1,8 @@
 import { db, getLastInsertId } from "./db";
-import { sign } from "jsonwebtoken";
-import { hash, compare } from "bcryptjs";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+
+const { hash, compare } = bcrypt;
 
 function hashPassword(password: string) {
   return hash(password, 10);
@@ -59,7 +61,7 @@ export async function updateUser(input: UpdateUserInput) {
 }
 
 export function getUserToken(email: string): string {
-  return sign({ email }, process.env.SECRET!);
+  return jwt.sign({ email }, process.env.SECRET!);
 }
 
 export function verifyUserToken(token: string): boolean {
