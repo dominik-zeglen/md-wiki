@@ -7,8 +7,6 @@ services:
       - MYSQL_PASSWORD=mdWiki
       - MYSQL_ROOT_PASSWORD=mdWiki
       - MYSQL_DATABASE=mdWiki
-    ports:
-      - 3306:3306
     restart: unless-stopped
 
   api:
