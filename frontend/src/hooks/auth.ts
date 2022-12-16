@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { atom, useRecoilState } from "recoil";
-import { AppRouterOutputs } from "../../../services/api";
+import { AppRouterOutputs } from "../../../backend/api";
 import { trpc } from "./api/trpc";
 
 export const userAtom = atom<AppRouterOutputs["auth"]["token"] | null>({

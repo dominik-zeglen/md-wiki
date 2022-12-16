@@ -32,7 +32,7 @@ export const tagRouter = router({
         pages,
       };
     }),
-  list: procedure.query(getTags),
+  list: procedure.input(() => null).query(getTags),
   create: procedure
     .input((input) => {
       return yup

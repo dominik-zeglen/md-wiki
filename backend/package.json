@@ -1,5 +1,5 @@
 {
-  "name": "@md-wiki/services",
+  "name": "@md-wiki/backend",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

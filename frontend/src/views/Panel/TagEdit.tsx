@@ -15,7 +15,7 @@ export const TagEdit: React.FC = () => {
   const { data: tag } = trpc.tags.get.useQuery(id!);
   const form = useForm({ defaultValues: { name: "" } });
 
-  const { data: pages } = trpc.pages.list.useQuery();
+  const { data: pages } = trpc.pages.list.useQuery(null);
 
   React.useEffect(() => {
     if (tag) {

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import directivePlugin from "remark-directive";
 import { siteRoutes } from "src/routes";
 import { visit } from "unist-util-visit";
-import { AppRouterOutputs } from "../../../services/api";
+import { AppRouterOutputs } from "../../../backend/api";
 import styles from "./PagePreview.scss";
 
 export interface PagePreviewProps {
@@ -53,8 +53,6 @@ function embedImagePlugin() {
         });
 
         if (!src) return;
-
-        console.log(node);
 
         node.children = [];
         data.innerHTML = "";

@@ -4,7 +4,7 @@ import { Panel } from "src/Layouts/Panel";
 import { PageList } from "src/pages/panel/PageList";
 
 export const Pages: React.FC = () => {
-  const { data: pages } = trpc.pages.list.useQuery();
+  const { data: pages } = trpc.pages.list.useQuery(null);
 
   return (
     <Panel>

@@ -39,7 +39,7 @@ export const PageEdit: React.FC = () => {
   });
   const attach = trpc.tags.attach.useMutation();
   const unattach = trpc.tags.unattach.useMutation();
-  const { data: tags } = trpc.tags.list.useQuery(undefined, {
+  const { data: tags } = trpc.tags.list.useQuery(null, {
     enabled: openedDialog === "tags",
     refetchOnMount: "always",
   });

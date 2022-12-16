@@ -6,7 +6,7 @@ import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagList.scss";
-import { AppRouterOutputs } from "../../../../../services/api";
+import { AppRouterOutputs } from "../../../../../backend/api";
 
 export interface TagProps {
   tags: AppRouterOutputs["tags"]["list"] | undefined;

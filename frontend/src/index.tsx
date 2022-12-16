@@ -9,7 +9,6 @@ import { PageEdit } from "./views/Panel/PageEdit";
 import { Pages } from "./views/Panel/PageList";
 import { PageCreate } from "./views/Panel/PageCreate";
 import { useAuth } from "./hooks/auth";
-import { PageLoading } from "./pages/common/PageLoading";
 import { PanelHome } from "./views/Panel/PanelHome";
 import { Tags } from "./views/Panel/TagList";
 import { TagEdit } from "./views/Panel/TagEdit";

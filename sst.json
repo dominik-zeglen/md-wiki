@@ -1,5 +1,0 @@
-{
-  "name": "md-wiki",
-  "region": "eu-west-1",
-  "main": "stacks/index.ts"
-}

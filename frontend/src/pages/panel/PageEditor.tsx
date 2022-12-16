@@ -17,7 +17,7 @@ import {
 import { useFormSave } from "src/hooks/forms";
 import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
-import { AppRouterOutputs } from "../../../../services/api";
+import { AppRouterOutputs } from "../../../../backend/api";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
@@ -56,7 +56,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
       <div className={styles.editorWrapper}>
         <textarea className={styles.editor} {...register("content")} />
         <div className={styles.editorRightPane}>
-          {!!page ? (
+          {page ? (
             <TabGroup
               defaultIndex={parseInt(
                 localStorage.getItem("pageEditorTab") ?? "0"
@@ -122,12 +122,14 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                       {references === undefined ? (
                         <Loader />
                       ) : references.length > 0 ? (
-                        references.map((page) => (
+                        references.map((referencingPage) => (
                           <Link
-                            key={page.slug}
-                            to={panelRoutes.page.to({ slug: page.slug })}
+                            key={referencingPage.slug}
+                            to={panelRoutes.page.to({
+                              slug: referencingPage.slug,
+                            })}
                           >
-                            {page.title}
+                            {referencingPage.title}
                           </Link>
                         ))
                       ) : (

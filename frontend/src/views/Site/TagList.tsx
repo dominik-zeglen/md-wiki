@@ -4,7 +4,7 @@ import { Site } from "src/Layouts/Site";
 import { TagList as TagListTagPage } from "src/pages/site/TagList";
 
 export const TagList: React.FC = () => {
-  const { data: tags } = trpc.tags.list.useQuery(undefined, {
+  const { data: tags } = trpc.tags.list.useQuery(null, {
     refetchOnMount: false,
   });
 

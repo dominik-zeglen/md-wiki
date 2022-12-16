@@ -13,7 +13,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "jest"],
+  plugins: ["react", "@typescript-eslint", "jest", "react-hooks"],
   rules: {
     quotes: ["error", "double"],
     "import/extensions": "off",
@@ -51,5 +51,6 @@ module.exports = {
         controlComponents: ["Slider"],
       },
     ],
+    radix: "off",
   },
 };

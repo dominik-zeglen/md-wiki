@@ -18,7 +18,7 @@ export const pageRouter = router({
       return yup.string().required().validateSync(input);
     })
     .query((req) => getPage(req.input)),
-  list: procedure.query(getPages),
+  list: procedure.input(() => null).query(getPages),
   create: procedure
     .input((input) => {
       return yup

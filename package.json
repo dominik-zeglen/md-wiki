@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm start -w services",
+    "start": "npm start -w backend",
     "build": "npm run build --workspaces",
     "typecheck": "tsc --noEmit",
     "gen-migration": "hygen migration new"
@@ -15,7 +15,7 @@
     "vitest": "^0.24.3"
   },
   "workspaces": [
-    "services",
+    "backend",
     "frontend"
   ]
 }

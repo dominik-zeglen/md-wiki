@@ -1,5 +1,5 @@
 ---
-to: services/migrations/<%=(Date.now()/1000).toFixed(0)%>_<%=name%>.mjs
+to: backend/migrations/<%=(Date.now()/1000).toFixed(0)%>_<%=name%>.mjs
 ---
 import { sql, Kysely } from "kysely";
 

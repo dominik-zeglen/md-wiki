@@ -12,7 +12,7 @@ import { TagList } from "../../pages/panel/TagList";
 
 export const Tags: React.FC = () => {
   const navigate = useNavigate();
-  const { data: tags } = trpc.tags.list.useQuery();
+  const { data: tags } = trpc.tags.list.useQuery(null);
   const { mutate: createTag, isLoading } = trpc.tags.create.useMutation({
     onSuccess: (tag) => navigate(panelRoutes.tag.to({ id: tag.id })),
   });

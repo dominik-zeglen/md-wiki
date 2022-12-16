@@ -15,7 +15,7 @@ import searchIcon from "../../assets/search.svg";
 import moonIcon from "../../assets/moon.svg";
 import sunIcon from "../../assets/sun.svg";
 import { IconButton } from "./IconButton";
-import { useTheme } from "src/Theme";
+import { useTheme } from "../Theme";
 
 export interface TopBarProps {
   limit?: boolean;

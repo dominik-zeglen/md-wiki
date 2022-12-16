@@ -1,6 +1,6 @@
 FROM node:18-alpine
 WORKDIR /usr/src/app
-COPY services/ ./services
+COPY backend/ ./backend
 COPY package.json package-lock.json tsconfig.json ./
 RUN npm ci
 RUN npm run build

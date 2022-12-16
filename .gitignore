@@ -10,4 +10,4 @@ node_modules
 !.github
 !.eslintrc.js
 frontend/build
-services/scripts/*.js
+backend/scripts/*.js

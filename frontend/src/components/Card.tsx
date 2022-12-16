@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import styles from "./Card.scss";
 import React from "react";
+import styles from "./Card.scss";
 
 export const Card = React.forwardRef<
   HTMLDivElement,

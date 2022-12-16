@@ -1,7 +1,7 @@
 import { atom, useRecoilState } from "recoil";
 import React from "react";
-import styles from "./themes.scss";
 import clsx from "clsx";
+import styles from "./themes.scss";
 
 export type ThemeType = "light" | "dark";
 const themeAtom = atom<ThemeType>({
