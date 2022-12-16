@@ -1,11 +1,11 @@
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import urlJoin from "url-join";
+import React from "react";
+import { QueryClient } from "@tanstack/react-query";
 import { config } from "../../../awsConfig";
 import type { AppRouter } from "../../../../services/api/index";
-import React from "react";
 import { useAuthAtom } from "../auth";
-import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

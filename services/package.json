@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "codegen": "kysely-codegen"
+    "codegen": "kysely-codegen",
+    "build:migrator": "npx tsc scripts/migrate.ts --target es2017 --module esnext --moduleResolution node --skipLibCheck",
+    "migrate": "npm run build:migrator && node scripts/migrate.js"
   },
   "dependencies": {
     "@fxts/core": "^0.11.0",
@@ -16,7 +18,7 @@
     "jwk-to-pem": "^2.0.5",
     "kysely": "^0.22.0",
     "kysely-data-api": "^0.1.4",
-    "pg": "^8.8.0",
+    "mysql2": "^2.3.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
