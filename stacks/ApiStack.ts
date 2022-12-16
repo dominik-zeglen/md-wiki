@@ -1,9 +1,7 @@
 import { Api, StackContext, use, Function } from "@serverless-stack/resources";
-import { AuthStack } from "./AuthStack";
 import { StorageStack } from "./StorageStack";
 
 export function ApiStack({ stack, app }: StackContext) {
-  const { auth } = use(AuthStack);
   const { cluster } = use(StorageStack);
 
   const trpc = new Function(stack, "trpcHandler", {
@@ -15,7 +13,6 @@ export function ApiStack({ stack, app }: StackContext) {
       DATABASE_NAME: cluster.defaultDatabaseName,
       SECRET_ARN: cluster.secretArn,
       CLUSTER_ARN: cluster.clusterArn,
-      COGNITO_POOL_ID: auth.userPoolId,
     },
   });
 

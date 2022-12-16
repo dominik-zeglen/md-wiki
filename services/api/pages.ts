@@ -33,7 +33,7 @@ export const pageRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.userName;
+      const user = req.ctx.user!.email;
 
       return createPage({ ...req.input, user });
     }),
@@ -51,7 +51,7 @@ export const pageRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.userName;
+      const user = req.ctx.user!.email;
 
       return updatePage({ user, slug: req.input.slug, data: req.input.input });
     }),

@@ -3,7 +3,7 @@ import clsx from "clsx";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
-import { useCognito } from "src/hooks/auth";
+import { useAuth } from "src/hooks/auth";
 import { panelRoutes, siteRoutes } from "src/routes";
 import SVG from "react-inlinesvg";
 import { Button } from "./Button";
@@ -23,7 +23,7 @@ export interface TopBarProps {
 }
 
 export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
-  const { user, login, logout, loading } = useCognito();
+  const { user, login, logout, loading } = useAuth();
   const { pathname } = useLocation();
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
@@ -74,7 +74,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             <div className={styles.userbar}>
               <Popover>
                 <Popover.Button className={styles.userbarMenuBtn}>
-                  {user.email}
+                  {user?.user.email}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
                   {pathname.includes("/panel") ? (

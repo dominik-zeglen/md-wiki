@@ -1,5 +1,5 @@
 import React from "react";
-import { useCognito } from "src/hooks/auth";
+import { useAuth } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
@@ -14,7 +14,7 @@ export interface PageProps {
 }
 
 export const Page: React.FC<PageProps> = ({ page }) => {
-  const { user } = useCognito();
+  const { user } = useAuth();
 
   return (
     <article className={styles.root}>

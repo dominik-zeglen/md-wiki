@@ -1,5 +1,5 @@
 import React from "react";
-import { useCognito } from "src/hooks/auth";
+import { useAuth } from "src/hooks/auth";
 import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
@@ -13,7 +13,7 @@ export interface TagPagesProps {
 }
 
 export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
-  const { user } = useCognito();
+  const { user } = useAuth();
   const groupedPages = React.useMemo(
     () => Object.entries(groupBy((page) => page.title![0], tag?.pages ?? [])),
     [tag?.pages]

@@ -32,7 +32,13 @@ export const authRouter = router({
     })
     .mutation(async ({ input }) => {
       if (await verifyUser(input.email, input.password)) {
-        return getUserToken(input.email);
+        const token = getUserToken(input.email);
+        const user = await getUser(input.email);
+
+        return {
+          token,
+          user,
+        };
       }
 
       throw new TRPCError({
