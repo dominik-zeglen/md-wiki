@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_USER=mdWiki
+      - MYSQL_PASSWORD=mdWiki
+      - MYSQL_ROOT_PASSWORD=mdWiki
+    ports:
+      - 3306:3306
+    restart: unless-stopped
