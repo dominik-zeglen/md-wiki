@@ -72,13 +72,7 @@ const config = {
       title: "md-wiki",
     }),
     new ForkTsCheckerWebpackPlugin(),
-    new EnvironmentPlugin([
-      "REACT_APP_REGION",
-      "REACT_APP_API_URL",
-      "REACT_APP_USER_POOL_ID",
-      "REACT_APP_USER_POOL_CLIENT_ID",
-      "REACT_APP_IDENTITY_POOL_ID",
-    ]),
+    new EnvironmentPlugin(["REACT_APP_REGION", "REACT_APP_API_URL"]),
   ],
   devServer: {
     static: {
