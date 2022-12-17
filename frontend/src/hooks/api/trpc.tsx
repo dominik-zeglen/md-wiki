@@ -3,7 +3,7 @@ import { createTRPCReact } from "@trpc/react-query";
 import urlJoin from "url-join";
 import React from "react";
 import { QueryClient } from "@tanstack/react-query";
-import type { AppRouter } from "../../../../backend/api/index";
+import type { AppRouter } from "@api";
 import { useAuthAtom } from "../auth";
 
 export const queryClient = new QueryClient({

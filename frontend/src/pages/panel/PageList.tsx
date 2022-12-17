@@ -6,7 +6,7 @@ import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "../common/PageLoading";
 import styles from "./PageList.scss";
-import { AppRouterOutputs } from "../../../../backend/api";
+import { AppRouterOutputs } from "@api";
 
 export interface PageProps {
   pages: AppRouterOutputs["pages"]["list"] | undefined;

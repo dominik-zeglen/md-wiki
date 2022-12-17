@@ -5,6 +5,7 @@
   "scripts": {
     "start": "npm start -w backend",
     "build": "npm run build --workspaces",
+    "migrate": "npm run migrate -w backend",
     "typecheck": "tsc --noEmit",
     "gen-migration": "hygen migration new"
   },

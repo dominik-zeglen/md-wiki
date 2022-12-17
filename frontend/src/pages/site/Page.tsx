@@ -7,7 +7,7 @@ import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
 import styles from "./Page.scss";
 import { PageLoading } from "../common/PageLoading";
-import { AppRouterOutputs } from "../../../../backend/api";
+import { AppRouterOutputs } from "@api";
 
 export interface PageProps {
   page: AppRouterOutputs["pages"]["get"] | undefined;

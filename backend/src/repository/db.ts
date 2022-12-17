@@ -1,6 +1,6 @@
 import { Kysely, sql, MysqlDialect } from "kysely";
 import { createPool } from "mysql2";
-import { Database } from "./db.d";
+import { Database } from "./types";
 
 export const db = new Kysely<Database>({
   dialect: new MysqlDialect({

@@ -5,7 +5,7 @@ import { siteRoutes } from "src/routes";
 import slugify from "slugify";
 import styles from "./TagList.scss";
 import { PageLoading } from "../../common/PageLoading";
-import { AppRouterOutputs } from "../../../../../backend/api";
+import { AppRouterOutputs } from "@api";
 
 export interface TagListProps {
   tags: AppRouterOutputs["tags"]["list"] | undefined;

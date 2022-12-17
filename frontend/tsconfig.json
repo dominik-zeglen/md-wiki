@@ -10,7 +10,8 @@
     "jsx": "react",
     "strictNullChecks": true,
     "paths": {
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "@api": ["../backend/src/api"]
     }
   },
   "exclude": ["**/*.test.*"]

@@ -4,7 +4,7 @@ import directivePlugin from "remark-directive";
 import { visit } from "unist-util-visit";
 
 import { db } from "./db";
-import { Database } from "./db.d";
+import { Database } from "./types";
 import { sql } from "kysely";
 
 function pageReferencePlugin(cb: (slug: string) => void) {

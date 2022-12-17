@@ -17,7 +17,7 @@ import {
 import { useFormSave } from "src/hooks/forms";
 import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
-import { AppRouterOutputs } from "../../../../backend/api";
+import { AppRouterOutputs } from "@api";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {

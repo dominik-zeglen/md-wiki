@@ -5,8 +5,7 @@
   "scripts": {
     "codegen": "kysely-codegen",
     "build": "tsc",
-    "build:migrator": "npx tsc scripts/migrate.ts --target es2017 --module esnext --moduleResolution node --skipLibCheck",
-    "migrate": "npm run build:migrator && node scripts/migrate.js",
+    "migrate": "node .build/scripts/migrate.js",
     "start": "node --experimental-specifier-resolution=node .build/index.js",
     "start:dev": "concurrently \"npx tsc --watch --preserveWatchOutput --pretty\" \"nodemon --watch .build --exec 'node --experimental-specifier-resolution=node' .build/index.js\""
   },

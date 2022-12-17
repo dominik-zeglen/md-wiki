@@ -1,6 +1,6 @@
 import type { Selectable } from "kysely";
 import { db, getLastInsertId } from "./db";
-import type { Database, MdWikiTags } from "./db.d";
+import type { Database, MdWikiTags } from "./types";
 
 export function getTag(
   id: string

@@ -8,7 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { panelRoutes } from "src/routes";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagEdit.scss";
-import { AppRouterOutputs } from "../../../../../backend/api";
+import { AppRouterOutputs } from "@api";
 
 export interface TagProps {
   tag: AppRouterOutputs["tags"]["get"] | undefined;

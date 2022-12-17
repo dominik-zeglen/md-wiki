@@ -4,9 +4,9 @@ import { Button } from "src/components/Button";
 import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
 import { panelRoutes, siteRoutes } from "src/routes";
+import { AppRouterOutputs } from "@api";
 import styles from "./TagPages.scss";
 import { PageLoading } from "../../common/PageLoading";
-import { AppRouterOutputs } from "../../../../../backend/api";
 
 export interface TagPagesProps {
   tag: AppRouterOutputs["tags"]["get"] | undefined;
