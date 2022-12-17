@@ -8,7 +8,7 @@ import { Page } from "./views/Site/Page";
 import { PageEdit } from "./views/Panel/PageEdit";
 import { Pages } from "./views/Panel/PageList";
 import { PageCreate } from "./views/Panel/PageCreate";
-import { useAuth } from "./hooks/auth";
+import { useAuth, useAuthAtom } from "./hooks/auth";
 import { PanelHome } from "./views/Panel/PanelHome";
 import { Tags } from "./views/Panel/TagList";
 import { TagEdit } from "./views/Panel/TagEdit";
@@ -21,12 +21,13 @@ import { TagList } from "./views/Site/TagList";
 import { Theming } from "./Theme";
 
 const PanelRoutes: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
+  const [token] = useAuthAtom();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!user && !loading) navigate(siteRoutes.home.to());
-  }, [user, loading]);
+    if (!token && !loading) navigate(siteRoutes.home.to());
+  }, [token, loading]);
 
   return (
     <Routes>
