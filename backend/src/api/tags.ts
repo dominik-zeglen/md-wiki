@@ -45,7 +45,7 @@ export const tagRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.email;
+      const user = req.ctx.user!.username;
 
       return createTag({ ...req.input, user });
     }),
@@ -62,7 +62,7 @@ export const tagRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.email;
+      const user = req.ctx.user!.username;
 
       return updateTag({ user, id: req.input.id, data: req.input.data });
     }),
@@ -83,7 +83,7 @@ export const tagRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.email;
+      const user = req.ctx.user!.username;
 
       return Promise.all([
         markPageAsUpdated({ slug: req.input.page, user }),
@@ -101,7 +101,7 @@ export const tagRouter = router({
     })
     .use(jwtMiddleware)
     .mutation((req) => {
-      const user = req.ctx.user!.email;
+      const user = req.ctx.user!.username;
 
       return Promise.all([
         markPageAsUpdated({ slug: req.input.page, user }),

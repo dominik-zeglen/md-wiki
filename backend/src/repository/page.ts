@@ -35,19 +35,19 @@ export async function getPage(slug: string) {
       .where("mdWiki.pages.slug", "=", slug)
       .leftJoin(
         db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
-        "createdBy.email",
+        "createdBy.username",
         "mdWiki.pages.createdBy"
       )
       .leftJoin(
         db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
-        "updatedBy.email",
+        "updatedBy.username",
         "mdWiki.pages.updatedBy"
       )
       .select([
         "createdBy.displayName as createdByDisplayName",
-        "createdBy.email as createdByEmail",
+        "createdBy.username as createdByUsername",
         "updatedBy.displayName as updatedByDisplayName",
-        "updatedBy.email as updatedByEmail",
+        "updatedBy.username as updatedByUsername",
         "content",
         "createdAt",
         "updatedAt",
@@ -68,14 +68,14 @@ export async function getPage(slug: string) {
     created: {
       user: {
         displayName: page.createdByDisplayName,
-        email: page.createdByEmail,
+        username: page.createdByUsername,
       },
       date: page.createdAt,
     },
     updated: {
       user: {
         displayName: page.updatedByDisplayName,
-        email: page.updatedByEmail,
+        username: page.updatedByUsername,
       },
       date: page.updatedAt,
     },

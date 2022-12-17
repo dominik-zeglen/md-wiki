@@ -3,13 +3,13 @@ import { TRPCError } from "@trpc/server";
 import jwt from "jsonwebtoken";
 
 export interface ClaimVerifyResult {
-  readonly email: string;
+  readonly username: string;
 }
 
 interface Claim {
   auth_time: number;
   exp: number;
-  email: string;
+  username: string;
 }
 
 const verifyPromised = (token: string, secret: string) =>
@@ -35,7 +35,7 @@ export const isValid = async (token: string): Promise<ClaimVerifyResult> => {
   }
 
   return {
-    email: claim.email,
+    username: claim.username,
   };
 };
 

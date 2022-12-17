@@ -9,16 +9,16 @@ export const authRouter = router({
     .input((input) => {
       return yup
         .object({
-          email: yup.string().required(),
+          username: yup.string().required(),
           password: yup.string().required(),
           trusted: yup.boolean().optional(),
         })
         .validateSync(input);
     })
     .mutation(async ({ input }) => {
-      if (await verifyUser(input.email, input.password)) {
-        const token = getUserToken(input.email, input.trusted ? null : 3600);
-        const user = await getUser(input.email);
+      if (await verifyUser(input.username, input.password)) {
+        const token = getUserToken(input.username, input.trusted ? null : 3600);
+        const user = await getUser(input.username);
 
         return {
           token,
@@ -33,5 +33,5 @@ export const authRouter = router({
   me: procedure
     .use(jwtMiddleware)
     .input(() => null)
-    .query(async ({ ctx }) => getUser(ctx.user!.email)),
+    .query(async ({ ctx }) => getUser(ctx.user!.username)),
 });

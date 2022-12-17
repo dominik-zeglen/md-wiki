@@ -1,10 +1,14 @@
-import { ColumnType,  RawBuilder } from 'kysely';
+import { ColumnType, RawBuilder } from "kysely";
 
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
-export type Timestamp = ColumnType<Date | RawBuilder, Date | string | RawBuilder, Date | string | RawBuilder>;
+export type Timestamp = ColumnType<
+  Date | RawBuilder,
+  Date | string | RawBuilder,
+  Date | string | RawBuilder
+>;
 
 export interface MdWikiM2mTagsPages {
   page: string;
@@ -37,7 +41,7 @@ export interface MdWikiTags {
 
 export interface MdWikiUsers {
   displayName: string | null;
-  email: string;
+  username: string;
   hash: string;
 }
 

@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { PagePreview } from "src/components/PagePreview";
 import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
+import { AppRouterOutputs } from "@api";
 import styles from "./Page.scss";
 import { PageLoading } from "../common/PageLoading";
-import { AppRouterOutputs } from "@api";
 
 export interface PageProps {
   page: AppRouterOutputs["pages"]["get"] | undefined;
@@ -40,7 +40,7 @@ export const Page: React.FC<PageProps> = ({ page }) => {
               dateStyle: "long",
             })}, by ${
               page.created.user.displayName ??
-              page.created.user.email ??
+              page.created.user.username ??
               "unknown"
             }`}</small>
             <small
@@ -51,7 +51,7 @@ export const Page: React.FC<PageProps> = ({ page }) => {
               dateStyle: "long",
             })} by ${
               page.updated.user.displayName ??
-              page.updated.user.email ??
+              page.updated.user.username ??
               "unknown"
             }`}</small>
           </>

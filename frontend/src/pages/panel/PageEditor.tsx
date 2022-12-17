@@ -84,7 +84,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                       dateStyle: "long",
                     })}, by ${
                       page.created.user.displayName ??
-                      page.created.user.email ??
+                      page.created.user.username ??
                       "unknown"
                     }`}</p>
                     <p>{`Last modified ${dbDateToDateObject(
@@ -93,7 +93,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                       dateStyle: "long",
                     })} by ${
                       page.updated.user.displayName ??
-                      page.updated.user.email ??
+                      page.updated.user.username ??
                       "unknown"
                     }`}</p>
                   </Card>

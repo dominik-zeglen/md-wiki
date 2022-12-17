@@ -8,23 +8,23 @@ function hashPassword(password: string) {
   return hash(password, 10);
 }
 
-export function getUser(email: string) {
+export function getUser(username: string) {
   return db
     .selectFrom("mdWiki.users")
-    .select(["email", "displayName"])
-    .where("mdWiki.users.email", "=", email)
+    .select(["username", "displayName"])
+    .where("mdWiki.users.username", "=", username)
     .executeTakeFirstOrThrow();
 }
 
 export function getUsers() {
   return db
     .selectFrom("mdWiki.users")
-    .select(["email", "displayName"])
+    .select(["username", "displayName"])
     .execute();
 }
 
 export type CreateUserInput = {
-  email: string;
+  username: string;
   password: string;
   displayName?: string;
 };
@@ -33,7 +33,7 @@ export async function createUser(input: CreateUserInput) {
     .insertInto("mdWiki.users")
     .values({
       displayName: input.displayName,
-      email: input.email,
+      username: input.username,
       hash: await hashPassword(input.password),
     })
     .execute();
@@ -43,7 +43,7 @@ export async function createUser(input: CreateUserInput) {
 
 export type UpdateUserInput = {
   data: { password?: string; displayName?: string };
-  email: string;
+  username: string;
 };
 export async function updateUser(input: UpdateUserInput) {
   await db
@@ -54,15 +54,15 @@ export async function updateUser(input: UpdateUserInput) {
         ? await hashPassword(input.data.password)
         : undefined,
     })
-    .where("email", "=", input.email)
+    .where("username", "=", input.username)
     .execute();
 
   return true;
 }
 
-export function getUserToken(email: string, expires: number | null): string {
+export function getUserToken(username: string, expires: number | null): string {
   return jwt.sign(
-    { email },
+    { username },
     process.env.SECRET!,
     expires
       ? ({
@@ -76,16 +76,19 @@ export function verifyUserToken(token: string): boolean {
   return true;
 }
 
-export async function verifyUser(email: string, password: string) {
+export async function verifyUser(username: string, password: string) {
   const user = await db
     .selectFrom("mdWiki.users")
-    .select(["email", "hash"])
-    .where("mdWiki.users.email", "=", email)
+    .select(["username", "hash"])
+    .where("mdWiki.users.username", "=", username)
     .executeTakeFirstOrThrow();
 
   return compare(password, user.hash);
 }
 
-export function deleteUser(email: string) {
-  return db.deleteFrom("mdWiki.users").where("email", "=", email).execute();
+export function deleteUser(username: string) {
+  return db
+    .deleteFrom("mdWiki.users")
+    .where("username", "=", username)
+    .execute();
 }

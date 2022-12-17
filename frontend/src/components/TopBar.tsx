@@ -27,7 +27,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
   const { pathname } = useLocation();
   const { register, reset, handleSubmit } = useForm({
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
       trusted: false,
     },
@@ -75,7 +75,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             <div className={styles.userbar}>
               <Popover>
                 <Popover.Button className={styles.userbarMenuBtn}>
-                  {user?.email}
+                  {user?.username}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
                   {pathname.includes("/panel") ? (
@@ -102,7 +102,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
                     onSubmit={handleSubmit(login)}
                     className={styles.userbarMenuForm}
                   >
-                    <Input {...register("email")} placeholder="E-mail" />
+                    <Input {...register("username")} placeholder="User name" />
                     <Input
                       {...register("password")}
                       type="password"
