@@ -27,7 +27,10 @@ export const PageEdit: React.FC = () => {
   const [openedDialog, setOpenedDialog] = React.useState<
     null | "tags" | "delete"
   >(null);
-  const closeDialog = () => setOpenedDialog(null);
+  const closeDialog = React.useCallback(() => {
+    refetch();
+    setOpenedDialog(null);
+  }, []);
 
   React.useEffect(() => {
     form.reset(pick(page, ["title", "content"]));
@@ -43,10 +46,6 @@ export const PageEdit: React.FC = () => {
     enabled: openedDialog === "tags",
     refetchOnMount: "always",
   });
-
-  React.useEffect(() => {
-    refetch();
-  }, [openedDialog === null]);
 
   const onSubmit = () =>
     update.mutate({

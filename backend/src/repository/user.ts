@@ -60,8 +60,16 @@ export async function updateUser(input: UpdateUserInput) {
   return true;
 }
 
-export function getUserToken(email: string): string {
-  return jwt.sign({ email }, process.env.SECRET!);
+export function getUserToken(email: string, expires: number | null): string {
+  return jwt.sign(
+    { email },
+    process.env.SECRET!,
+    expires
+      ? ({
+          expiresIn: expires,
+        } as jwt.SignOptions)
+      : {}
+  );
 }
 
 export function verifyUserToken(token: string): boolean {

@@ -20,8 +20,7 @@ export const queryClient = new QueryClient({
 
 export const trpc = createTRPCReact<AppRouter>();
 export const TRPCProvider: React.FC = ({ children }) => {
-  const [auth] = useAuthAtom();
-  const token = auth?.token;
+  const [token] = useAuthAtom();
   const client = React.useMemo(
     () =>
       trpc.createClient({

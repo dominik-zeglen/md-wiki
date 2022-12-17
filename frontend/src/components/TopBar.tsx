@@ -29,6 +29,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
     defaultValues: {
       email: "",
       password: "",
+      trusted: false,
     },
   });
   const [theme, setTheme] = useTheme();
@@ -74,7 +75,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             <div className={styles.userbar}>
               <Popover>
                 <Popover.Button className={styles.userbarMenuBtn}>
-                  {user?.user.email}
+                  {user?.email}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
                   {pathname.includes("/panel") ? (
@@ -107,6 +108,12 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
                       type="password"
                       placeholder="Password"
                     />
+                    <input
+                      type="checkbox"
+                      id="rememberMe"
+                      {...register("trusted")}
+                    />
+                    <label htmlFor="rememberMe">Remember me</label>
                     <Button type="submit">login</Button>
                   </form>
                 </Popover.Panel>

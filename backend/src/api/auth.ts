@@ -1,23 +1,7 @@
 import { procedure, router } from "./trpc";
 import * as yup from "yup";
-import {
-  attachTagToPage,
-  createTag,
-  deleteTag,
-  getPagesWithTag,
-  getTag,
-  getTags,
-  unattachTagFromPage,
-  updateTag,
-} from "../repository/tag";
-import { markPageAsUpdated } from "../repository/page";
 import { jwtMiddleware } from "./middlewares/jwt";
-import {
-  getUser,
-  getUserToken,
-  verifyUser,
-  verifyUserToken,
-} from "../repository/user";
+import { getUser, getUserToken, verifyUser } from "../repository/user";
 import { TRPCError } from "@trpc/server";
 
 export const authRouter = router({
@@ -27,12 +11,13 @@ export const authRouter = router({
         .object({
           email: yup.string().required(),
           password: yup.string().required(),
+          trusted: yup.boolean().optional(),
         })
         .validateSync(input);
     })
     .mutation(async ({ input }) => {
       if (await verifyUser(input.email, input.password)) {
-        const token = getUserToken(input.email);
+        const token = getUserToken(input.email, input.trusted ? null : 3600);
         const user = await getUser(input.email);
 
         return {
@@ -47,5 +32,6 @@ export const authRouter = router({
     }),
   me: procedure
     .use(jwtMiddleware)
+    .input(() => null)
     .query(async ({ ctx }) => getUser(ctx.user!.email)),
 });

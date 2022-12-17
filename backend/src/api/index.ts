@@ -12,3 +12,4 @@ export const appRouter = t.router({
 
 export type AppRouter = typeof appRouter;
 export type AppRouterOutputs = trpc.inferRouterOutputs<AppRouter>;
+export type AppRouterInputs = trpc.inferRouterInputs<AppRouter>;
