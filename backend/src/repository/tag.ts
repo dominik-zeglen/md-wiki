@@ -61,7 +61,7 @@ export async function createTag(input: CreateTagInput) {
 
   const lastInsertId = await getLastInsertId();
 
-  return (await getTag(lastInsertId))!;
+  return getTag(lastInsertId)!;
 }
 
 export function getPagesWithTag(tagId: string) {

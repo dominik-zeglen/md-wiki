@@ -10,6 +10,7 @@ export const db = new Kysely<Database>({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       port: parseInt(process.env.DB_PORT!),
+      enableKeepAlive: true,
     }),
   }),
 });
