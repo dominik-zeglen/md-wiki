@@ -43,7 +43,7 @@ export async function createUser(input: CreateUserInput) {
 
 export type UpdateUserInput = {
   data: { password?: string; displayName?: string };
-  username: string;
+  user: string;
 };
 export async function updateUser(input: UpdateUserInput) {
   await db
@@ -54,7 +54,7 @@ export async function updateUser(input: UpdateUserInput) {
         ? await hashPassword(input.data.password)
         : undefined,
     })
-    .where("username", "=", input.username)
+    .where("username", "=", input.user)
     .execute();
 
   return true;
