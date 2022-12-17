@@ -1,7 +1,5 @@
 node_modules
 
-.sst
-.build
 
 .DS_Store
 
@@ -9,5 +7,4 @@ node_modules
 !.gitignore
 !.github
 !.eslintrc.js
-frontend/build
-backend/scripts/*.js
+build/

@@ -27,7 +27,7 @@ export const TRPCProvider: React.FC = ({ children }) => {
       trpc.createClient({
         links: [
           httpBatchLink({
-            url: urlJoin(process.env.REACT_APP_API_URL!, "trpc"),
+            url: urlJoin(process.env.REACT_APP_API_URL ?? "/", "trpc"),
             headers: token
               ? {
                   authorization: `Bearer ${token}`,
