@@ -108,12 +108,14 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
                       type="password"
                       placeholder="Password"
                     />
-                    <input
-                      type="checkbox"
-                      id="rememberMe"
-                      {...register("trusted")}
-                    />
-                    <label htmlFor="rememberMe">Remember me</label>
+                    <div className={styles.userbarMenuRememberMe}>
+                      <input
+                        type="checkbox"
+                        id="rememberMe"
+                        {...register("trusted")}
+                      />
+                      <label htmlFor="rememberMe">Remember me</label>
+                    </div>
                     <Button type="submit">login</Button>
                   </form>
                 </Popover.Panel>

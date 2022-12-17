@@ -70,6 +70,14 @@
     &Form {
       display: contents;
     }
+
+    &RememberMe {
+      display: flex;
+
+      input {
+        margin-right: var(--spacing);
+      }
+    }
   }
 }
 
