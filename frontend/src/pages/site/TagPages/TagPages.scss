@@ -13,6 +13,11 @@
     margin: var(--spacing) 0;
   }
 
+  &Content {
+    display: flex;
+    gap: var(--spacing);
+  }
+
   a {
     display: inline-block;
   }

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { groupBy } from "@fxts/core";
 import { siteRoutes } from "src/routes";
 import slugify from "slugify";
+import { AppRouterOutputs } from "@api";
 import styles from "./TagList.scss";
 import { PageLoading } from "../../common/PageLoading";
-import { AppRouterOutputs } from "@api";
 
 export interface TagListProps {
   tags: AppRouterOutputs["tags"]["list"] | undefined;
@@ -26,15 +26,17 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => {
         groupedTags.map(([letter, tagsChunk]) => (
           <div className={styles.section}>
             <h6 className={styles.sectionHeader}>{letter}</h6>
-            {tagsChunk.map((tag) => (
-              <Link
-                to={siteRoutes.tag.to({
-                  id: [tag.id, slugify(tag.name!, { lower: true })].join("-"),
-                })}
-              >
-                {tag.name}
-              </Link>
-            ))}
+            <div className={styles.sectionContent}>
+              {tagsChunk.map((tag) => (
+                <Link
+                  to={siteRoutes.tag.to({
+                    id: [tag.id, slugify(tag.name!, { lower: true })].join("-"),
+                  })}
+                >
+                  {tag.name}
+                </Link>
+              ))}
+            </div>
           </div>
         ))
       ) : (
