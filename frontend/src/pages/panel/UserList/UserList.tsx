@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
-import { panelRoutes } from "src/routes";
 import { AppRouterOutputs } from "@api";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./UserList.scss";
@@ -27,9 +25,7 @@ export const UserList: React.FC<UserProps> = ({ users, onCreate }) => (
         </div>
         {users.map((user) => (
           <Card className={styles.item} key={user.username}>
-            <Link to={panelRoutes.user.to({ name: user.username })}>
-              {user.displayName || user.username}
-            </Link>
+            {user.displayName || user.username}
           </Card>
         ))}
       </div>
