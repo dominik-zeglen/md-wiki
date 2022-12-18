@@ -91,6 +91,7 @@
     "remark-directive": "^2.0.1",
     "slugify": "^1.6.5",
     "unist-util-visit": "^4.1.1",
-    "url-join": "^5.0.0"
+    "url-join": "^5.0.0",
+    "yup": "^0.32.11"
   }
 }

@@ -1,10 +1,15 @@
 .root {
-  &:hover,
-  &:focus {
-    background: rgba(255, 255, 255, 0.15);
+  &:not([disabled]) {
+    &:hover,
+    &:focus {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    &:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
-  &:active {
-    background: rgba(255, 255, 255, 0.3);
+  &[disabled] {
+    color: var(--palette-disabled);
   }
   appearance: none;
   background: var(--palette-background);
@@ -19,9 +24,17 @@
   outline: 0;
 }
 
+.error {
+  border-color: var(--palette-error);
+
+  &Text {
+    color: var(--palette-error);
+  }
+}
+
 .label {
   cursor: pointer;
-  font-size: var(--typography-label);
+  font-size: var(--typography-small);
   margin-left: calc(var(--spacing) / 2);
 }
 

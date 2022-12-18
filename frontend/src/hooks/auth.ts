@@ -74,5 +74,6 @@ export function useAuth() {
     user,
     login,
     logout,
+    refetch: fetchMe,
   };
 }

@@ -35,7 +35,7 @@ export const userRouter = router({
         .object({
           user: yup.string().required(),
           data: yup.object({
-            displayName: yup.string(),
+            displayName: yup.string().optional(),
             password: yup.string().min(6),
           }),
         })

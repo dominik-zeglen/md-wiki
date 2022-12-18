@@ -1,0 +1,15 @@
+.root {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: calc(var(--spacing) * 3);
+}
+
+.inputs {
+  & > *:not(:last-child) {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+}
+
+.passwordChange {
+  margin-bottom: var(--spacing);
+}

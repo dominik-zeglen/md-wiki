@@ -6,12 +6,13 @@ export type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
+  error?: boolean;
   fullWidth?: boolean;
   variant?: "default" | "header";
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ fullWidth, variant, ...props }, ref) => (
+  ({ fullWidth, error, variant, ...props }, ref) => (
     <input
       {...props}
       ref={ref}
@@ -20,6 +21,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         [styles.root]: variant === "default" || variant === undefined,
         [styles.header]: variant === "header",
         [styles.fullWidth]: fullWidth,
+        [styles.error]: error,
       })}
     />
   )
@@ -28,13 +30,16 @@ Input.displayName = "Input";
 
 export const LabeledInput = React.forwardRef<
   HTMLInputElement,
-  InputProps & { label: string }
->(({ id, label, ...props }, ref) => (
+  Omit<InputProps, "error"> & { label?: string; error?: string }
+>(({ id, label, error, ...props }, ref) => (
   <div>
-    <label className={styles.label} htmlFor={id}>
-      {label}
-    </label>
-    <Input {...props} ref={ref} />
+    {!!label && (
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+    )}
+    <Input error={!!error} {...props} ref={ref} />
+    <small className={styles.errorText}>{error}</small>
   </div>
 ));
 LabeledInput.displayName = "LabeledInput";

@@ -19,6 +19,7 @@ import { queryClient, TRPCProvider } from "./hooks/api/trpc";
 import "./global.scss";
 import { TagList } from "./views/Site/TagList";
 import { Theming } from "./Theme";
+import { Account } from "./views/Panel/Account";
 
 const PanelRoutes: React.FC = () => {
   const { loading } = useAuth();
@@ -32,6 +33,7 @@ const PanelRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path={panelRoutes.home.path} element={<PanelHome />} />
+      <Route path={panelRoutes.account.path} element={<Account />} />
 
       <Route path={panelRoutes.pages.path} element={<Pages />} />
       <Route path={panelRoutes.pageCreate.path} element={<PageCreate />} />

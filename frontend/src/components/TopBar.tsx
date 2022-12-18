@@ -75,9 +75,12 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             <div className={styles.userbar}>
               <Popover>
                 <Popover.Button className={styles.userbarMenuBtn}>
-                  {user?.username}
+                  {user?.displayName || user?.username}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
+                  <Link to={panelRoutes.account.to()}>
+                    <Button>Account</Button>
+                  </Link>
                   {pathname.includes("/panel") ? (
                     <Link to={siteRoutes.home.to()}>
                       <Button>Site</Button>

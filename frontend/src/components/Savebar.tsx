@@ -8,7 +8,7 @@ export interface SavebarProps {
   loading: boolean;
   /** Path to previous view */
   back?: string;
-  onSubmit: () => void;
+  onSubmit?: () => void;
 }
 
 export const Savebar: React.FC<SavebarProps> = ({
@@ -24,7 +24,7 @@ export const Savebar: React.FC<SavebarProps> = ({
         <Button>Back</Button>
       </Link>
     )}
-    <Button color="primary" onClick={onSubmit}>
+    <Button color="primary" onClick={onSubmit} type="submit">
       {loading ? <Loader /> : "Submit"}
     </Button>
   </div>

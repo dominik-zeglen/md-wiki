@@ -26,4 +26,7 @@ export const panelRoutes = {
   page: createRoute<"slug">("pages/:slug/edit", "/panel/"),
   tags: createRoute("tags", "/panel/"),
   tag: createRoute<"id">("tags/:id", "/panel/"),
+  users: createRoute("users", "/panel/"),
+  user: createRoute<"name">("user/:name", "/panel/"),
+  account: createRoute("account", "/panel/"),
 };
