@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { render } from "react-dom";
+import { Provider as AlertProvider } from "react-alert";
 import { Home } from "./views/Site/Home";
 import { Page } from "./views/Site/Page";
 import { PageEdit } from "./views/Panel/PageEdit";
@@ -14,13 +14,14 @@ import { Tags } from "./views/Panel/TagList";
 import { TagEdit } from "./views/Panel/TagEdit";
 import { TagPages } from "./views/Site/TagPages";
 import { panelRoutes, siteRoutes } from "./routes";
-import { queryClient, TRPCProvider } from "./hooks/api/trpc";
+import { TRPCProvider } from "./hooks/api/trpc";
 
 import "./global.scss";
 import { TagList } from "./views/Site/TagList";
 import { Theming } from "./Theme";
 import { Account } from "./views/Panel/Account";
 import { Users } from "./views/Panel/UserList";
+import { Notification } from "./components/Notification";
 
 const PanelRoutes: React.FC = () => {
   const { loading } = useAuth();
@@ -49,9 +50,18 @@ const PanelRoutes: React.FC = () => {
 };
 
 export const App: React.FC = () => (
-  <RecoilRoot>
-    <TRPCProvider>
-      <QueryClientProvider client={queryClient}>
+  <AlertProvider
+    template={Notification}
+    containerStyle={{
+      pointerEvents: "unset",
+      zIndex: 2,
+      padding: "calc(var(--spacing) * 2) calc(var(--spacing) * 3)",
+    }}
+    position="top right"
+    timeout={5000}
+  >
+    <RecoilRoot>
+      <TRPCProvider>
         <Theming>
           <BrowserRouter>
             <Routes>
@@ -63,9 +73,9 @@ export const App: React.FC = () => (
             </Routes>
           </BrowserRouter>
         </Theming>
-      </QueryClientProvider>
-    </TRPCProvider>
-  </RecoilRoot>
+      </TRPCProvider>
+    </RecoilRoot>
+  </AlertProvider>
 );
 
 const rootNode = document.createElement("div");

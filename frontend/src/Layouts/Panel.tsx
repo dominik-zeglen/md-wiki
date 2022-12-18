@@ -26,7 +26,7 @@ export const Panel: React.FC = ({ children }) => (
         { href: panelRoutes.tags.to(), label: "Tags" },
         { href: panelRoutes.users.to(), label: "Users" },
       ].map((props) => (
-        <ItemMenu {...props} />
+        <ItemMenu key={props.href} {...props} />
       ))}
     </nav>
     <main className={styles.content}>{children}</main>

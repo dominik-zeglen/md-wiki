@@ -1,0 +1,44 @@
+.root {
+  border: 1px solid var(--palette-border);
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px var(--palette-shadow);
+  display: grid;
+  background-color: var(--palette-background);
+  gap: calc(var(--spacing) * 2);
+  grid-template-columns: 1fr 32px;
+  padding: var(--spacing);
+  width: 200px;
+  margin-bottom: var(--spacing);
+  line-height: 1;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+}
+
+.close {
+  border: none;
+}
+
+.status {
+  margin-right: var(--spacing);
+  width: 24px;
+  height: 24px;
+}
+
+.success {
+  border-color: var(--palette-success);
+
+  & .status {
+    color: var(--palette-success);
+  }
+}
+
+.error {
+  border-color: var(--palette-error);
+
+  & .status {
+    color: var(--palette-error);
+  }
+}

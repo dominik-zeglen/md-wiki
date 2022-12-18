@@ -10,9 +10,11 @@ import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/panel/PageEditor";
 import { PageLoading } from "src/pages/common/PageLoading";
 import { panelRoutes } from "src/routes";
+import { useAlert } from "react-alert";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
+  const { show } = useAlert();
   const { data: page, refetch } = trpc.pages.get.useQuery(slug!, {
     refetchOnMount: "always",
   });
@@ -36,7 +38,9 @@ export const PageEdit: React.FC = () => {
     form.reset(pick(page, ["title", "content"]));
   }, [page]);
 
-  const update = trpc.pages.update.useMutation();
+  const update = trpc.pages.update.useMutation({
+    onSuccess: () => show("Saved", { type: "success" }),
+  });
   const pageDelete = trpc.pages.delete.useMutation({
     onSuccess: () => navigate(panelRoutes.pages.to()),
   });
