@@ -91,8 +91,17 @@ export function statPage(slug: string) {
     .executeTakeFirst();
 }
 
-export function getPages() {
-  return db
+export interface PagePagination {
+  order?: {
+    by: "createdAt" | "updatedAt" | "title";
+    ascending: boolean;
+  } | null;
+  page: number;
+  size: number;
+}
+
+export function getPages({ page, size, order }: PagePagination) {
+  let q = db
     .selectFrom("mdWiki.pages")
     .select([
       "createdAt",
@@ -102,7 +111,14 @@ export function getPages() {
       "updatedAt",
       "updatedBy",
     ])
-    .execute();
+    .limit(size)
+    .offset((page - 1) * size);
+
+  if (order) {
+    q = q.orderBy(order.by, order.ascending ? "asc" : "desc");
+  }
+
+  return q.execute();
 }
 
 export type MarkPageAsUpdatedInput = {

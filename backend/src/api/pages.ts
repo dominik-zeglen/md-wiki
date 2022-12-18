@@ -18,7 +18,28 @@ export const pageRouter = router({
       return yup.string().required().validateSync(input);
     })
     .query((req) => getPage(req.input)),
-  list: procedure.input(() => null).query(getPages),
+  list: procedure
+    .input((input) => {
+      return yup
+        .object({
+          page: yup.number().required(),
+          size: yup.number().required(),
+          order: yup
+            .object({
+              by: yup
+                .string()
+                .oneOf(["createdAt", "updatedAt", "title"])
+                .required() as yup.StringSchema<
+                "createdAt" | "updatedAt" | "title"
+              >,
+              ascending: yup.boolean().required(),
+            })
+            .optional()
+            .nullable(),
+        })
+        .validateSync(input);
+    })
+    .query(({ input }) => getPages(input)),
   create: procedure
     .input((input) => {
       return yup
