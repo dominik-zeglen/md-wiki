@@ -20,6 +20,7 @@ import "./global.scss";
 import { TagList } from "./views/Site/TagList";
 import { Theming } from "./Theme";
 import { Account } from "./views/Panel/Account";
+import { Users } from "./views/Panel/UserList";
 
 const PanelRoutes: React.FC = () => {
   const { loading } = useAuth();
@@ -41,6 +42,8 @@ const PanelRoutes: React.FC = () => {
 
       <Route path={panelRoutes.tags.path} element={<Tags />} />
       <Route path={panelRoutes.tag.path} element={<TagEdit />} />
+
+      <Route path={panelRoutes.users.path} element={<Users />} />
     </Routes>
   );
 };

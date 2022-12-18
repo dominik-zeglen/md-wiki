@@ -1,0 +1,19 @@
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+.item {
+  box-shadow: none;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: calc(var(--spacing) * 2);
+  margin-bottom: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 2);
+
+  &:first-child,
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
