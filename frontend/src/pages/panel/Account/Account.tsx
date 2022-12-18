@@ -3,7 +3,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { Button } from "src/components/Button";
 import { Card, CardTitle } from "src/components/Card";
-import { Input, LabeledInput } from "src/components/Input";
+import { LabeledInput } from "src/components/Input";
 import { Savebar } from "src/components/Savebar";
 
 import styles from "./Account.scss";
@@ -38,7 +38,8 @@ export const Account: React.FC<AccountProps> = ({
                 value={user?.username ?? ""}
                 placeholder="Login"
               />
-              <Input
+              <LabeledInput
+                label="Display name"
                 fullWidth
                 {...register("displayName")}
                 placeholder="Display name"
