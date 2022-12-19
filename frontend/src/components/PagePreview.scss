@@ -9,6 +9,17 @@
     }
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(:first-child) {
+      margin-top: calc(var(--spacing) * 4);
+    }
+  }
+
   .image {
     float: left;
     margin: 0 var(--spacing) 0 0;
