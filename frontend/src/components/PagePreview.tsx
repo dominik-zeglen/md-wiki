@@ -52,6 +52,13 @@ function embedImagePlugin() {
           [styles.imageRight]: side === "right",
         });
 
+        const inlineStyles = [
+          attributes.width ? `width: ${attributes.width}px;` : null,
+          attributes.height ? `height: ${attributes.height}px;` : null,
+        ]
+          .filter(Boolean)
+          .join();
+
         if (!src) return;
 
         node.children = [];
@@ -61,6 +68,7 @@ function embedImagePlugin() {
           alt,
           src,
           className,
+          style: inlineStyles,
         };
       }
     });
