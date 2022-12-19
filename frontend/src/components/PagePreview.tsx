@@ -81,17 +81,20 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   }
 
   return (
-    <div className={styles.root}>
-      <ReactMarkdown
-        remarkPlugins={[directivePlugin, embedPagePlugin, embedImagePlugin]}
-        components={{
-          // eslint-disable-next-line react/no-unstable-nested-components
-          a: ({ href, children }) => <Link to={href!}>{children}</Link>,
-        }}
-      >
-        {page?.content!}
-      </ReactMarkdown>
-    </div>
+    <>
+      <div className={styles.root}>
+        <ReactMarkdown
+          remarkPlugins={[directivePlugin, embedPagePlugin, embedImagePlugin]}
+          components={{
+            // eslint-disable-next-line react/no-unstable-nested-components
+            a: ({ href, children }) => <Link to={href!}>{children}</Link>,
+          }}
+        >
+          {page?.content!}
+        </ReactMarkdown>
+      </div>
+      <div className={styles.clearFix} />
+    </>
   );
 };
 PagePreview.displayName = "PagePreview";
