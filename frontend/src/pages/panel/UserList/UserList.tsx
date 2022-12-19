@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { AppRouterOutputs } from "@api";
+import { getName } from "src/utils/user";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./UserList.scss";
 
@@ -25,7 +26,7 @@ export const UserList: React.FC<UserProps> = ({ users, onCreate }) => (
         </div>
         {users.map((user) => (
           <Card className={styles.item} key={user.username}>
-            {user.displayName || user.username}
+            {getName(user)}
           </Card>
         ))}
       </div>

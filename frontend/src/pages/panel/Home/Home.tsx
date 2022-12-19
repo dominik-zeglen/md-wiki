@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardTitle } from "src/components/Card";
 import { panelRoutes } from "src/routes";
+import { getName } from "src/utils/user";
 import styles from "./Home.scss";
 
 export interface HomeProps {
@@ -24,7 +25,7 @@ export const Home: React.FC<HomeProps> = ({
               {page.title}
             </Link>
             <br />
-            by {page.createdBy ?? "unknown"}
+            by {getName(page.created.user)}
           </Card>
         ))}
       </Card>
@@ -38,7 +39,7 @@ export const Home: React.FC<HomeProps> = ({
               {page.title}
             </Link>
             <br />
-            by {page.updatedBy}
+            by {getName(page.updated.user)}
           </Card>
         ))}
       </Card>

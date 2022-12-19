@@ -4,9 +4,9 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
+import { AppRouterOutputs } from "@api";
 import { PageLoading } from "../common/PageLoading";
 import styles from "./PageList.scss";
-import { AppRouterOutputs } from "@api";
 
 export interface PageProps {
   pages: AppRouterOutputs["pages"]["list"] | undefined;

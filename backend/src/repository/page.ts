@@ -100,16 +100,28 @@ export interface PagePagination {
   size: number;
 }
 
-export function getPages({ page, size, order }: PagePagination) {
+export async function getPages({ page, size, order }: PagePagination) {
   let q = db
     .selectFrom("mdWiki.pages")
+    .leftJoin(
+      db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
+      "createdBy.username",
+      "mdWiki.pages.createdBy"
+    )
+    .leftJoin(
+      db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
+      "updatedBy.username",
+      "mdWiki.pages.updatedBy"
+    )
     .select([
+      "createdBy.displayName as createdByDisplayName",
+      "createdBy.username as createdByUsername",
+      "updatedBy.displayName as updatedByDisplayName",
+      "updatedBy.username as updatedByUsername",
       "createdAt",
-      "createdBy",
+      "updatedAt",
       "slug",
       "title",
-      "updatedAt",
-      "updatedBy",
     ])
     .limit(size)
     .offset((page - 1) * size);
@@ -118,7 +130,23 @@ export function getPages({ page, size, order }: PagePagination) {
     q = q.orderBy(order.by, order.ascending ? "asc" : "desc");
   }
 
-  return q.execute();
+  return (await q.execute()).map((page) => ({
+    ...page,
+    created: {
+      user: {
+        displayName: page.createdByDisplayName,
+        username: page.createdByUsername,
+      },
+      date: page.createdAt,
+    },
+    updated: {
+      user: {
+        displayName: page.updatedByDisplayName,
+        username: page.updatedByUsername,
+      },
+      date: page.updatedAt,
+    },
+  }));
 }
 
 export type MarkPageAsUpdatedInput = {

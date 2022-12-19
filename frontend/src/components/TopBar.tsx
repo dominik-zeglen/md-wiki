@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "src/hooks/auth";
 import { panelRoutes, siteRoutes } from "src/routes";
 import SVG from "react-inlinesvg";
+import { getName } from "src/utils/user";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
@@ -75,7 +76,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             <div className={styles.userbar}>
               <Popover>
                 <Popover.Button className={styles.userbarMenuBtn}>
-                  {user?.displayName || user?.username}
+                  {getName(user)}
                 </Popover.Button>
                 <Popover.Panel as={Card} className={styles.userbarMenu}>
                   {pathname.includes("/panel") ? (

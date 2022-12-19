@@ -6,6 +6,7 @@ import { PagePreview } from "src/components/PagePreview";
 import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
 import { AppRouterOutputs } from "@api";
+import { getName } from "src/utils/user";
 import styles from "./Page.scss";
 import { PageLoading } from "../common/PageLoading";
 
@@ -38,22 +39,14 @@ export const Page: React.FC<PageProps> = ({ page }) => {
               page.createdAt as string
             ).toLocaleDateString("en", {
               dateStyle: "long",
-            })}, by ${
-              page.created.user.displayName ??
-              page.created.user.username ??
-              "unknown"
-            }`}</small>
+            })}, by ${getName(page.created.user)}`}</small>
             <small
               className={styles.headerCaption}
             >{`Last modified ${dbDateToDateObject(
               page.updatedAt as string
             ).toLocaleDateString("en", {
               dateStyle: "long",
-            })} by ${
-              page.updated.user.displayName ??
-              page.updated.user.username ??
-              "unknown"
-            }`}</small>
+            })} by ${getName(page.updated.user)}`}</small>
           </>
         )}
       </header>

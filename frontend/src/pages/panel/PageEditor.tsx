@@ -18,6 +18,7 @@ import { useFormSave } from "src/hooks/forms";
 import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
 import { AppRouterOutputs } from "@api";
+import { getName } from "src/utils/user";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
@@ -82,20 +83,12 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                       page.createdAt as string
                     ).toLocaleDateString("en", {
                       dateStyle: "long",
-                    })}, by ${
-                      page.created.user.displayName ??
-                      page.created.user.username ??
-                      "unknown"
-                    }`}</p>
+                    })}, by ${getName(page.created.user)}`}</p>
                     <p>{`Last modified ${dbDateToDateObject(
                       page.updatedAt as string
                     ).toLocaleDateString("en", {
                       dateStyle: "long",
-                    })} by ${
-                      page.updated.user.displayName ??
-                      page.updated.user.username ??
-                      "unknown"
-                    }`}</p>
+                    })} by ${getName(page.updated.user)}`}</p>
                   </Card>
                   <Card>
                     <CardTitle
