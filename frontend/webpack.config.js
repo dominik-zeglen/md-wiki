@@ -64,7 +64,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
-    filename: "bundle.js",
+    filename: "bundle.[chunkhash].js",
   },
   plugins: [
     new HtmlWebpackPlugin({
