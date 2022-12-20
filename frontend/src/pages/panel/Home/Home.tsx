@@ -7,8 +7,8 @@ import { getName } from "src/utils/user";
 import styles from "./Home.scss";
 
 export interface HomeProps {
-  recentlyCreated: AppRouterOutputs["pages"]["list"] | undefined;
-  recentlyUpdated: AppRouterOutputs["pages"]["list"] | undefined;
+  recentlyCreated: AppRouterOutputs["pages"]["list"]["results"] | undefined;
+  recentlyUpdated: AppRouterOutputs["pages"]["list"]["results"] | undefined;
 }
 
 export const Home: React.FC<HomeProps> = ({

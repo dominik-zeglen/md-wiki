@@ -5,6 +5,7 @@ import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
 import { AppRouterOutputs } from "@api";
+import { Pagination } from "src/components/Pagination/Pagination";
 import { PageLoading } from "../common/PageLoading";
 import styles from "./PageList.scss";
 
@@ -29,7 +30,7 @@ export const PageList: React.FC<PageProps> = ({ pages }) => (
             <span>Page name</span>
             <span>Last edited</span>
           </div>
-          {pages.map((page) => (
+          {pages.results.map((page) => (
             <Card className={styles.item} key={page.slug}>
               <Link to={panelRoutes.page.to({ slug: page.slug })}>
                 {page.title}
@@ -40,6 +41,7 @@ export const PageList: React.FC<PageProps> = ({ pages }) => (
               }).format(dbDateToDateObject(page.updatedAt as string))}
             </Card>
           ))}
+          <Pagination />
         </div>
       </div>
     )}

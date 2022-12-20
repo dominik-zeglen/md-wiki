@@ -1,4 +1,4 @@
-import { pick, pipe, toArray, uniq } from "@fxts/core";
+import { omit, pick, pipe, toArray, uniq } from "@fxts/core";
 import { remark } from "remark";
 import directivePlugin from "remark-directive";
 import { visit } from "unist-util-visit";
@@ -6,6 +6,58 @@ import { visit } from "unist-util-visit";
 import { db } from "./db";
 import { Database } from "./types";
 import { sql } from "kysely";
+import { PaginationInput, paginate } from "./utils";
+
+const getPagesWithUserQuery = db
+  .selectFrom("mdWiki.pages")
+  .leftJoin(
+    db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
+    "createdBy.username",
+    "mdWiki.pages.createdBy"
+  )
+  .leftJoin(
+    db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
+    "updatedBy.username",
+    "mdWiki.pages.updatedBy"
+  )
+  .select([
+    "createdBy.displayName as createdByDisplayName",
+    "createdBy.username as createdByUsername",
+    "updatedBy.displayName as updatedByDisplayName",
+    "updatedBy.username as updatedByUsername",
+    "createdAt",
+    "updatedAt",
+  ]);
+
+function withPageUsers<
+  T extends Awaited<ReturnType<typeof getPagesWithUserQuery["execute"]>>[number]
+>(page: T) {
+  return {
+    ...omit(
+      [
+        "createdByDisplayName",
+        "createdByUsername",
+        "updatedByDisplayName",
+        "updatedByUsername",
+      ],
+      page
+    ),
+    created: {
+      user: {
+        displayName: page.createdByDisplayName,
+        username: page.createdByUsername,
+      },
+      date: page.createdAt,
+    },
+    updated: {
+      user: {
+        displayName: page.updatedByDisplayName,
+        username: page.updatedByUsername,
+      },
+      date: page.updatedAt,
+    },
+  };
+}
 
 function pageReferencePlugin(cb: (slug: string) => void) {
   return () => (tree: any) => {
@@ -30,30 +82,9 @@ function pageReferencePlugin(cb: (slug: string) => void) {
 
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
-    db
-      .selectFrom("mdWiki.pages")
+    getPagesWithUserQuery
       .where("mdWiki.pages.slug", "=", slug)
-      .leftJoin(
-        db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
-        "createdBy.username",
-        "mdWiki.pages.createdBy"
-      )
-      .leftJoin(
-        db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
-        "updatedBy.username",
-        "mdWiki.pages.updatedBy"
-      )
-      .select([
-        "createdBy.displayName as createdByDisplayName",
-        "createdBy.username as createdByUsername",
-        "updatedBy.displayName as updatedByDisplayName",
-        "updatedBy.username as updatedByUsername",
-        "content",
-        "createdAt",
-        "updatedAt",
-        "slug",
-        "title",
-      ])
+      .select(["content", "slug", "title"])
       .executeTakeFirstOrThrow(),
     db
       .selectFrom("mdWiki.m2m_tags_pages")
@@ -63,24 +94,7 @@ export async function getPage(slug: string) {
       .execute(),
   ]);
 
-  return {
-    ...pick(["content", "createdAt", "updatedAt", "slug", "title"], page!),
-    created: {
-      user: {
-        displayName: page.createdByDisplayName,
-        username: page.createdByUsername,
-      },
-      date: page.createdAt,
-    },
-    updated: {
-      user: {
-        displayName: page.updatedByDisplayName,
-        username: page.updatedByUsername,
-      },
-      date: page.updatedAt,
-    },
-    tags: tags ?? [],
-  };
+  return withPageUsers({ ...page, tags: tags ?? [] });
 }
 
 export function statPage(slug: string) {
@@ -91,62 +105,35 @@ export function statPage(slug: string) {
     .executeTakeFirst();
 }
 
-export interface PagePagination {
-  order?: {
-    by: "createdAt" | "updatedAt" | "title";
-    ascending: boolean;
-  } | null;
-  page: number;
-  size: number;
+export interface PageOrder {
+  by: "createdAt" | "updatedAt" | "title";
+  ascending: boolean;
+}
+export interface PageFilters {
+  title?: string | null;
 }
 
-export async function getPages({ page, size, order }: PagePagination) {
-  let q = db
-    .selectFrom("mdWiki.pages")
-    .leftJoin(
-      db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
-      "createdBy.username",
-      "mdWiki.pages.createdBy"
-    )
-    .leftJoin(
-      db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
-      "updatedBy.username",
-      "mdWiki.pages.updatedBy"
-    )
-    .select([
-      "createdBy.displayName as createdByDisplayName",
-      "createdBy.username as createdByUsername",
-      "updatedBy.displayName as updatedByDisplayName",
-      "updatedBy.username as updatedByUsername",
-      "createdAt",
-      "updatedAt",
-      "slug",
-      "title",
-    ])
-    .limit(size)
-    .offset((page - 1) * size);
+export async function getPages(
+  pagination: PaginationInput,
+  order: PageOrder | null = null,
+  { title }: PageFilters = {}
+) {
+  let q = getPagesWithUserQuery.select(["slug", "title"]);
 
   if (order) {
     q = q.orderBy(order.by, order.ascending ? "asc" : "desc");
   }
 
-  return (await q.execute()).map((page) => ({
-    ...page,
-    created: {
-      user: {
-        displayName: page.createdByDisplayName,
-        username: page.createdByUsername,
-      },
-      date: page.createdAt,
-    },
-    updated: {
-      user: {
-        displayName: page.updatedByDisplayName,
-        username: page.updatedByUsername,
-      },
-      date: page.updatedAt,
-    },
-  }));
+  if (title) {
+    q = q.where("title", "like", `%${title}%`);
+  }
+
+  const paginated = await paginate(q, pagination);
+
+  return {
+    ...paginated,
+    results: paginated.results.map(withPageUsers),
+  };
 }
 
 export type MarkPageAsUpdatedInput = {
@@ -222,7 +209,7 @@ export function deletePage(slug: string) {
 export function searchPage(text: string) {
   return db
     .selectFrom("mdWiki.pages")
-    .select(["slug", "title", sql<string>`substr(content, 1, 200)`.as("brief")])
+    .select(["slug", "title", sql<string>`substr(content, 1, 100)`.as("brief")])
     .where("title", "like", `%${text}%`)
     .limit(5)
     .execute();

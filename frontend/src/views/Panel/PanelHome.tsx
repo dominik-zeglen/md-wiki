@@ -11,6 +11,7 @@ export const PanelHome: React.FC = () => {
     },
     page: 1,
     size: 5,
+    filter: { title: null },
   });
   const recentlyCreated = trpc.pages.list.useQuery({
     order: {
@@ -19,13 +20,14 @@ export const PanelHome: React.FC = () => {
     },
     page: 1,
     size: 5,
+    filter: { title: null },
   });
 
   return (
     <Panel>
       <PanelHomePage
-        recentlyCreated={recentlyCreated.data}
-        recentlyUpdated={recentlyUpdated.data}
+        recentlyCreated={recentlyCreated.data?.results}
+        recentlyUpdated={recentlyUpdated.data?.results}
       />
     </Panel>
   );

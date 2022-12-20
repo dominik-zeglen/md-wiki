@@ -36,10 +36,15 @@ export const pageRouter = router({
             })
             .optional()
             .nullable(),
+          filter: yup
+            .object({
+              title: yup.string().optional().nullable(),
+            })
+            .optional(),
         })
         .validateSync(input);
     })
-    .query(({ input }) => getPages(input)),
+    .query(({ input }) => getPages(input, input.order, input.filter)),
   create: procedure
     .input((input) => {
       return yup

@@ -19,6 +19,7 @@ export const TagEdit: React.FC = () => {
     order: null,
     page: 1,
     size: 100,
+    filter: { title: null },
   });
 
   React.useEffect(() => {
@@ -56,7 +57,7 @@ export const TagEdit: React.FC = () => {
           title={`Attach tag ${tag?.name} to pages`}
           width="400px"
         >
-          {pages.map((page) => (
+          {pages.results.map((page) => (
             <div key={page.slug}>
               <input
                 type="checkbox"

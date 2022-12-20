@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  justify-content: end;
+}
+
+.page {
+  width: 32px;
+  text-align: center;
+}
