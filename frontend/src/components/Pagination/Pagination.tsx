@@ -1,7 +1,6 @@
 import React from "react";
-import SVG from "react-inlinesvg";
-import chevronLeftIcon from "@assets/chevron_left.svg";
-import chevronRightIcon from "@assets/chevron_right.svg";
+import ChevronLeftIcon from "@assets/chevron_left.svg";
+import ChevronRightIcon from "@assets/chevron_right.svg";
 import { usePaginationContext } from "./PaginationContext";
 import { IconButton } from "../IconButton";
 import styles from "./Pagination.scss";
@@ -23,11 +22,11 @@ export const BasePagination: React.FC<BasePaginationProps> = ({
 }) => (
   <div className={styles.root}>
     <IconButton disabled={!hasPreviousPage} onClick={onPreviousPage}>
-      <SVG src={chevronLeftIcon} />
+      <ChevronLeftIcon />
     </IconButton>
     <span className={styles.page}>{page}</span>
     <IconButton disabled={!hasNextPage} onClick={onNextPage}>
-      <SVG src={chevronRightIcon} />
+      <ChevronRightIcon />
     </IconButton>
   </div>
 );

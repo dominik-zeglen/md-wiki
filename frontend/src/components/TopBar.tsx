@@ -5,16 +5,15 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "src/hooks/auth";
 import { panelRoutes, siteRoutes } from "src/routes";
-import SVG from "react-inlinesvg";
 import { getName } from "src/utils/user";
+import SearchIcon from "@assets/search.svg";
+import MoonIcon from "@assets/moon.svg";
+import SunIcon from "@assets/sun.svg";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
 import { Loader } from "./Loader";
 import styles from "./TopBar.scss";
-import searchIcon from "../../assets/search.svg";
-import moonIcon from "../../assets/moon.svg";
-import sunIcon from "../../assets/sun.svg";
 import { IconButton } from "./IconButton";
 import { useTheme } from "../Theme";
 
@@ -59,13 +58,13 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
           <IconButton
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
-            <SVG src={theme === "light" ? sunIcon : moonIcon} />
+            {theme === "light" ? <SunIcon /> : <MoonIcon />}
           </IconButton>
         </div>
         {onSearchOpen && (
           <div className={styles.item}>
             <IconButton onClick={onSearchOpen}>
-              <SVG src={searchIcon} />
+              <SearchIcon />
             </IconButton>
           </div>
         )}

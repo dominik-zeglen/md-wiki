@@ -56,8 +56,13 @@ const config = {
         ],
       },
       {
-        test: /\.(svg|png|jpe?g)$/,
+        test: /\.(png|jpe?g)$/,
         type: "asset/resource",
+      },
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: [{ loader: "@svgr/webpack", options: { dimensions: false } }],
       },
     ],
   },

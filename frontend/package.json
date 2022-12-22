@@ -9,6 +9,7 @@
     "lint": "npx eslint \"src/**/*.@(tsx|ts|jsx|js)\" --fix ; npx prettier --check \"src/**/*.@(tsx|ts|jsx|js)\" --write"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@types/jest": "^27.0.2",
     "@types/react-alert": "^7.0.2",
     "@types/react-modal": "^3.13.1",
