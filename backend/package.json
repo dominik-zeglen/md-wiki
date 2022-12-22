@@ -6,6 +6,7 @@
     "codegen": "kysely-codegen",
     "build": "tsc",
     "build:types": "kysely-codegen --out-file=src/repository/types.ts",
+    "build:migrations": "tsc -p migrations/src/tsconfig.json",
     "migrate": "node build/scripts/migrate.js",
     "start": "node --experimental-specifier-resolution=node build/src/index.js",
     "start:dev": "concurrently \"npx tsc --watch --preserveWatchOutput --pretty\" \"nodemon --watch build --exec 'node --experimental-specifier-resolution=node' build/src/index.js\""
