@@ -1,54 +1,48 @@
-import { ColumnType, RawBuilder } from "kysely";
+import { ColumnType } from "kysely";
 
 export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
-export type Timestamp = ColumnType<
-  Date | RawBuilder,
-  Date | string | RawBuilder,
-  Date | string | RawBuilder
->;
-
-export interface MdWikiM2mTagsPages {
+export interface M2mTagsPages {
   page: string;
-  tag: string;
+  tag: number;
 }
 
-export interface MdWikiPages {
-  content: string;
-  createdAt: Timestamp;
-  createdBy: string | null;
-  slug: string;
-  title: string;
-  updatedAt: Timestamp;
-  updatedBy: string | null;
-}
-
-export interface MdWikiPageReferences {
+export interface PageReferences {
   referenced_by: string;
   references: string;
 }
 
-export interface MdWikiTags {
-  createdAt: Timestamp;
+export interface Pages {
+  content: string;
+  createdAt: Date;
   createdBy: string | null;
-  id: Generated<string>;
-  name: string | null;
-  updatedAt: Timestamp;
+  slug: string;
+  title: string;
+  updatedAt: Date;
   updatedBy: string | null;
 }
 
-export interface MdWikiUsers {
-  displayName: string | null;
-  username: string;
-  hash: string;
+export interface Tags {
+  createdAt: Date;
+  createdBy: string | null;
+  id: Generated<number>;
+  name: string | null;
+  updatedAt: Date;
+  updatedBy: string | null;
 }
 
-export interface Database {
-  "mdWiki.m2m_tags_pages": MdWikiM2mTagsPages;
-  "mdWiki.pages": MdWikiPages;
-  "mdWiki.page_references": MdWikiPageReferences;
-  "mdWiki.tags": MdWikiTags;
-  "mdWiki.users": MdWikiUsers;
+export interface Users {
+  displayName: string | null;
+  hash: string;
+  username: string;
+}
+
+export interface DB {
+  m2m_tags_pages: M2mTagsPages;
+  page_references: PageReferences;
+  pages: Pages;
+  tags: Tags;
+  users: Users;
 }

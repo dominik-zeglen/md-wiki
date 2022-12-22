@@ -10,17 +10,14 @@ function hashPassword(password: string) {
 
 export function getUser(username: string) {
   return db
-    .selectFrom("mdWiki.users")
+    .selectFrom("users")
     .select(["username", "displayName"])
-    .where("mdWiki.users.username", "=", username)
+    .where("users.username", "=", username)
     .executeTakeFirstOrThrow();
 }
 
 export function getUsers() {
-  return db
-    .selectFrom("mdWiki.users")
-    .select(["username", "displayName"])
-    .execute();
+  return db.selectFrom("users").select(["username", "displayName"]).execute();
 }
 
 export type CreateUserInput = {
@@ -30,7 +27,7 @@ export type CreateUserInput = {
 };
 export async function createUser(input: CreateUserInput) {
   await db
-    .insertInto("mdWiki.users")
+    .insertInto("users")
     .values({
       displayName: input.displayName,
       username: input.username,
@@ -47,7 +44,7 @@ export type UpdateUserInput = {
 };
 export async function updateUser(input: UpdateUserInput) {
   await db
-    .updateTable("mdWiki.users")
+    .updateTable("users")
     .set({
       displayName: input.data.displayName,
       hash: input.data.password
@@ -78,17 +75,14 @@ export function verifyUserToken(token: string): boolean {
 
 export async function verifyUser(username: string, password: string) {
   const user = await db
-    .selectFrom("mdWiki.users")
+    .selectFrom("users")
     .select(["username", "hash"])
-    .where("mdWiki.users.username", "=", username)
+    .where("users.username", "=", username)
     .executeTakeFirstOrThrow();
 
   return compare(password, user.hash);
 }
 
 export function deleteUser(username: string) {
-  return db
-    .deleteFrom("mdWiki.users")
-    .where("username", "=", username)
-    .execute();
+  return db.deleteFrom("users").where("username", "=", username).execute();
 }

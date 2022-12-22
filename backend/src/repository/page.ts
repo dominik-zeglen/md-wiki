@@ -4,21 +4,21 @@ import directivePlugin from "remark-directive";
 import { visit } from "unist-util-visit";
 
 import { db } from "./db";
-import { Database } from "./types";
+import { DB } from "./types";
 import { sql } from "kysely";
 import { PaginationInput, paginate } from "./utils";
 
 const getPagesWithUserQuery = db
-  .selectFrom("mdWiki.pages")
+  .selectFrom("pages")
   .leftJoin(
-    db.selectFrom("mdWiki.users").selectAll().as("createdBy"),
+    db.selectFrom("users").selectAll().as("createdBy"),
     "createdBy.username",
-    "mdWiki.pages.createdBy"
+    "pages.createdBy"
   )
   .leftJoin(
-    db.selectFrom("mdWiki.users").selectAll().as("updatedBy"),
+    db.selectFrom("users").selectAll().as("updatedBy"),
     "updatedBy.username",
-    "mdWiki.pages.updatedBy"
+    "pages.updatedBy"
   )
   .select([
     "createdBy.displayName as createdByDisplayName",
@@ -83,13 +83,13 @@ function pageReferencePlugin(cb: (slug: string) => void) {
 export async function getPage(slug: string) {
   const [page, tags] = await Promise.all([
     getPagesWithUserQuery
-      .where("mdWiki.pages.slug", "=", slug)
+      .where("pages.slug", "=", slug)
       .select(["content", "slug", "title"])
       .executeTakeFirstOrThrow(),
     db
-      .selectFrom("mdWiki.m2m_tags_pages")
+      .selectFrom("m2m_tags_pages")
       .where("page", "=", slug)
-      .innerJoin("mdWiki.tags", "mdWiki.m2m_tags_pages.tag", "mdWiki.tags.id")
+      .innerJoin("tags", "m2m_tags_pages.tag", "tags.id")
       .select(["id", "name"])
       .execute(),
   ]);
@@ -99,9 +99,9 @@ export async function getPage(slug: string) {
 
 export function statPage(slug: string) {
   return db
-    .selectFrom("mdWiki.pages")
+    .selectFrom("pages")
     .select(["slug"])
-    .where("mdWiki.pages.slug", "=", slug)
+    .where("pages.slug", "=", slug)
     .executeTakeFirst();
 }
 
@@ -142,9 +142,9 @@ export type MarkPageAsUpdatedInput = {
 };
 export async function markPageAsUpdated(input: MarkPageAsUpdatedInput) {
   const result = await db
-    .updateTable("mdWiki.pages")
+    .updateTable("pages")
     .set({ updatedAt: new Date(), updatedBy: input.user })
-    .where("mdWiki.pages.slug", "=", input.slug)
+    .where("pages.slug", "=", input.slug)
     .executeTakeFirst();
 
   if (!result.numUpdatedRows) {
@@ -156,14 +156,14 @@ export async function markPageAsUpdated(input: MarkPageAsUpdatedInput) {
 
 export type UpdatePageInput = {
   slug: string;
-  data: Pick<Database["mdWiki.pages"], "content" | "title">;
+  data: Pick<DB["pages"], "content" | "title">;
   user: string;
 };
 export async function updatePage(input: UpdatePageInput) {
   const result = await db
-    .updateTable("mdWiki.pages")
+    .updateTable("pages")
     .set({ ...input.data, updatedAt: new Date(), updatedBy: input.user })
-    .where("mdWiki.pages.slug", "=", input.slug)
+    .where("pages.slug", "=", input.slug)
     .executeTakeFirst();
 
   if (!result.numUpdatedRows) {
@@ -179,12 +179,12 @@ export async function updatePage(input: UpdatePageInput) {
 }
 
 export type CreatePageInput = {
-  data: Pick<Database["mdWiki.pages"], "slug" | "content" | "title">;
+  data: Pick<DB["pages"], "slug" | "content" | "title">;
   user: string;
 };
 export async function createPage(input: CreatePageInput) {
   await db
-    .insertInto("mdWiki.pages")
+    .insertInto("pages")
     .values({
       ...input.data,
       createdAt: new Date(),
@@ -203,12 +203,12 @@ export async function createPage(input: CreatePageInput) {
 }
 
 export function deletePage(slug: string) {
-  return db.deleteFrom("mdWiki.pages").where("slug", "=", slug).execute();
+  return db.deleteFrom("pages").where("slug", "=", slug).execute();
 }
 
 export function searchPage(text: string) {
   return db
-    .selectFrom("mdWiki.pages")
+    .selectFrom("pages")
     .select(["slug", "title", sql<string>`substr(content, 1, 100)`.as("brief")])
     .where("title", "like", `%${text}%`)
     .limit(5)
@@ -217,14 +217,10 @@ export function searchPage(text: string) {
 
 export function getPageReferences(slug: string) {
   return db
-    .selectFrom("mdWiki.page_references")
+    .selectFrom("page_references")
     .selectAll()
     .where("references", "=", slug)
-    .innerJoin(
-      "mdWiki.pages",
-      "mdWiki.pages.slug",
-      "mdWiki.page_references.referenced_by"
-    )
+    .innerJoin("pages", "pages.slug", "page_references.referenced_by")
     .select(["slug", "title"])
     .execute();
 }
@@ -243,7 +239,7 @@ export function updateReferences(referencedBy: string, references: string[]) {
   return Promise.all(
     references.map((page) =>
       db
-        .insertInto("mdWiki.page_references")
+        .insertInto("page_references")
         .ignore()
         .values({ referenced_by: referencedBy, references: page })
         .execute()

@@ -5,6 +5,7 @@
   "scripts": {
     "codegen": "kysely-codegen",
     "build": "tsc",
+    "build:types": "kysely-codegen --out-file=src/repository/types.ts",
     "migrate": "node build/scripts/migrate.js",
     "start": "node --experimental-specifier-resolution=node build/src/index.js",
     "start:dev": "concurrently \"npx tsc --watch --preserveWatchOutput --pretty\" \"nodemon --watch build --exec 'node --experimental-specifier-resolution=node' build/src/index.js\""
@@ -21,7 +22,6 @@
     "koa": "^2.14.1",
     "koa-logger": "^3.2.1",
     "kysely": "^0.22.0",
-    "kysely-data-api": "^0.1.4",
     "mysql2": "^2.3.3",
     "remark": "^14.0.2",
     "remark-directive": "^2.0.1",
