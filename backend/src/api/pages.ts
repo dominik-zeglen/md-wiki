@@ -7,6 +7,7 @@ import {
   getPageReferences,
   getPages,
   searchPage,
+  setPageHighlight,
   updatePage,
 } from "../repository/page";
 import { jwtMiddleware } from "./middlewares/jwt";
@@ -97,4 +98,15 @@ export const pageRouter = router({
       return yup.string().required().validateSync(input);
     })
     .query((req) => getPageReferences(req.input)),
+  highlight: procedure
+    .input((input) => {
+      return yup
+        .object({
+          slug: yup.string().required(),
+          highlighted: yup.boolean().required(),
+        })
+        .required()
+        .validateSync(input);
+    })
+    .mutation(({ input }) => setPageHighlight(input.slug, input.highlighted)),
 });

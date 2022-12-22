@@ -18,6 +18,7 @@ export interface Pages {
   content: string;
   createdAt: Date;
   createdBy: string | null;
+  highlighted: Generated<number>;
   slug: string;
   title: string;
   updatedAt: Date;

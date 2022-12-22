@@ -1,4 +1,4 @@
-import { omit, pick, pipe, toArray, uniq } from "@fxts/core";
+import { omit, pipe, toArray, uniq } from "@fxts/core";
 import { remark } from "remark";
 import directivePlugin from "remark-directive";
 import { visit } from "unist-util-visit";
@@ -118,7 +118,7 @@ export async function getPages(
   order: PageOrder | null = null,
   { title }: PageFilters = {}
 ) {
-  let q = getPagesWithUserQuery.select(["slug", "title"]);
+  let q = getPagesWithUserQuery.select(["slug", "title", "highlighted"]);
 
   if (order) {
     q = q.orderBy(order.by, order.ascending ? "asc" : "desc");
@@ -245,4 +245,12 @@ export function updateReferences(referencedBy: string, references: string[]) {
         .execute()
     )
   );
+}
+
+export function setPageHighlight(slug: string, highlighted: boolean) {
+  return db
+    .updateTable("pages")
+    .where("slug", "=", slug)
+    .set({ highlighted: highlighted ? 1 : 0 })
+    .execute();
 }

@@ -7,7 +7,7 @@ import { PaginationProvider } from "src/components/Pagination";
 
 export const Pages: React.FC = () => {
   const [{ title, page }] = useQs();
-  const { data: pages } = trpc.pages.list.useQuery(
+  const { data: pages, refetch } = trpc.pages.list.useQuery(
     {
       page: parseInt(page ?? "1"),
       size: 20,
@@ -18,6 +18,11 @@ export const Pages: React.FC = () => {
     },
     { keepPreviousData: true }
   );
+  const { mutate } = trpc.pages.highlight.useMutation({
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
   return (
     <PaginationProvider
@@ -25,7 +30,7 @@ export const Pages: React.FC = () => {
       hasNextPage={!!pages?.hasNext}
     >
       <Panel>
-        <PageList pages={pages} />
+        <PageList pages={pages} onHighlight={mutate} />
       </Panel>
     </PaginationProvider>
   );

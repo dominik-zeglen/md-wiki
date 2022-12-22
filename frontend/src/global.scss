@@ -95,6 +95,11 @@ textarea {
 
   --spacing: 0.8rem;
   --site-width: 640px;
+  --transition: 200ms;
+}
+
+* {
+  transition: background-color border-color var(--transition);
 }
 
 html {

@@ -5,10 +5,10 @@
   }
   &:hover,
   &:focus {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--palette-shadow-light);
   }
   &:active {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--palette-shadow);
   }
   &[disabled] {
     &:hover {
@@ -28,4 +28,12 @@
   padding: calc(var(--spacing) / 2);
   width: 32px;
   outline: 0;
+  transition: var(--transition);
+
+  &.flat {
+    &:not(:focus),
+    &:hover {
+      border-color: transparent;
+    }
+  }
 }
