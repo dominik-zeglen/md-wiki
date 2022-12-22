@@ -15,16 +15,16 @@
 .content {
   display: flex;
   align-items: center;
+
+  svg {
+    margin-right: var(--spacing);
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .close {
   border: none;
-}
-
-.status {
-  margin-right: var(--spacing);
-  width: 24px;
-  height: 24px;
 }
 
 .success {
