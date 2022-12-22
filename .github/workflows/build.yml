@@ -19,13 +19,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Cache node modules
+      - name: Create npm cache
         uses: actions/cache@v2
-        id: cache-node-modules
-        env:
-          cache-name: cache-node-modules
         with:
-          path: "**/node_modules"
+          path: ".npm"
           key: ${{ runner.os }}-qa-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-qa-${{ env.cache-name }}-
@@ -33,7 +30,6 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           npm ci
 
