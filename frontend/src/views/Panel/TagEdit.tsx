@@ -68,7 +68,7 @@ export const TagEdit: React.FC = () => {
                   (event.target.checked
                     ? attach.mutateAsync
                     : unattach.mutateAsync)({
-                    tag: tag.id.toString(),
+                    tag: tag.id.toString(10),
                     page: page.slug,
                   })
                 }

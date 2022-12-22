@@ -14,7 +14,8 @@ export const Tags: React.FC = () => {
   const navigate = useNavigate();
   const { data: tags } = trpc.tags.list.useQuery(null);
   const { mutate: createTag, isLoading } = trpc.tags.create.useMutation({
-    onSuccess: (tag) => navigate(panelRoutes.tag.to({ id: tag.id })),
+    onSuccess: (tag) =>
+      navigate(panelRoutes.tag.to({ id: tag.id.toString(10) })),
   });
   const [open, setOpen] = React.useState(false);
   const { register, handleSubmit } = useForm({ defaultValues: { name: "" } });

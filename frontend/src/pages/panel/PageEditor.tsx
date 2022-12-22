@@ -101,7 +101,9 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                         ? page.tags.map((tag) => (
                             <Link
                               key={tag.id}
-                              to={panelRoutes.tag.to({ id: tag.id })}
+                              to={panelRoutes.tag.to({
+                                id: tag.id.toString(10),
+                              })}
                             >
                               {tag.name}
                             </Link>

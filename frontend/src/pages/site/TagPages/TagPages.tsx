@@ -25,7 +25,7 @@ export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
         <h1>Tag: {tag?.name}</h1>
         {!!user && (
           <div>
-            <Link to={panelRoutes.tag.to({ id: tag?.id ?? "" })}>
+            <Link to={panelRoutes.tag.to({ id: tag?.id.toString(10) ?? "" })}>
               <Button>edit</Button>
             </Link>
           </div>

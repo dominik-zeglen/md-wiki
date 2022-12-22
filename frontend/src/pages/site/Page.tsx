@@ -59,7 +59,9 @@ export const Page: React.FC<PageProps> = ({ page }) => {
                 <h6>Tags</h6>
                 <div className={styles.footerTags}>
                   {page.tags.map(({ id, name }) => (
-                    <Link to={siteRoutes.tag.to({ id })}>{name}</Link>
+                    <Link to={siteRoutes.tag.to({ id: id.toString(10) })}>
+                      {name}
+                    </Link>
                   ))}
                 </div>
                 <hr />

@@ -4,9 +4,9 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
+import { AppRouterOutputs } from "@api";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagList.scss";
-import { AppRouterOutputs } from "@api";
 
 export interface TagProps {
   tags: AppRouterOutputs["tags"]["list"] | undefined;
@@ -29,7 +29,9 @@ export const TagList: React.FC<TagProps> = ({ tags, onCreate }) => (
         </div>
         {tags.map((tag) => (
           <Card className={styles.item} key={tag.name}>
-            <Link to={panelRoutes.tag.to({ id: tag.id })}>{tag.name}</Link>
+            <Link to={panelRoutes.tag.to({ id: tag.id.toString(10) })}>
+              {tag.name}
+            </Link>
             {Intl.DateTimeFormat(undefined, {
               dateStyle: "medium",
               timeStyle: "short",
