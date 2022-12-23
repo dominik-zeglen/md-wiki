@@ -19,6 +19,7 @@ import { panelRoutes, siteRoutes } from "src/routes";
 import { dbDateToDateObject } from "src/utils/date";
 import { AppRouterOutputs } from "@api";
 import { getName } from "src/utils/user";
+import { useHotkeys } from "react-hotkeys-hook";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
@@ -40,6 +41,13 @@ export const PageEditor: React.FC<PageEditorProps> = ({
 }) => {
   const { register, getValues } = useFormContext();
   const [preview, setPreview] = React.useState(getValues().content);
+  const [tab, setTabState] = React.useState(
+    parseInt(localStorage.getItem("pageEditorTab") ?? "0")
+  );
+  const setTab = React.useCallback((index: number) => {
+    setTabState(index);
+    localStorage.setItem("pageEditorTab", index.toString());
+  }, []);
 
   useFormSave(onSubmit);
 
@@ -51,27 +59,29 @@ export const PageEditor: React.FC<PageEditorProps> = ({
     return () => clearInterval(handle);
   }, []);
 
+  useHotkeys(
+    "meta+m",
+    () => {
+      setTab((tab + 1) % 2);
+    },
+    {
+      enableOnFormTags: true,
+    },
+    [tab]
+  );
+
   return (
-    <div className={styles.root}>
-      <Input variant="header" fullWidth {...register("title")} />
-      <div className={styles.editorWrapper}>
-        <textarea className={styles.editor} {...register("content")} />
-        <div className={styles.editorRightPane}>
-          {page ? (
-            <TabGroup
-              defaultIndex={parseInt(
-                localStorage.getItem("pageEditorTab") ?? "0"
-              )}
-              onChange={(index) =>
-                localStorage.setItem("pageEditorTab", index.toString())
-              }
-            >
-              <div className={styles.editorRightPaneTabsContainer}>
-                <TabList className={styles.editorRightPaneTabs}>
-                  <Tab>Preview</Tab>
-                  <Tab>Details</Tab>
-                </TabList>
-              </div>
+    <TabGroup onChange={setTab} selectedIndex={tab}>
+      <div className={styles.root}>
+        <Input variant="header" fullWidth {...register("title")} />
+        <TabList className={styles.editorTabs}>
+          <Tab>Preview</Tab>
+          <Tab>Details</Tab>
+        </TabList>
+        <div className={styles.editorWrapper}>
+          <textarea className={styles.editor} {...register("content")} />
+          <div className={styles.editorRightPane}>
+            {page ? (
               <TabPanels>
                 <TabPanel>
                   <PagePreview page={preview} />
@@ -134,28 +144,28 @@ export const PageEditor: React.FC<PageEditorProps> = ({
                   </Card>
                 </TabPanel>
               </TabPanels>
-            </TabGroup>
-          ) : (
-            <PagePreview page={preview} />
-          )}
+            ) : (
+              <PagePreview page={preview} />
+            )}
+          </div>
         </div>
+        <Savebar
+          back={panelRoutes.pages.to()}
+          onSubmit={onSubmit}
+          loading={loading}
+        >
+          {!!page && (
+            <Link to={siteRoutes.page.to({ slug: page.slug })}>
+              <Button>Live</Button>
+            </Link>
+          )}
+          {onDelete && (
+            <Button color="error" onClick={onDelete}>
+              Delete
+            </Button>
+          )}
+        </Savebar>
       </div>
-      <Savebar
-        back={panelRoutes.pages.to()}
-        onSubmit={onSubmit}
-        loading={loading}
-      >
-        {!!page && (
-          <Link to={siteRoutes.page.to({ slug: page.slug })}>
-            <Button>Live</Button>
-          </Link>
-        )}
-        {onDelete && (
-          <Button color="error" onClick={onDelete}>
-            Delete
-          </Button>
-        )}
-      </Savebar>
-    </div>
+    </TabGroup>
   );
 };

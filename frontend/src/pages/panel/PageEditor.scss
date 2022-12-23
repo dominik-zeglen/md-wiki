@@ -10,6 +10,13 @@
   height: var(--height);
   outline: 0;
 
+  &Tabs {
+    display: inline-block;
+    position: absolute;
+    top: calc(var(--spacing) * 2);
+    right: 0;
+  }
+
   &Wrapper {
     --height: calc(100vh - 27.2rem);
 
@@ -23,15 +30,6 @@
     padding-left: calc(var(--spacing) * 1.5);
     height: var(--height);
     overflow: scroll;
-
-    &Tabs {
-      display: inline-block;
-      margin-bottom: calc(var(--spacing) * 2);
-
-      &Container {
-        text-align: right;
-      }
-    }
 
     &Tags {
       display: flex;
