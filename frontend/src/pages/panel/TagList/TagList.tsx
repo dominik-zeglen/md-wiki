@@ -5,6 +5,7 @@ import { Card } from "src/components/Card";
 import { dbDateToDateObject } from "src/utils/date";
 import { panelRoutes } from "src/routes";
 import { AppRouterOutputs } from "@api";
+import { PanelHeader } from "src/components/PanelHeader";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagList.scss";
 
@@ -15,9 +16,9 @@ export interface TagProps {
 
 export const TagList: React.FC<TagProps> = ({ tags, onCreate }) => (
   <div>
-    <div className={styles.toolbar}>
+    <PanelHeader title="Tags">
       <Button onClick={onCreate}>New tag</Button>
-    </div>
+    </PanelHeader>
 
     {tags === undefined ? (
       <PageLoading />

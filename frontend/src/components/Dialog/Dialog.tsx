@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import SVG from "react-inlinesvg";
-import closeIcon from "../../../assets/close.svg";
+import CloseIcon from "../../../assets/close.svg";
 import { IconButton } from "../IconButton";
 import styles from "./Dialog.scss";
 
@@ -55,7 +54,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <div className={styles.title}>
       <h4 className={styles.titleText}>{title}</h4>
       <IconButton className={styles.close} onClick={onClose}>
-        <SVG src={closeIcon} />
+        <CloseIcon />
       </IconButton>
     </div>
     {children}

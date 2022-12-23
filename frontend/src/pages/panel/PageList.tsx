@@ -10,6 +10,7 @@ import clsx from "clsx";
 import StarIcon from "@assets/star.svg";
 import StarOutlinedIcon from "@assets/starOutlined.svg";
 import { IconButton } from "src/components/IconButton";
+import { PanelHeader } from "src/components/PanelHeader";
 import styles from "./PageList.scss";
 import { PageLoading } from "../common/PageLoading";
 
@@ -21,11 +22,11 @@ export interface PageProps {
 
 export const PageList: React.FC<PageProps> = ({ pages, onHighlight }) => (
   <div>
-    <div className={styles.toolbar}>
+    <PanelHeader title="Pages">
       <Link to={panelRoutes.pageCreate.to()}>
         <Button>New page</Button>
       </Link>
-    </div>
+    </PanelHeader>
 
     {pages === undefined ? (
       <PageLoading />

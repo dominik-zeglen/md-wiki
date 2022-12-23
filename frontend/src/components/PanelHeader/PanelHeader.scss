@@ -1,0 +1,17 @@
+.root {
+  align-items: center;
+  border-bottom: 1px solid var(--palette-border);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: calc(var(--spacing) * 3);
+  padding-bottom: var(--spacing);
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--spacing);
+}

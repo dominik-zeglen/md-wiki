@@ -1,10 +1,3 @@
-.toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: calc(var(--spacing) * 3);
-  gap: var(--spacing);
-}
-
 .item {
   box-shadow: none;
   display: grid;
@@ -23,4 +16,8 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: calc(var(--spacing) * 3);
+}
+
+.pages {
+  margin-top: calc(var(--spacing) * 3);
 }

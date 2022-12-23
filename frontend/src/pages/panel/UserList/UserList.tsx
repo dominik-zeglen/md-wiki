@@ -3,6 +3,7 @@ import { Button } from "src/components/Button";
 import { Card } from "src/components/Card";
 import { AppRouterOutputs } from "@api";
 import { getName } from "src/utils/user";
+import { PanelHeader } from "src/components/PanelHeader";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./UserList.scss";
 
@@ -13,9 +14,9 @@ export interface UserProps {
 
 export const UserList: React.FC<UserProps> = ({ users, onCreate }) => (
   <div>
-    <div className={styles.toolbar}>
+    <PanelHeader title="Users">
       <Button onClick={onCreate}>New user</Button>
-    </div>
+    </PanelHeader>
 
     {users === undefined ? (
       <PageLoading />
