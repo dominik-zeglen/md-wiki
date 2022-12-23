@@ -3,3 +3,9 @@
   grid-template-columns: 1fr 1fr;
   gap: calc(var(--spacing) * 3);
 }
+
+.page {
+  &:not(:last-child) {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+}

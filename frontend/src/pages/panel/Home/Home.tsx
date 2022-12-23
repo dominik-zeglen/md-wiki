@@ -20,13 +20,13 @@ export const Home: React.FC<HomeProps> = ({
       <Card>
         <CardTitle>Recently Created</CardTitle>
         {recentlyCreated?.map((page) => (
-          <Card key={page.slug}>
+          <div className={styles.page} key={page.slug}>
             <Link to={panelRoutes.page.to({ slug: page.slug })}>
               {page.title}
             </Link>
             <br />
             by {getName(page.created.user)}
-          </Card>
+          </div>
         ))}
       </Card>
     </div>
@@ -34,13 +34,13 @@ export const Home: React.FC<HomeProps> = ({
       <Card>
         <CardTitle>Recently Updated</CardTitle>
         {recentlyUpdated?.map((page) => (
-          <Card key={page.slug}>
+          <div className={styles.page} key={page.slug}>
             <Link to={panelRoutes.page.to({ slug: page.slug })}>
               {page.title}
             </Link>
             <br />
             by {getName(page.updated.user)}
-          </Card>
+          </div>
         ))}
       </Card>
     </div>
