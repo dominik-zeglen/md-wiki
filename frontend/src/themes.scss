@@ -1,5 +1,6 @@
 .light {
   --palette-background: hsl(60, 12%, 97%);
+  --palette-background-paper: hsl(60, 12%, 98%);
   --palette-default: hsl(60, 12%, 13%);
   --palette-disabled: #dddddd;
   --palette-shadow-light: rgba(0, 0, 0, 0.05);
@@ -17,6 +18,7 @@
 
 .dark {
   --palette-background: hsl(210, 30%, 9%);
+  --palette-background-paper: hsl(210, 30%, 11%);
   --palette-default: hsl(210, 30%, 80%);
   --palette-disabled: hsl(210, 30%, 40%);
   --palette-shadow-light: rgba(255, 255, 255, 0.1);
