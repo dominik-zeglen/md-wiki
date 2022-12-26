@@ -29,6 +29,50 @@
       margin: 0 0 0 var(--spacing);
     }
   }
+
+  dl.timeline {
+    list-style-type: none;
+    position: relative;
+
+    &:before {
+      content: " ";
+      background: var(--palette-border);
+      display: inline-block;
+      position: absolute;
+      left: 7px;
+      width: 2px;
+      height: 100%;
+      z-index: 400;
+    }
+
+    & dt,
+    & dd {
+      padding-left: calc(var(--spacing) * 4);
+    }
+
+    & dt {
+      position: relative;
+      font-weight: 600;
+      line-height: 1;
+
+      &:not(:first-child) {
+        margin-top: calc(var(--spacing) * 3);
+      }
+
+      &:before {
+        content: " ";
+        background: white;
+        display: inline-block;
+        position: absolute;
+        border-radius: 50%;
+        border: 3px solid var(--palette-primary);
+        left: 0;
+        width: 16px;
+        height: 16px;
+        z-index: 400;
+      }
+    }
+  }
 }
 
 .clearFix {
