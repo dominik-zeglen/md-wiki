@@ -61,11 +61,11 @@
 
       &:before {
         content: " ";
-        background: white;
+        background: var(--palette-background);
         display: inline-block;
         position: absolute;
         border-radius: 50%;
-        border: 3px solid var(--palette-primary);
+        border: 3px solid var(--palette-default);
         left: 0;
         width: 16px;
         height: 16px;
