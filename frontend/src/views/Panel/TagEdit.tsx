@@ -8,6 +8,8 @@ import { TagEdit as TagEditPage } from "src/pages/panel/TagEdit";
 import { Loader } from "src/components/Loader";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";
+import { Checkbox } from "src/components/Checkbox";
+import { AttachPagesToTagDialog } from "src/components/AttachPagesToTagDialog";
 
 export const TagEdit: React.FC = () => {
   const { id } = useParams();
@@ -51,37 +53,19 @@ export const TagEdit: React.FC = () => {
         />
       </Panel>
       {!!(tag && pages) && (
-        <Dialog
-          open={openedDialog === "assign"}
+        <AttachPagesToTagDialog
+          loading={attach.isLoading || unattach.isLoading}
+          tag={tag}
+          pages={pages}
           onClose={closeDialog}
-          title={`Attach tag ${tag?.name} to pages`}
-          width="400px"
-        >
-          {pages.results.map((page) => (
-            <div key={page.slug}>
-              <input
-                type="checkbox"
-                defaultChecked={tag.pages
-                  .map(({ slug }) => slug)
-                  .includes(page.slug)}
-                onChange={(event) =>
-                  (event.target.checked
-                    ? attach.mutateAsync
-                    : unattach.mutateAsync)({
-                    tag: tag.id.toString(10),
-                    page: page.slug,
-                  })
-                }
-              />
-              {page.title}
-            </div>
-          ))}
-          <DialogActions>
-            <Button onClick={closeDialog}>
-              {attach.isLoading || unattach.isLoading ? <Loader /> : "Close"}
-            </Button>
-          </DialogActions>
-        </Dialog>
+          open={openedDialog === "assign"}
+          onToggle={(slug, checked) => {
+            (checked ? attach.mutateAsync : unattach.mutateAsync)({
+              tag: tag.id.toString(10),
+              page: slug,
+            });
+          }}
+        />
       )}
       {!!tag && (
         <Dialog

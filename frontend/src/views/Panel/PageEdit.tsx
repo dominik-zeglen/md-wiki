@@ -11,6 +11,8 @@ import { PageEditor } from "src/pages/panel/PageEditor";
 import { PageLoading } from "src/pages/common/PageLoading";
 import { panelRoutes } from "src/routes";
 import { useAlert } from "react-alert";
+import { Checkbox } from "src/components/Checkbox";
+import { AttachTagsToPageDialog } from "src/components/AttachTagsToPageDialog";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
@@ -89,35 +91,19 @@ export const PageEdit: React.FC = () => {
         </DialogActions>
       </Dialog>
       {!!(tags && page) && (
-        <Dialog
+        <AttachTagsToPageDialog
           open={openedDialog === "tags"}
           onClose={closeDialog}
-          title={`Attach tags to ${page.title}`}
-          width="400px"
-        >
-          {tags.map((tag) => (
-            <div key={tag.id}>
-              <input
-                type="checkbox"
-                defaultChecked={page.tags.map(({ id }) => id).includes(tag.id)}
-                onChange={(event) =>
-                  (event.target.checked
-                    ? attach.mutateAsync
-                    : unattach.mutateAsync)({
-                    tag: tag.id.toString(10),
-                    page: page.slug,
-                  })
-                }
-              />
-              {tag.name}
-            </div>
-          ))}
-          <DialogActions>
-            <Button onClick={closeDialog}>
-              {attach.isLoading || unattach.isLoading ? <Loader /> : "Close"}
-            </Button>
-          </DialogActions>
-        </Dialog>
+          page={page}
+          tags={tags}
+          loading={attach.isLoading || unattach.isLoading}
+          onToggle={(id, checked) => {
+            (checked ? attach.mutateAsync : unattach.mutateAsync)({
+              tag: id.toString(10),
+              page: page.slug,
+            });
+          }}
+        />
       )}
     </>
   );

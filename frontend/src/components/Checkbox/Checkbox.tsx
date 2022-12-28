@@ -1,17 +1,26 @@
 import { Controller, Control } from "react-hook-form";
 import React from "react";
+import clsx from "clsx";
+import styles from "./Checkbox.scss";
 
 export interface CheckboxProps
   extends React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  > {
+  > {}
+
+export const Checkbox: React.FC<CheckboxProps> = ({ className, ...props }) => (
+  <input {...props} className={clsx(className, styles.root)} type="checkbox" />
+);
+Checkbox.displayName = "Checkbox";
+
+export interface CheckboxFormProps extends CheckboxProps {
   control: Control<any>;
   name: string;
 }
-
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const CheckboxForm: React.FC<CheckboxFormProps> = ({
   control,
+  className,
   name,
   ...props
 }) => (
@@ -21,6 +30,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     render={({ field }) => (
       <input
         {...field}
+        className={clsx(className, styles.root)}
         type="checkbox"
         value={props.value}
         checked={field.value === props.value}
@@ -31,4 +41,4 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     )}
   />
 );
-Checkbox.displayName = "Checkbox";
+CheckboxForm.displayName = "CheckboxForm";

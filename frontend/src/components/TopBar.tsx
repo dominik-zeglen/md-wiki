@@ -16,6 +16,7 @@ import { Loader } from "./Loader";
 import styles from "./TopBar.scss";
 import { IconButton } from "./IconButton";
 import { useTheme } from "../Theme";
+import { Checkbox } from "./Checkbox";
 
 export interface TopBarProps {
   limit?: boolean;
@@ -112,11 +113,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
                       placeholder="Password"
                     />
                     <div className={styles.userbarMenuRememberMe}>
-                      <input
-                        type="checkbox"
-                        id="rememberMe"
-                        {...register("trusted")}
-                      />
+                      <Checkbox id="rememberMe" {...register("trusted")} />
                       <label htmlFor="rememberMe">Remember me</label>
                     </div>
                     <Button type="submit">login</Button>
