@@ -11,8 +11,8 @@ import { PageEditor } from "src/pages/panel/PageEditor";
 import { PageLoading } from "src/pages/common/PageLoading";
 import { panelRoutes } from "src/routes";
 import { useAlert } from "react-alert";
-import { Checkbox } from "src/components/Checkbox";
 import { AttachTagsToPageDialog } from "src/components/AttachTagsToPageDialog";
+import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 
 export const PageEdit: React.FC = () => {
   const { slug } = useParams();
@@ -52,6 +52,8 @@ export const PageEdit: React.FC = () => {
     enabled: openedDialog === "tags",
     refetchOnMount: "always",
   });
+
+  useDocumentTitle(page?.title);
 
   const onSubmit = () =>
     update.mutate({
