@@ -25,6 +25,7 @@ export const Panel: React.FC = ({ children }) => (
         { href: panelRoutes.pages.to(), label: "Pages" },
         { href: panelRoutes.tags.to(), label: "Tags" },
         { href: panelRoutes.users.to(), label: "Users" },
+        { href: panelRoutes.settings.to(), label: "Settings" },
       ].map((props) => (
         <ItemMenu key={props.href} {...props} />
       ))}

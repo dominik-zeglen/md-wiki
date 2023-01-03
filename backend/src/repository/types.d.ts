@@ -25,6 +25,11 @@ export interface Pages {
   updatedBy: string | null;
 }
 
+export interface SiteSettings {
+  id: Generated<number>;
+  name: Generated<string>;
+}
+
 export interface Tags {
   createdAt: Date;
   createdBy: string | null;
@@ -44,6 +49,7 @@ export interface DB {
   m2m_tags_pages: M2mTagsPages;
   page_references: PageReferences;
   pages: Pages;
+  site_settings: SiteSettings;
   tags: Tags;
   users: Users;
 }

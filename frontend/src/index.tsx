@@ -22,6 +22,7 @@ import { Theming } from "./Theme";
 import { Account } from "./views/Panel/Account";
 import { Users } from "./views/Panel/UserList";
 import { Notification } from "./components/Notification";
+import { Settings } from "./views/Panel/Settings";
 
 const PanelRoutes: React.FC = () => {
   const { loading } = useAuth();
@@ -45,6 +46,8 @@ const PanelRoutes: React.FC = () => {
       <Route path={panelRoutes.tag.path} element={<TagEdit />} />
 
       <Route path={panelRoutes.users.path} element={<Users />} />
+
+      <Route path={panelRoutes.settings.path} element={<Settings />} />
     </Routes>
   );
 };

@@ -9,6 +9,7 @@ import { getName } from "src/utils/user";
 import SearchIcon from "@assets/search.svg";
 import MoonIcon from "@assets/moon.svg";
 import SunIcon from "@assets/sun.svg";
+import { trpc } from "src/hooks/api/trpc";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { Input } from "./Input";
@@ -34,6 +35,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
     },
   });
   const [theme, setTheme] = useTheme();
+  const { data: site } = trpc.site.get.useQuery(undefined);
 
   React.useEffect(reset, [user]);
 
@@ -51,7 +53,7 @@ export const TopBar: React.FC<TopBarProps> = ({ limit, onSearchOpen }) => {
             className={styles.home}
             to={isPanel ? panelRoutes.home.to() : siteRoutes.home.to()}
           >
-            md-wiki
+            {site?.name ?? "md-wiki"}
           </Link>
         </div>
         <div className={styles.spacer} />

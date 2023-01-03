@@ -29,4 +29,5 @@ export const panelRoutes = {
   users: createRoute("users", "/panel/"),
   user: createRoute<"name">("user/:name", "/panel/"),
   account: createRoute("account", "/panel/"),
+  settings: createRoute("settings", "/panel/"),
 };
