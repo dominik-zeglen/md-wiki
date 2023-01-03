@@ -13,14 +13,13 @@
 .wrapper {
   display: flex;
   gap: calc(var(--spacing) * 3);
+  padding: 0 calc(var(--spacing) * 3);
 
-  &:not(.wrapperLimited) {
-    padding: 0 calc(var(--spacing) * 3);
-  }
-
-  &Limited {
-    width: var(--site-width);
-    margin: 0 auto;
+  @media (min-width: 1024px) {
+    &Limited {
+      width: var(--site-width);
+      margin: 0 auto;
+    }
   }
 }
 
