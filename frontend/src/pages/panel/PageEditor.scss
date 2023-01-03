@@ -31,14 +31,15 @@
     height: var(--height);
     overflow: scroll;
 
-    &Tags {
-      display: flex;
-      gap: var(--spacing);
-    }
-
+    &Tags,
     &References {
       display: flex;
+      flex-wrap: wrap;
       gap: var(--spacing);
+
+      a {
+        white-space: nowrap;
+      }
     }
   }
 }
