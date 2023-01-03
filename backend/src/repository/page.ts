@@ -236,15 +236,19 @@ export function getPageReferencesFromContent(content: string) {
 }
 
 export function updateReferences(referencedBy: string, references: string[]) {
-  return Promise.all(
-    references.map((page) =>
+  return Promise.all([
+    ...references.map((page) =>
       db
         .insertInto("page_references")
         .ignore()
         .values({ referenced_by: referencedBy, references: page })
         .execute()
-    )
-  );
+    ),
+    db
+      .deleteFrom("page_references")
+      .where("references", "not in", references)
+      .execute(),
+  ]);
 }
 
 export function setPageHighlight(slug: string, highlighted: boolean) {
