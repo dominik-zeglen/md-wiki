@@ -8,7 +8,6 @@ import { TagEdit as TagEditPage } from "src/pages/panel/TagEdit";
 import { Loader } from "src/components/Loader";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";
-import { Checkbox } from "src/components/Checkbox";
 import { AttachPagesToTagDialog } from "src/components/AttachPagesToTagDialog";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 

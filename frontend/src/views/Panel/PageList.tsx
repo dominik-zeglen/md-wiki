@@ -4,6 +4,7 @@ import { Panel } from "src/Layouts/Panel";
 import { PageList } from "src/pages/panel/PageList";
 import { useQs } from "src/hooks/useQs";
 import { PaginationProvider } from "src/components/Pagination";
+import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 
 export const Pages: React.FC = () => {
   const [{ title, page }] = useQs();
@@ -23,6 +24,7 @@ export const Pages: React.FC = () => {
       refetch();
     },
   });
+  useDocumentTitle("Pages");
 
   return (
     <PaginationProvider

@@ -6,6 +6,7 @@ import { Dialog, DialogActions } from "src/components/Dialog";
 import { Input } from "src/components/Input";
 import { Loader } from "src/components/Loader";
 import { trpc } from "src/hooks/api/trpc";
+import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 import { Panel } from "src/Layouts/Panel";
 import { panelRoutes } from "src/routes";
 import { TagList } from "../../pages/panel/TagList";
@@ -19,6 +20,7 @@ export const Tags: React.FC = () => {
   });
   const [open, setOpen] = React.useState(false);
   const { register, handleSubmit } = useForm({ defaultValues: { name: "" } });
+  useDocumentTitle("Tags");
 
   return (
     <>

@@ -6,6 +6,7 @@ import { Panel } from "src/Layouts/Panel";
 import { PageEditor } from "src/pages/panel/PageEditor";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";
+import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 
 export const PageCreate: React.FC = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export const PageCreate: React.FC = () => {
       content: "",
     },
   });
+  useDocumentTitle("New page");
 
   const create = trpc.pages.create.useMutation();
 
