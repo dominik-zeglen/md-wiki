@@ -87,7 +87,7 @@ const config = {
     },
     compress: true,
     open: true,
-    port: 10000,
+    port: 8001,
     historyApiFallback: true,
     client: {
       overlay: false,
