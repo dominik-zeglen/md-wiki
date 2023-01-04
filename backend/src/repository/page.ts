@@ -246,7 +246,8 @@ export function updateReferences(referencedBy: string, references: string[]) {
     ),
     db
       .deleteFrom("page_references")
-      .where("references", "not in", references)
+      .where("references", "not in", references.length ? references : [""])
+      .where("referenced_by", "=", referencedBy)
       .execute(),
   ]);
 }
