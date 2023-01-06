@@ -19,7 +19,7 @@ export const dialogStyles = {
     transform: "translate(-50%, -50%)",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    backgroundColor: "var(--palette-overlay)",
   },
 };
 
