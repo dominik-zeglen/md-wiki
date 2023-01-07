@@ -53,7 +53,7 @@ const embedImagePlugin: (cb?: (img: Img) => void) => Plugin =
         const data = node.data || (node.data = {});
         const attributes = node.attributes || {};
         // @ts-ignore
-        const alt = node.children?.[0].value;
+        const alt = node.children?.[0]?.value;
         const src = attributes.src;
         const side = attributes.side;
         const className = clsx(styles.image, {
