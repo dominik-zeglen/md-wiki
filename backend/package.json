@@ -7,11 +7,13 @@
     "build": "tsc",
     "build:types": "kysely-codegen --out-file=src/repository/types.d.ts",
     "build:migrations": "tsc -p ./migrations/src/tsconfig.json",
-    "migrate": "node build/scripts/migrate.js",
+    "migrate": "node build/scripts/migrate.js && npm run build:types",
     "start": "node --experimental-specifier-resolution=node build/src/index.js",
     "start:dev": "concurrently \"npx tsc --watch --preserveWatchOutput --pretty\" \"nodemon --watch build --exec 'node --experimental-specifier-resolution=node' build/src/index.js\""
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.245.0",
+    "@aws-sdk/s3-request-presigner": "^3.245.0",
     "@fxts/core": "^0.11.0",
     "@koa/cors": "^4.0.0",
     "@trpc/server": "^10.4.3",
@@ -27,6 +29,7 @@
     "remark": "^14.0.2",
     "remark-directive": "^2.0.1",
     "trpc-koa-adapter": "^1.0.5",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
@@ -35,6 +38,7 @@
     "@types/koa": "^2.13.5",
     "@types/koa__cors": "^3.3.0",
     "@types/koa-logger": "^3.1.2",
+    "@types/uuid": "^9.0.0",
     "concurrently": "^7.6.0",
     "kysely-codegen": "^0.8.0",
     "nodemon": "^2.0.20"

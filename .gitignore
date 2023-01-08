@@ -9,3 +9,4 @@ node_modules
 !.eslintrc.js
 build/
 docker-compose*.yml
+backend/migrations/src/*.ts

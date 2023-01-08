@@ -4,6 +4,7 @@ import { tagRouter } from "./tags";
 import { userRouter } from "./users";
 import { authRouter } from "./auth";
 import { siteSettingsRouter } from "./siteSettings";
+import { upload } from "./upload";
 
 export const t = initTRPC.create();
 export const appRouter = t.router({
@@ -12,6 +13,7 @@ export const appRouter = t.router({
   users: userRouter,
   auth: authRouter,
   site: siteSettingsRouter,
+  upload,
 });
 
 export type AppRouter = typeof appRouter;

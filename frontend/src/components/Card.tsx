@@ -22,7 +22,7 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ actions, children, className, ...rest }, ref) => (
     <h6 {...rest} className={clsx(className, styles.title)} ref={ref}>
       {children}
-      <div>{actions}</div>
+      <div className={styles.titleToolbar}>{actions}</div>
     </h6>
   )
 );

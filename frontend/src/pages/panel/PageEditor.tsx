@@ -23,21 +23,25 @@ import { useHotkeys } from "react-hotkeys-hook";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
+  canUpload: boolean;
   page?: AppRouterOutputs["pages"]["get"];
   references?: AppRouterOutputs["pages"]["references"];
   loading: boolean;
   onDelete?: () => void;
+  onUpload: () => void;
   onSubmit: () => void;
   onTagManage?: () => void;
 }
 
 export const PageEditor: React.FC<PageEditorProps> = ({
+  canUpload,
   page,
   references,
   loading,
   onDelete,
   onSubmit,
   onTagManage,
+  onUpload,
 }) => {
   const { register, getValues } = useFormContext();
   const [preview, setPreview] = React.useState(getValues().content);
@@ -154,6 +158,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
           onSubmit={onSubmit}
           loading={loading}
         >
+          {canUpload && <Button onClick={onUpload}>Upload image</Button>}
           {!!page && (
             <Link to={siteRoutes.page.to({ slug: page.slug })}>
               <Button>Live</Button>

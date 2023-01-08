@@ -1,0 +1,22 @@
+.image {
+  margin: 0 auto;
+  width: 200px;
+}
+
+.copyBox {
+  &:hover {
+    background: var(--palette-shadow);
+  }
+
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  margin-top: calc(var(--spacing) * 3);
+  word-break: break-all;
+  border-radius: 4px;
+  background: var(--palette-shadow-light);
+  font-size: var(--typography-small);
+  font-family: monospace;
+  padding: var(--spacing);
+  transition: var(--transition);
+}

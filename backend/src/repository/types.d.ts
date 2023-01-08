@@ -28,6 +28,10 @@ export interface Pages {
 export interface SiteSettings {
   id: Generated<number>;
   name: Generated<string>;
+  s3AccessKeyId: string | null;
+  s3BucketName: string | null;
+  s3Region: string | null;
+  s3SecretAccessKey: string | null;
 }
 
 export interface Tags {
