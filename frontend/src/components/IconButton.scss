@@ -7,7 +7,8 @@
   &:focus {
     background: var(--palette-shadow-light);
   }
-  &:active {
+  &:active,
+  &.active {
     background: var(--palette-shadow);
   }
   &[disabled] {

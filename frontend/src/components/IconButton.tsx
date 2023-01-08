@@ -7,11 +7,13 @@ export interface IconButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
+  state?: "idle" | "active";
   variant?: "outlined" | "flat";
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({
   variant,
+  state = "idle",
   ...props
 }) => {
   const ref = React.useRef<HTMLButtonElement>(null);
@@ -27,6 +29,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
       // eslint-disable-next-line react/destructuring-assignment
       className={clsx(styles.root, props?.className, {
         [styles.flat]: variant === "flat",
+        [styles.active]: state === "active",
       })}
     />
   );

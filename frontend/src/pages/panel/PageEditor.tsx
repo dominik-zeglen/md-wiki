@@ -20,6 +20,7 @@ import { dbDateToDateObject } from "src/utils/date";
 import { AppRouterOutputs } from "@api";
 import { getName } from "src/utils/user";
 import { useHotkeys } from "react-hotkeys-hook";
+import { Dropdown, DropdownItem } from "src/components/DropdownMenu";
 import styles from "./PageEditor.scss";
 
 export interface PageEditorProps {
@@ -78,10 +79,24 @@ export const PageEditor: React.FC<PageEditorProps> = ({
     <TabGroup onChange={setTab} selectedIndex={tab}>
       <div className={styles.root}>
         <Input variant="header" fullWidth {...register("title")} />
-        <TabList className={styles.editorTabs}>
-          <Tab>Preview</Tab>
-          <Tab>Details</Tab>
-        </TabList>
+        <div className={styles.editorTabs}>
+          <TabList>
+            <Tab>Preview</Tab>
+            <Tab>Details</Tab>
+          </TabList>
+          <Dropdown variant="vertical">
+            <DropdownItem onClick={onUpload}>Upload image</DropdownItem>
+            {!!page && (
+              <DropdownItem
+                as={Link}
+                to={siteRoutes.page.to({ slug: page.slug })}
+              >
+                View on site
+              </DropdownItem>
+            )}
+            {onDelete && <DropdownItem onClick={onDelete}>Delete</DropdownItem>}
+          </Dropdown>
+        </div>
         <div className={styles.editorWrapper}>
           <textarea className={styles.editor} {...register("content")} />
           <div className={styles.editorRightPane}>
@@ -157,19 +172,7 @@ export const PageEditor: React.FC<PageEditorProps> = ({
           back={panelRoutes.pages.to()}
           onSubmit={onSubmit}
           loading={loading}
-        >
-          {canUpload && <Button onClick={onUpload}>Upload image</Button>}
-          {!!page && (
-            <Link to={siteRoutes.page.to({ slug: page.slug })}>
-              <Button>Live</Button>
-            </Link>
-          )}
-          {onDelete && (
-            <Button color="error" onClick={onDelete}>
-              Delete
-            </Button>
-          )}
-        </Savebar>
+        />
       </div>
     </TabGroup>
   );

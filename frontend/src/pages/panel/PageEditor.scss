@@ -12,10 +12,11 @@
   line-height: 1.6;
 
   &Tabs {
-    display: inline-block;
+    display: inline-flex;
     position: absolute;
     top: calc(var(--spacing) * 2);
     right: 0;
+    gap: var(--spacing);
   }
 
   &Wrapper {

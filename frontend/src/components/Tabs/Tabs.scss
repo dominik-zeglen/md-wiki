@@ -2,6 +2,7 @@
   border-radius: 4px;
   border: 1px solid var(--palette-default);
   background: var(--palette-background);
+  height: 32px;
 }
 .tab {
   &:hover,
@@ -16,7 +17,7 @@
   border: none;
   color: var(--palette-default);
   cursor: pointer;
-  height: 30px;
+  height: 100%;
   padding: var(--spacing);
   text-align: center;
   white-space: nowrap;
