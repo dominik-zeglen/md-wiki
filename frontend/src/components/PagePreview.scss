@@ -90,23 +90,6 @@
   }
 }
 
-.viewer {
-  align-items: center;
-  display: grid;
-  grid-template-columns: 32px 1fr 32px;
-  gap: calc(var(--spacing) * 2);
-
-  &Img {
-    max-height: 600px;
-    margin: 0 auto;
-  }
-
-  &Text {
-    margin-top: calc(var(--spacing) * 3);
-    text-align: center;
-  }
-}
-
 .clearFix {
   clear: both;
 }

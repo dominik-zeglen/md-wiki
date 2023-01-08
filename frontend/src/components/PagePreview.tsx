@@ -7,11 +7,8 @@ import { siteRoutes } from "src/routes";
 import { visit } from "unist-util-visit";
 import { AppRouterOutputs } from "@api";
 import { remark } from "remark";
-import ChevronLeftIcon from "@assets/chevron_left.svg";
-import ChevronRightIcon from "@assets/chevron_right.svg";
 import styles from "./PagePreview.scss";
-import { Dialog } from "./Dialog";
-import { IconButton } from "./IconButton";
+import { GalleryImage, GalleryPreview, useGallery } from "./GalleryPreview";
 
 export interface PagePreviewProps {
   page: AppRouterOutputs["pages"]["get"] | undefined;
@@ -38,13 +35,8 @@ const embedPagePlugin: Plugin = () => (tree) => {
   });
 };
 
-interface Img {
-  alt: string;
-  src: string;
-}
-
 // eslint-disable-next-line no-unused-vars
-const embedImagePlugin: (cb?: (img: Img) => void) => Plugin =
+const embedImagePlugin: (cb?: (img: GalleryImage) => void) => Plugin =
   (cb) => () => (tree) => {
     visit(tree, (node) => {
       if (node.type === "textDirective") {
@@ -119,24 +111,7 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
   React.useEffect(() => {
     pageRef.current = page;
   }, [page]);
-  const [viewer, setViewer] = React.useState<{
-    open: boolean;
-    index: number;
-    imgs: Img[];
-  }>({
-    open: false,
-    index: 0,
-    imgs: [],
-  });
-  const closeViewer = React.useCallback(
-    () =>
-      setViewer({
-        open: false,
-        index: 0,
-        imgs: [],
-      }),
-    []
-  );
+  const { openGallery, ...galleryProps } = useGallery();
   const components = React.useMemo<Record<string, any>>(
     () => ({
       /* eslint-disable react/no-unstable-nested-components */
@@ -153,18 +128,15 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
           type="button"
           style={style}
           onClick={() => {
-            const imgs: Img[] = [];
+            const images: GalleryImage[] = [];
             remark()
-              .use([directivePlugin, embedImagePlugin((img) => imgs.push(img))])
+              .use([
+                directivePlugin,
+                embedImagePlugin((img) => images.push(img)),
+              ])
               .processSync(pageRef.current!.content!);
 
-            setViewer({
-              open: true,
-              index: imgs.findIndex(
-                (img) => img.src === src && img.alt === alt
-              )!,
-              imgs,
-            });
+            openGallery({ alt, src }, images);
           }}
         >
           <img alt={alt} src={src} />
@@ -195,51 +167,7 @@ export const PagePreview: React.FC<PagePreviewProps> = ({ page }) => {
         </ReactMarkdown>
       </div>
       <div className={styles.clearFix} />
-      <Dialog
-        title="Gallery"
-        open={viewer.open}
-        onClose={closeViewer}
-        width="700px"
-      >
-        {viewer.open && (
-          <div className={styles.viewer}>
-            <IconButton
-              disabled={viewer.imgs.length < 2}
-              variant="flat"
-              onClick={() =>
-                setViewer((prev) => ({
-                  ...prev,
-                  index: (prev.index - 1) % prev.imgs.length,
-                }))
-              }
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-            <div>
-              <img
-                className={styles.viewerImg}
-                src={viewer.imgs[viewer.index].src}
-                alt={viewer.imgs[viewer.index].alt}
-              />
-              <p className={styles.viewerText}>
-                {viewer.imgs[viewer.index].alt}
-              </p>
-            </div>
-            <IconButton
-              disabled={viewer.imgs.length < 2}
-              variant="flat"
-              onClick={() =>
-                setViewer((prev) => ({
-                  ...prev,
-                  index: (prev.index + 1) % prev.imgs.length,
-                }))
-              }
-            >
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
-        )}
-      </Dialog>
+      <GalleryPreview {...galleryProps} />
     </>
   );
 };
