@@ -110,6 +110,26 @@ export const Settings: React.FC = () => {
           </DialogActions>
         </form>
       </Dialog>
+      <Dialog
+        open={dialog === "deleteS3"}
+        onClose={closeDialog}
+        title="Delete S3 Configuration"
+      >
+        Are you sure you want to delete AWS S3 configuration?{" "}
+        <strong>You will not be able to upload new images anymore.</strong>
+        <DialogActions>
+          <Button type="button" onClick={closeDialog}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            onClick={() => deleteS3Settings.mutate()}
+            color="error"
+          >
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
