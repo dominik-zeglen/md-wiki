@@ -14,10 +14,9 @@ import { useAlert } from "react-alert";
 import { AttachTagsToPageDialog } from "src/components/AttachTagsToPageDialog";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 import { UploadedImageDialog } from "src/components/UploadedImageDialog";
-import { useLayout } from "src/Layouts";
+import { useUpload } from "src/hooks/useUpload";
 
 export const PageEdit: React.FC = () => {
-  const [, setLayout] = useLayout();
   const { slug } = useParams();
   const { show } = useAlert();
   const { data: page, refetch } = trpc.pages.get.useQuery(slug!, {
@@ -27,7 +26,6 @@ export const PageEdit: React.FC = () => {
     refetchOnMount: "always",
   });
 
-  const [uploadedUrl, setUploadedUrl] = React.useState("");
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: { content: "", title: "" },
@@ -56,21 +54,9 @@ export const PageEdit: React.FC = () => {
     enabled: openedDialog === "tags",
     refetchOnMount: "always",
   });
-  const s3Settings = trpc.site.s3.useQuery(undefined);
-  const uploadRef = React.useRef<HTMLInputElement>(null);
-  const getUploadLink = trpc.upload.useMutation({
-    onSuccess: async ({ url, file }) => {
-      await fetch(url, {
-        method: "PUT",
-        body: uploadRef.current!.files![0]!,
-      });
-      setUploadedUrl(file);
-      setOpenedDialog("upload");
-    },
-    onSettled: () => {
-      setLayout({ loading: false });
-    },
-  });
+  const { canUpload, onUpload, uploadedUrl } = useUpload(() =>
+    setOpenedDialog("upload")
+  );
 
   useDocumentTitle(page?.title);
 
@@ -88,14 +74,14 @@ export const PageEdit: React.FC = () => {
             <PageLoading />
           ) : (
             <PageEditor
-              canUpload={!!s3Settings.data?.bucket}
+              canUpload={canUpload}
               page={page}
               references={references}
               loading={update.isLoading}
               onDelete={() => setOpenedDialog("delete")}
               onSubmit={onSubmit}
               onTagManage={() => setOpenedDialog("tags")}
-              onUpload={() => uploadRef.current?.click()}
+              onUpload={onUpload}
             />
           )}
         </Panel>
@@ -128,17 +114,6 @@ export const PageEdit: React.FC = () => {
           }}
         />
       )}
-      <input
-        type="file"
-        style={{ display: "none" }}
-        ref={uploadRef}
-        onChange={(event) => {
-          if (event.target.files?.length) {
-            setLayout({ loading: true });
-            getUploadLink.mutate(uploadRef.current!.files![0]!.type);
-          }
-        }}
-      />
       <UploadedImageDialog
         src={uploadedUrl}
         open={openedDialog === "upload"}

@@ -19,7 +19,7 @@ export const UploadedImageDialog: React.FC<UploadedImageDialogProps> = ({
   };
 
   return (
-    <Dialog {...props} title="Upload">
+    <Dialog {...props} title="Upload" width="400px">
       <img
         className={styles.image}
         src={src}
