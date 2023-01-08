@@ -39,7 +39,7 @@ export function useUpload(onCompleted: () => void) {
     document.body.appendChild(input);
 
     return () => {
-      document.removeChild(input);
+      document.body.removeChild(input);
     };
   }, []);
 

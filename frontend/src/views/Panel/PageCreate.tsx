@@ -7,8 +7,12 @@ import { PageEditor } from "src/pages/panel/PageEditor";
 import { panelRoutes } from "src/routes";
 import { trpc } from "src/hooks/api/trpc";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
+import { useUpload } from "src/hooks/useUpload";
+import { UploadedImageDialog } from "src/components/UploadedImageDialog";
 
 export const PageCreate: React.FC = () => {
+  const [dialog, setDialog] = React.useState<"upload" | null>(null);
+  const closeDialog = () => setDialog(null);
   const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
@@ -36,13 +40,28 @@ export const PageCreate: React.FC = () => {
 
     navigate(panelRoutes.page.to({ slug }));
   };
+  const { canUpload, onUpload, uploadedUrl } = useUpload(() =>
+    setDialog("upload")
+  );
 
   return (
-    <FormProvider {...form}>
-      <Panel>
-        <PageEditor loading={create.isLoading} onSubmit={onSubmit} />
-      </Panel>
-    </FormProvider>
+    <>
+      <FormProvider {...form}>
+        <Panel>
+          <PageEditor
+            canUpload={canUpload}
+            loading={create.isLoading}
+            onSubmit={onSubmit}
+            onUpload={onUpload}
+          />
+        </Panel>
+      </FormProvider>
+      <UploadedImageDialog
+        open={dialog === "upload"}
+        onClose={closeDialog}
+        src={uploadedUrl}
+      />
+    </>
   );
 };
 PageCreate.displayName = "PageCreate";
