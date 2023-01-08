@@ -23,6 +23,7 @@ import { Account } from "./views/Panel/Account";
 import { Users } from "./views/Panel/UserList";
 import { Notification } from "./components/Notification";
 import { Settings } from "./views/Panel/Settings";
+import { PageActionLoader } from "./components/PageActionLoader/PageActionLoader";
 
 const PanelRoutes: React.FC = () => {
   const { loading } = useAuth();
@@ -67,6 +68,7 @@ export const App: React.FC = () => (
       <TRPCProvider>
         <Theming>
           <BrowserRouter>
+            <PageActionLoader />
             <Routes>
               <Route path={siteRoutes.home.path} element={<Home />} />
               <Route path={siteRoutes.tag.path} element={<TagPages />} />

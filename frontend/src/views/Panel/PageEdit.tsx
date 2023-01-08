@@ -14,8 +14,10 @@ import { useAlert } from "react-alert";
 import { AttachTagsToPageDialog } from "src/components/AttachTagsToPageDialog";
 import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 import { UploadedImageDialog } from "src/components/UploadedImageDialog";
+import { useLayout } from "src/Layouts";
 
 export const PageEdit: React.FC = () => {
+  const [, setLayout] = useLayout();
   const { slug } = useParams();
   const { show } = useAlert();
   const { data: page, refetch } = trpc.pages.get.useQuery(slug!, {
@@ -64,6 +66,9 @@ export const PageEdit: React.FC = () => {
       });
       setUploadedUrl(file);
       setOpenedDialog("upload");
+    },
+    onSettled: () => {
+      setLayout({ loading: false });
     },
   });
 
@@ -129,6 +134,7 @@ export const PageEdit: React.FC = () => {
         ref={uploadRef}
         onChange={(event) => {
           if (event.target.files?.length) {
+            setLayout({ loading: true });
             getUploadLink.mutate(uploadRef.current!.files![0]!.type);
           }
         }}
