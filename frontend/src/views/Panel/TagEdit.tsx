@@ -14,7 +14,7 @@ import { useDocumentTitle } from "src/hooks/useDocumentTitle";
 export const TagEdit: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: tag } = trpc.tags.get.useQuery(id!);
+  const { data: tag, refetch } = trpc.tags.get.useQuery(id!);
   const form = useForm({ defaultValues: { name: "" } });
   const [query, setQuery] = React.useState("");
 
@@ -37,8 +37,12 @@ export const TagEdit: React.FC = () => {
   }, [tag]);
   useDocumentTitle(tag?.name ?? "Tag");
 
-  const attach = trpc.tags.attach.useMutation();
-  const unattach = trpc.tags.unattach.useMutation();
+  const attach = trpc.tags.attach.useMutation({
+    onSuccess: () => refetch(),
+  });
+  const unattach = trpc.tags.unattach.useMutation({
+    onSuccess: () => refetch(),
+  });
   const deleteTag = trpc.tags.delete.useMutation({
     onSuccess: () => navigate(panelRoutes.tags.to()),
   });
@@ -55,6 +59,12 @@ export const TagEdit: React.FC = () => {
           tag={tag}
           onDelete={() => setOpenedDialog("delete")}
           onAttach={() => setOpenedDialog("assign")}
+          onUnattach={(page) =>
+            unattach.mutate({
+              tag: id!,
+              page,
+            })
+          }
         />
       </Panel>
       {!!(tag && pages) && (

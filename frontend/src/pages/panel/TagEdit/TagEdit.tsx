@@ -8,6 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { panelRoutes } from "src/routes";
 import { AppRouterOutputs } from "@api";
 import { PanelHeader } from "src/components/PanelHeader";
+import { Dropdown, DropdownItem } from "src/components/DropdownMenu";
 import { PageLoading } from "../../common/PageLoading";
 import styles from "./TagEdit.scss";
 
@@ -15,9 +16,16 @@ export interface TagProps {
   tag: AppRouterOutputs["tags"]["get"] | undefined;
   onAttach: () => void;
   onDelete: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onUnattach: (page: string) => void;
 }
 
-export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
+export const TagEdit: React.FC<TagProps> = ({
+  tag,
+  onAttach,
+  onDelete,
+  onUnattach,
+}) => {
   const { register } = useFormContext();
 
   return (
@@ -49,6 +57,7 @@ export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
                   <div className={styles.item}>
                     <span>Page name</span>
                     <span>Last edited</span>
+                    <span />
                   </div>
                   {tag.pages.map((page) => (
                     <Card className={styles.item} key={page.slug}>
@@ -59,6 +68,11 @@ export const TagEdit: React.FC<TagProps> = ({ tag, onAttach, onDelete }) => {
                         dateStyle: "medium",
                         timeStyle: "short",
                       }).format(dbDateToDateObject(page.updatedAt as string))}
+                      <Dropdown>
+                        <DropdownItem onClick={() => onUnattach(page.slug)}>
+                          Unattach
+                        </DropdownItem>
+                      </Dropdown>
                     </Card>
                   ))}
                 </>

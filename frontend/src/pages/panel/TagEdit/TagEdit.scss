@@ -1,7 +1,8 @@
 .item {
+  align-items: center;
   box-shadow: none;
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px 1fr 32px;
   gap: calc(var(--spacing) * 2);
   margin-bottom: calc(var(--spacing) * 3);
   padding: calc(var(--spacing) * 2);

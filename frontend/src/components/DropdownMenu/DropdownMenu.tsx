@@ -7,7 +7,7 @@ import styles from "./DropdownMenu.scss";
 
 export interface DropdownProps {
   className?: string;
-  variant: "horizontal" | "vertical";
+  variant?: "horizontal" | "vertical";
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
