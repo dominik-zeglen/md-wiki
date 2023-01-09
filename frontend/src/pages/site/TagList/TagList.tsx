@@ -13,7 +13,10 @@ export interface TagListProps {
 
 export const TagList: React.FC<TagListProps> = ({ tags }) => {
   const groupedTags = React.useMemo(
-    () => Object.entries(groupBy((tag) => tag.name![0], tags ?? [])),
+    () =>
+      Object.entries(groupBy((tag) => tag.name![0], tags ?? [])).sort(
+        ([a], [b]) => a.localeCompare(b)
+      ),
     [tags]
   );
 

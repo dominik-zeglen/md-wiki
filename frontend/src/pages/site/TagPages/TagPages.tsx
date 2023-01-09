@@ -15,7 +15,10 @@ export interface TagPagesProps {
 export const TagPages: React.FC<TagPagesProps> = ({ tag }) => {
   const { user } = useAuth();
   const groupedPages = React.useMemo(
-    () => Object.entries(groupBy((page) => page.title![0], tag?.pages ?? [])),
+    () =>
+      Object.entries(groupBy((page) => page.title![0], tag?.pages ?? [])).sort(
+        ([a], [b]) => a.localeCompare(b)
+      ),
     [tag?.pages]
   );
 
