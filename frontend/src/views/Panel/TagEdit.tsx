@@ -16,13 +16,17 @@ export const TagEdit: React.FC = () => {
   const navigate = useNavigate();
   const { data: tag } = trpc.tags.get.useQuery(id!);
   const form = useForm({ defaultValues: { name: "" } });
+  const [query, setQuery] = React.useState("");
 
-  const { data: pages } = trpc.pages.list.useQuery({
-    order: null,
-    page: 1,
-    size: 100,
-    filter: { title: null },
-  });
+  const { data: pages } = trpc.pages.list.useQuery(
+    {
+      order: null,
+      page: 1,
+      size: 10,
+      filter: { title: query },
+    },
+    { keepPreviousData: true }
+  );
 
   React.useEffect(() => {
     if (tag) {
@@ -66,6 +70,7 @@ export const TagEdit: React.FC = () => {
               page: slug,
             });
           }}
+          onSearch={setQuery}
         />
       )}
       {!!tag && (

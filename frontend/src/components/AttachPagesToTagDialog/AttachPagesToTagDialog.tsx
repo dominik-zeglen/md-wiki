@@ -1,8 +1,10 @@
 import { AppRouterOutputs } from "@api";
+import debounce from "lodash/debounce";
 import React from "react";
 import { Button } from "../Button";
 import { Checkbox } from "../Checkbox";
 import { BaseDialogProps, Dialog, DialogActions } from "../Dialog";
+import { Input } from "../Input";
 import { Loader } from "../Loader";
 import styles from "./AttachPagesToTagDialog.scss";
 
@@ -12,6 +14,8 @@ export interface AttachPagesToTagDialogProps extends BaseDialogProps {
   pages: AppRouterOutputs["pages"]["list"];
   // eslint-disable-next-line no-unused-vars
   onToggle: (slug: string, checked: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
+  onSearch: (text: string) => void;
 }
 
 export const AttachPagesToTagDialog: React.FC<AttachPagesToTagDialogProps> = ({
@@ -21,6 +25,7 @@ export const AttachPagesToTagDialog: React.FC<AttachPagesToTagDialogProps> = ({
   open,
   onClose,
   onToggle,
+  onSearch,
 }) => (
   <Dialog
     open={open}
@@ -28,6 +33,13 @@ export const AttachPagesToTagDialog: React.FC<AttachPagesToTagDialogProps> = ({
     title={`Attach tag ${tag?.name} to pages`}
     width="400px"
   >
+    <Input
+      autoFocus
+      onChange={debounce((event) => onSearch(event.target.value), 300)}
+      placeholder="Search pages..."
+      fullWidth
+      className={styles.input}
+    />
     {pages.results.map((page) => (
       <div className={styles.root} key={page.slug}>
         <Checkbox

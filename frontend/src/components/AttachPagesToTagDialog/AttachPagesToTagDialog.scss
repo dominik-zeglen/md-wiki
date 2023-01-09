@@ -3,3 +3,7 @@
   align-items: center;
   margin-bottom: var(--spacing);
 }
+
+.input {
+  margin-bottom: calc(var(--spacing) * 3);
+}
